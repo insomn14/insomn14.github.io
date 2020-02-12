@@ -1,21 +1,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Hallo Dunia!</title>
-        <link>/posts/</link>
+        <link>https://insomn14.github.io/posts/</link>
         <description>Recent content in Posts on Hallo Dunia!</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Wed, 12 Feb 2020 13:25:51 +0700</lastBuildDate>
-        <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://insomn14.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
             <title>HalloDunia</title>
-            <link>/posts/hallodunia/</link>
+            <link>https://insomn14.github.io/posts/hallodunia/</link>
             <pubDate>Wed, 12 Feb 2020 13:25:51 +0700</pubDate>
             
-            <guid>/posts/hallodunia/</guid>
-            <description>Hallo, Dunia! Ini adalah post pertama saya</description>
-            <content type="html"><![CDATA[<p>Hallo, Dunia! Ini adalah post pertama saya</p>
+            <guid>https://insomn14.github.io/posts/hallodunia/</guid>
+            <description> Hallo, Dunia! Ini adalah post pertama saya BOLD TEXT
+[x] Program Sederhana
+#include &amp;lt;stdio.h&amp;gt; int main() { printf(&amp;quot;Hello, World!\n&amp;quot;); return; }  </description>
+            <content type="html"><![CDATA[
+
+<h2 id="hallo-dunia-ini-adalah-post-pertama-saya">Hallo, Dunia! Ini adalah post pertama saya</h2>
+
+<p><strong><em>BOLD TEXT</em></strong></p>
+
+<p>[x] Program Sederhana</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+int main()
+{
+    printf(&quot;Hello, World!\n&quot;);
+    return;
+}
+</code></pre>
 ]]></content>
         </item>
         
