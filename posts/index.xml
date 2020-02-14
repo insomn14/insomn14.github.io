@@ -89,7 +89,7 @@ Adobe_Payroll.7z
 </code></pre>
 
 <p>Almost the same as the previous challange, in this problem we were given <em><a href="/files/neverlanctf/re/Adobe_Payroll.7z">Adobe_Payroll.7z</a></em>,
-you can download the file on my github. let&rsquo;s extract the <em><a href="/files/neverlanctf/re/Adobe_Payroll.7z">Adobe_Payroll.7z</a></em> file,
+you can download the file on my github. Let&rsquo;s extract the file,
 and we are given two files including <em>executable</em> and <em>description.md</em>.</p>
 
 <pre><code>❯ file Adobe_Employee_Payroll.exe
@@ -130,7 +130,7 @@ File:
 reverseng
 </code></pre>
 
-<p>In this case we are given a binary <a href="/files/neverlanctf/re/reverseng">reverseng</a> file, once again you can check github to download the binary file ;). when we try to run the program we will get the SEGV message.</p>
+<p>In this case we are given a binary <a href="/files/neverlanctf/re/reverseng">reverseng</a> file, once again you can check on my github to download the binary file ;). when we try to run the program we will get the SEGV message.</p>
 
 <pre><code>❯ ./revseng
 [1]    12675 segmentation fault (core dumped)  ./revseng
@@ -139,7 +139,7 @@ reverseng
 revseng: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=89d54c514d9f6bec697e52edfee4a495266b3577, for GNU/Linux 3.2.0, with debug_info, not stripped
 </code></pre>
 
-<p>So without further ado let&rsquo;s get started analyzing it using IDA. There is a function called <code>void __cdecl print ()</code> and <code>malloc ()</code> function that allocates memory of 0x15 or 21byte to <code>flg</code>, and then each string is filled with a decimal value. So this is the Pseudocode of the function, after we convert each index value of <code>flg</code> to character.</p>
+<p>So without further ado let&rsquo;s get started analyzing it using IDA. There is a function called <code>void __cdecl print ()</code> and <code>malloc ()</code> function that allocates memory of 0x15 or 21byte to <code>flg</code>, And each byte contains a decimal value. So this is the Pseudocode of the function, after we convert each index value of <code>flg</code> to character.</p>
 
 <p><img src="/img/Screenshot/neverlanctf2020/Re/pseudocode.png" alt="revseng" /></p>
 
