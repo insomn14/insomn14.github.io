@@ -5,33 +5,147 @@
         <description>Recent content in Posts on Hallo Dunia!</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 12 Feb 2020 13:25:51 +0700</lastBuildDate>
+        <lastBuildDate>Fri, 14 Feb 2020 00:46:37 +0700</lastBuildDate>
         <atom:link href="https://insomn14.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>HalloDunia</title>
-            <link>https://insomn14.github.io/posts/hallodunia/</link>
-            <pubDate>Wed, 12 Feb 2020 13:25:51 +0700</pubDate>
+            <title>NeverLAN CTF 2020 |  RE *Writeups*</title>
+            <link>https://insomn14.github.io/posts/neverlanctf-2020/</link>
+            <pubDate>Fri, 14 Feb 2020 00:46:37 +0700</pubDate>
             
-            <guid>https://insomn14.github.io/posts/hallodunia/</guid>
-            <description> Hallo, Dunia! Ini adalah post pertama saya BOLD TEXT
-[x] Program Sederhana
-#include &amp;lt;stdio.h&amp;gt; int main() { printf(&amp;quot;Hello, World!\n&amp;quot;); return; }  </description>
+            <guid>https://insomn14.github.io/posts/neverlanctf-2020/</guid>
+            <description>Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db  This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
+❯ file encrypted_db encrypted_db: ASCII text  This file has a text format, let&amp;rsquo;s look at the contents of the file.</description>
             <content type="html"><![CDATA[
 
-<h2 id="hallo-dunia-ini-adalah-post-pertama-saya">Hallo, Dunia! Ini adalah post pertama saya</h2>
+<hr />
 
-<p><strong><em>BOLD TEXT</em></strong></p>
+<h3 id="script-kiddie-100pts">Script Kiddie 100pts</h3>
 
-<p>[x] Program Sederhana</p>
-
-<pre><code>#include &lt;stdio.h&gt;
-int main()
-{
-    printf(&quot;Hello, World!\n&quot;);
-    return;
-}
+<pre><code>Description:
+It looks like a script kiddie was trying to build a crypto locker.
+See if you can get the database back?
+File:
+encrypted_db
 </code></pre>
+
+<p>This problem gives us the <em><a href="/files/neverlanctf/re/encrypted_db">encrypted_db</a></em> file, you can download it on my github. After that we can see the file format using the following command.</p>
+
+<pre><code>❯ file encrypted_db
+encrypted_db: ASCII text
+</code></pre>
+
+<p>This file has a text format, let&rsquo;s look at the contents of the file.</p>
+
+<pre><code>❯ cat encrypted_db
+..... 
+764c6d4e7662534973496d466b5a484a6c63334d694f6e7369633352795a
+5756300a496a6f69516d396e61584e705932676754576c7a63326c766269
+4973496e4e316158526c496a6f69515842304c6941344e4441694c434a6a
+61585235496a6f69536d4635626d566962334a760a6457646f4969776965
+6d6c775932396b5a534936496a63784e6a4d33496977695a325676496a70
+37496d786864434936496a4d7a4c6a45794d6a4d694c434a73626d63694f
+.....
+</code></pre>
+
+<p>After opening the file I thought that it had been encoded into the hex form. I use python2 interactive to decode the contents of the file.</p>
+
+<pre><code>&gt;&gt;&gt; enc = open('encrypted_db', 'r').read().replace('\n','')
+&gt;&gt;&gt; dec = enc.decode('hex')
+&gt;&gt;&gt; dec
+....
+....
+ZGVyIC0gSmFjb2JpIiwiY2F0\nY2hQaHJhc2UiOiJDdXN0b21pemFibGUgb3B0aW1pemluZyBpbnRlcmZhY2UiLCJicyI6ImUtYnVz\naW5lc3Mgc3ludGhlc2l6ZSBzY2hlbWFzIn19fQo=\n'
+
+</code></pre>
+
+<p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>&rsquo;=&rsquo;</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
+
+<pre><code>❯ nl solver.py
+     1	import re
+     2	from base64 import b64decode
+       
+     3	enc = open('encrypted_db', 'r').read().replace('\n', '')
+     4	dec = b64decode(enc.decode('hex'))
+     5	print re.findall(r'flag[^.]*}', dec)
+     
+❯ python solver.py
+['flag{ENC0D1NG_D4TA_1S_N0T_ENCRY7I0N}']
+
+</code></pre>
+
+<p>And we got the flag.</p>
+
+<p><code>flag{ENC0D1NG_D4TA_1S_N0T_ENCRY7I0N}</code></p>
+
+<hr />
+
+<h3 id="adobe-payroll-100pts">Adobe Payroll 100pts</h3>
+
+<pre><code>Description:
+We've forgotten the password to our payroll machine. Can you extract it?
+File:
+Adobe_Payroll.7z
+</code></pre>
+
+<p>Almost the same as the previous challange, in this problem we were given <em><a href="/files/neverlanctf/re/Adobe_Payroll.7z">Adobe_Payroll.7z</a></em>,
+you can download the file on my github. let&rsquo;s extract the <em><a href="/files/neverlanctf/re/Adobe_Payroll.7z">Adobe_Payroll.7z</a></em> file,
+and we are given two files including <em>executable</em> and <em>description.md</em>.</p>
+
+<pre><code>❯ file Adobe_Employee_Payroll.exe
+Adobe_Employee_Payroll.exe: PE32 executable (GUI) Intel 80386 Mono/.Net assembly, for MS Windows
+
+❯ cat description.md
+# Adobe Payroll
+
+- Category: I promise it's not malware 😈
+- Points: 100
+
+## Description
+
+This is a .NET file. Take a look at dotPeek.
+</code></pre>
+
+<p>So basically, I think this program uses C# language. So you can use <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwi7o_PPwM_nAhX4yDgGHYAjCVAQFjAEegQIDBAG&amp;url=https%3A%2F%2Fwww.jetbrains.com%2Fdecompiler%2F&amp;usg=AOvVaw1pcfEbCKhdDrtRMXeXhm3k">dotPeek</a>   to decompile. But in this case I use IDA to do static analysis.
+<img src="/img/Screenshot/neverlanctf2020/Re/3.PNG" alt="AdobePayroll" />
+Select <code>Microsoft.Net assembly [pe.ldw]</code> then click Ok.
+<img src="/img/Screenshot/neverlanctf2020/Re/4.PNG" alt="AdobePayroll" />
+In the <em>Functions window</em> there is a function of <code>employee_payroll_checkUsername</code> &amp; <code>employee_payroll_chackPassword</code>, That function I think is used to compare a string.
+<img src="/img/Screenshot/neverlanctf2020/Re/5.PNG" alt="AdobePayroll" />
+<img src="/img/Screenshot/neverlanctf2020/Re/6.PNG" alt="AdobePayroll" />
+ Let&rsquo;s try using the <code>admin</code> as the <em>Username</em> and <code>bmV2ZXJfZ29ubmFfZ212ZV95b3VfdXAh</code> as the <em>Password</em>.
+<img src="/img/Screenshot/neverlanctf2020/Re/flag.PNG" alt="AdobePayroll" />
+And boom!.. we got the flag.</p>
+
+<p><code>flag{.net_is_pretty_eassy_to_decompile}</code></p>
+
+<hr />
+
+<h3 id="reverse-engineer-300pts">Reverse Engineer 300pts</h3>
+
+<pre><code>Description:
+This program seems to get stuck while running...
+Can you get it to continue past the broken function?
+File:
+reverseng
+</code></pre>
+
+<p>In this case we are given a binary <a href="/files/neverlanctf/re/reverseng">reverseng</a> file, once again you can check github to download the binary file ;). when we try to run the program we will get the SEGV message.</p>
+
+<pre><code>❯ ./revseng
+[1]    12675 segmentation fault (core dumped)  ./revseng
+
+❯ file revseng
+revseng: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=89d54c514d9f6bec697e52edfee4a495266b3577, for GNU/Linux 3.2.0, with debug_info, not stripped
+</code></pre>
+
+<p>So without further ado let&rsquo;s get started analyzing it using IDA. There is a function called <code>void __cdecl print ()</code> and <code>malloc ()</code> function that allocates memory of 0x15 or 21byte to <code>flg</code>, and then each string is filled with a decimal value. So this is the Pseudocode of the function, after we convert each index value of <code>flg</code> to character.</p>
+
+<p><img src="/img/Screenshot/neverlanctf2020/Re/pseudocode.png" alt="revseng" /></p>
+
+<p>And we get the flag again.</p>
+
+<p><code>flag{w3con7r0lth3b1nari3s}</code></p>
 ]]></content>
         </item>
         

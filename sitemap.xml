@@ -3,37 +3,38 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://insomn14.github.io/tags/awal/</loc>
-    <lastmod>2020-02-12T13:25:51+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://insomn14.github.io/tags/baru/</loc>
-    <lastmod>2020-02-12T13:25:51+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://insomn14.github.io/</loc>
-    <lastmod>2020-02-12T13:25:51+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://insomn14.github.io/posts/hallodunia/</loc>
-    <lastmod>2020-02-12T13:25:51+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://insomn14.github.io/posts/</loc>
-    <lastmod>2020-02-12T13:25:51+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://insomn14.github.io/tags/</loc>
-    <lastmod>2020-02-12T13:25:51+07:00</lastmod>
+    <loc>https://insomn14.github.io/categories/capture-the-flags/</loc>
+    <lastmod>2020-02-14T00:46:37+07:00</lastmod>
   </url>
   
   <url>
     <loc>https://insomn14.github.io/categories/</loc>
+    <lastmod>2020-02-14T00:46:37+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://insomn14.github.io/</loc>
+    <lastmod>2020-02-14T00:46:37+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://insomn14.github.io/posts/neverlanctf-2020/</loc>
+    <lastmod>2020-02-14T00:46:37+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://insomn14.github.io/posts/</loc>
+    <lastmod>2020-02-14T00:46:37+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://insomn14.github.io/tags/reverse-engineering/</loc>
+    <lastmod>2020-02-14T00:46:37+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://insomn14.github.io/tags/</loc>
+    <lastmod>2020-02-14T00:46:37+07:00</lastmod>
   </url>
   
 </urlset>
