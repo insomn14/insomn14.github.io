@@ -89,8 +89,7 @@ Adobe_Payroll.7z
 </code></pre>
 
 <p>Almost the same as the previous challange, in this problem we were given <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/AdobePlayroll">Adobe_Payroll.7z</a></em>,
-you can download the file on my github. Let&rsquo;s extract the file,
-and we are given two files including <em>executable</em> and <em>description.md</em>.</p>
+you can download the file on my github. Let&rsquo;s extract the <em>7z</em> file, in the <em>7z</em> file there are two files, including the  <em>executable</em> file and <em>description.md</em>.</p>
 
 <pre><code>❯ file Adobe_Employee_Payroll.exe
 Adobe_Employee_Payroll.exe: PE32 executable (GUI) Intel 80386 Mono/.Net assembly, for MS Windows
