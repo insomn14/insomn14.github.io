@@ -6,10 +6,19 @@
     <description>Recent content in Capture The Flags on Hallo Dunia!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Feb 2020 00:46:37 +0700</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2020 12:59:21 +0700</lastBuildDate>
     
 	<atom:link href="https://insomn14.github.io/categories/capture-the-flags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ÅngstromCTF 2020 | RE *Writeups*</title>
+      <link>https://insomn14.github.io/posts/%C3%A5ngstromctf-2020/</link>
+      <pubDate>Thu, 19 Mar 2020 12:59:21 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/%C3%A5ngstromctf-2020/</guid>
+      <description>Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &amp;quot;shell&amp;quot; link at the top of the site. Hint : Try some google searches for &amp;quot;how to run a file in linux&amp;quot; or &amp;quot;bash for beginners&amp;quot;. File: revving_up Author: aplet123  In this challenge we are given the revving_up binary file.</description>
+    </item>
     
     <item>
       <title>NeverLAN CTF 2020 |  RE *Writeups*</title>
