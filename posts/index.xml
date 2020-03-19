@@ -36,7 +36,7 @@ Author:
 aplet123
 </code></pre>
 
-<p>In this challenge we are given the <em>revving_up</em> binary file.</p>
+<p>In this challenge we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Revving%20Up">revving_up</a></em> binary file.</p>
 
 <pre><code>❯ file revving_up
 revving_up: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=e9a5285cc0d71320a73e27870a35a98efbe01a87, not stripped
@@ -104,7 +104,7 @@ Author:
 aplet123
 </code></pre>
 
-<p>In the following challenge we are given the file <em>windows_of_opportunity.exe</em>.</p>
+<p>In the following challenge we are given the file <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Windows%20of%20Opportunity">windows_of_opportunity.exe</a></em>.</p>
 
 <pre><code>❯ file windows_of_opportunity.exe
 windows_of_opportunity.exe: PE32+ executable (console) x86-64, for MS Windows
@@ -176,7 +176,7 @@ Author:
 aplet123
 </code></pre>
 
-<p>In the following challenge we are given the binary <em>taking_off file</em>.</p>
+<p>In the following challenge we are given the binary <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Taking%20Off">taking_off file</a></em>.</p>
 
 <pre><code>❯ file taking_off
 taking_off: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=fc4deaf2c2da6fdaf4cb7bc1e83d4f1372720832, not stripped
@@ -340,7 +340,7 @@ Author:
 aplet123
 </code></pre>
 
-<p>In the following problem we are given the masochistic_sudoku binary file.</p>
+<p>In the following problem we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Masochistic%20Sudoku">masochistic_sudoku</a></em> binary file.</p>
 
 <pre><code>❯ file masochistic_sudoku
 masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=d812dc3b76f3241ad03e6018d45d1d18665ce1dd, not stripped
