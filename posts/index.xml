@@ -411,17 +411,7 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
 
 <p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-52-06.png" alt="break_check_flag" title="break_check_flag" /></p>
 
-<p>Berikut ini adalah teknik yang saya gunakan untuk mengetahui nilai dari setiap kotak yang akan melalui fungsi <em>gen_value</em>:</p>
-
-<ol>
-<li><p>Mengisi setiap 6 kotak  dengan angka 1 sampai dengan 9</p></li>
-
-<li><p>Melihat perubahan yang terjadi pada stack .bss</p></li>
-
-<li><p>Mengulangi langkah pertama  dan kedua, sampai 6 kotak terakhir</p></li>
-</ol>
-
-<p>Following is the technique that I use to find out the value of each box that will go through the gen_value function:</p>
+<p>Following is the technique that I use to find out the value of each box that will go through the <em>gen_value</em> function:</p>
 
 <ol>
 <li><p>Fill every 6 squares with numbers 1 through 9</p></li>
@@ -531,18 +521,6 @@ Guess: 4 --&gt; Val: 1443247958    // (9,9)
 <p>After we get the value, then enter each value into the box that we found earlier.</p>
 
 <p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-16-52.png" alt="Found_value" title="Found_value" /></p>
-
-<p>Sekarang adalah waktunya mengisi kotak-kotak yang masih kosong. Ada tiga cara menyelesaikanya .</p>
-
-<ol>
-<li><p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">Mengunakan z3-Solver.</a></p></li>
-
-<li><p><a href="https://anysudokusolver.com/">Menggukanan Sudoku Solver.</a></p></li>
-
-<li><p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Mengunakan Otak kita. </a></p></li>
-</ol>
-
-<p>Saya lebih memilih menggunakan nomor 2.</p>
 
 <p>Now is the time to fill in the empty boxes. There are three ways to solve it.</p>
 
