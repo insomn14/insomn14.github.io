@@ -6,10 +6,21 @@
     <description>Recent content in Reverse Engineering on Hallo Dunia!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 Mar 2020 12:59:21 +0700</lastBuildDate>
+    <lastBuildDate>Mon, 30 Mar 2020 06:16:12 +0700</lastBuildDate>
     
 	<atom:link href="https://insomn14.github.io/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TAMUctf 2020 | RE *Writeups*</title>
+      <link>https://insomn14.github.io/posts/tamuctf-2020/</link>
+      <pubDate>Mon, 30 Mar 2020 06:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/tamuctf-2020/</guid>
+      <description>RUSTY_AT_REVERSING Description: A nice little reversing challenge for those who are a little rusty! File: librusty_at_reversing.so  In this challenge we are given the file librusty_at_reversing.so file, as know as Shared Object file.
+➜ RUSTY_AT_REVERSING file librusty_at_reversing.so librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped  Let&amp;rsquo;s just decompile the file using radare2.
+[0x00001040]&amp;gt; afl 0x00001040 4 41 -&amp;gt; 34 entry0 0x00001220 13 292 sym.</description>
+    </item>
     
     <item>
       <title>ÅngstromCTF 2020 | RE *Writeups*</title>

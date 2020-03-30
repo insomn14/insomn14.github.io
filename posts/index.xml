@@ -5,8 +5,723 @@
         <description>Recent content in Posts on Hallo Dunia!</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 19 Mar 2020 12:59:21 +0700</lastBuildDate>
+        <lastBuildDate>Mon, 30 Mar 2020 06:16:12 +0700</lastBuildDate>
         <atom:link href="https://insomn14.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>TAMUctf 2020 | RE *Writeups*</title>
+            <link>https://insomn14.github.io/posts/tamuctf-2020/</link>
+            <pubDate>Mon, 30 Mar 2020 06:16:12 +0700</pubDate>
+            
+            <guid>https://insomn14.github.io/posts/tamuctf-2020/</guid>
+            <description>RUSTY_AT_REVERSING Description: A nice little reversing challenge for those who are a little rusty! File: librusty_at_reversing.so  In this challenge we are given the file librusty_at_reversing.so file, as know as Shared Object file.
+➜ RUSTY_AT_REVERSING file librusty_at_reversing.so librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped  Let&amp;rsquo;s just decompile the file using radare2.
+[0x00001040]&amp;gt; afl 0x00001040 4 41 -&amp;gt; 34 entry0 0x00001220 13 292 sym.</description>
+            <content type="html"><![CDATA[
+
+<hr />
+
+<h3 id="rusty-at-reversing">RUSTY_AT_REVERSING</h3>
+
+<pre><code>Description:
+A nice little reversing challenge for those who are a little rusty!
+
+File:
+librusty_at_reversing.so
+</code></pre>
+
+<p>In this challenge we are given the file <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/RUSTY_AT_REVERSING"><em>librusty_at_reversing.so</em></a> file, as know as <a href="https://superuser.com/questions/71404/what-is-an-so-file"><em>Shared Object</em></a>  file.</p>
+
+<pre><code>➜  RUSTY_AT_REVERSING file librusty_at_reversing.so 
+librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped
+</code></pre>
+
+<p>Let&rsquo;s just decompile the file using radare2.</p>
+
+<pre><code>[0x00001040]&gt; afl
+
+0x00001040    4 41   -&gt; 34   entry0
+0x00001220   13 292          sym.decrypt
+0x00001100   13 288          sym.encrypt
+0x00001350    1 219          sym.get_flag
+0x000010f0    5 137  -&gt; 60   entry.init0
+0x000010b0    5 57   -&gt; 54   entry.fini0
+0x000018d0    6 79           fcn.000018d0
+</code></pre>
+
+<p>As we can see, there are two very interesting functions namely <code>sym.get_flag</code> and <code>sym.decrypt</code>.</p>
+
+<pre><code>[0x000018d0]&gt; pdg@sym.get_flag
+
+int64_t sym.get_flag(int64_t arg1)
+{
+ 
+ 	...
+ 	...
+    
+    uStack28 = 0x83;
+    uStack27 = 0xea;
+    uStack26 = 0x8d;
+    uStack25 = 0xe8;
+    uStack24 = 0x85;
+    uStack23 = 0xfe;
+    uStack22 = 0x93;
+    uStack21 = 0xe1;
+    uStack20 = 0xbe;
+    uStack19 = 0xcd;
+    uStack18 = 0xb9;
+    uStack17 = 0xd8;
+    uStack16 = 0xaa;
+    uStack15 = 0xc1;
+    uStack14 = 0x9e;
+    uStack13 = 0xf7;
+    uStack12 = 0xa8;
+    uStack11 = 0xce;
+    uStack10 = 0xab;
+    uStack9 = 0xce;
+    uStack8 = 0xa2;
+    uStack7 = 0xfd;
+    uStack6 = 0x8f;
+    uStack5 = 0xfa;
+    uStack4 = 0xf984fd89;
+    (*_reloc.decrypt)(&amp;uStack28, in_RSI, in_RDX, &amp;uStack28);
+    *(uint64_t *)arg1 =
+         CONCAT17(uStack21, 
+                  CONCAT16(uStack22, 
+                           CONCAT15(uStack23, 
+                                    CONCAT14(uStack24, 
+                                             CONCAT13(uStack25, CONCAT12(uStack26, CONCAT11(uStack27, uStack28)))))));
+    *(uint64_t *)(arg1 + 8) =
+         CONCAT17(uStack13, 
+                  CONCAT16(uStack14, 
+                           CONCAT15(uStack15, 
+                                    CONCAT14(uStack16, 
+                                             CONCAT13(uStack17, CONCAT12(uStack18, CONCAT11(uStack19, uStack20)))))));
+    *(uint64_t *)(arg1 + 0x10) =
+         CONCAT17(uStack5, CONCAT16(uStack6, CONCAT15(uStack7, CONCAT14(uStack8, CONCAT13(uStack9, CONCAT12(uStack10, 
+                                                                                                            CONCAT11(
+                                                            uStack11, uStack12)))))));
+    *(undefined4 *)(arg1 + 0x18) = uStack4;
+    return arg1;
+}
+</code></pre>
+
+<p>In the <code>sym.get_flag</code> function there is a variable <code>uStack4</code> until <code>uStack28</code> we can assume it is an array, then var <code>uStack</code> is sent as a parameter to the <code>sym.decrypt</code> function.</p>
+
+<pre><code>[0x000018d0]&gt; pdg@sym.decrypt
+
+void sym.decrypt(int64_t arg1)
+{
+    code cVar1;
+    undefined uStack9;
+    uint64_t uStack8;
+    
+    uStack9 = segment.LOAD2;
+    uStack8 = 0;
+    do {
+      	
+      	...
+      	...
+      	
+        *(uint8_t *)(arg1 + uStack8) = (uint8_t)uStack9 ^ *(uint8_t *)(arg1 + uStack8);
+        uStack8 = uStack8 + 1;
+        uStack9 = cVar1;
+    } while (uStack8 != 0x1c);
+    return;
+}
+
+[0x00001040]&gt; px 0xf @ segment.LOAD2
+- offset -   0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00002000  e473 7263 2f6c 6962 2e72 7300 2ff8 ff    .src/lib.rs./.. 
+</code></pre>
+
+<p>As we see there is a loop where every value in <code>arg1</code> will be xor with <code>uStack9</code> == <em>0xe4 &ndash;&gt; 228</em>.</p>
+
+<p>Now let&rsquo;s create a simple code to solve it.</p>
+
+<pre><code>def decrypt(a1):
+    v3 = 228
+    for i in range(len(a1)):
+        v2 = v3
+        v3 = a1[i]
+        a1[i] = chr(a1[i]^v2)
+
+    return a1
+
+flag = [0x83, 0xea, 0x8d, 0xe8, 0x85, 0xfe, 0x93, 0xe1, 0xbe, 0xcd, 0xb9, 0xd8, 0xaa, 0xc1, 0x9e, 0xf7, 0xa8, 0xce, 0xab, 0xce, 0xa2, 0xfd, 0x8f, 0xfa, 0x89, 0xfd, 0x84, 0xf9]
+
+print(''.join(decrypt(flag)))
+</code></pre>
+
+<p>Let&rsquo;s run our script.</p>
+
+<pre><code>➜  RUSTY_AT_REVERSING python solve.py 
+gigem{mr_stark_i_feel_rusty}
+</code></pre>
+
+<p>FLAG: <code>gigem{mr_stark_i_feel_rusty}</code></p>
+
+<hr />
+
+<h3 id="vault">VAULT</h3>
+
+<pre><code>Description:
+
+
+File:
+vault
+
+</code></pre>
+
+<p>In the following challenge we are given a <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/Vault"><em>vault</em></a> binary file.</p>
+
+<pre><code>➜  Vault file vault 
+vault: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=9ff9d23fe640e7aa227f5a4a45123753c1f22298, for GNU/Linux 3.2.0, not stripped
+</code></pre>
+
+<p>As usual, let&rsquo;s look at the pseudocode using my favorite tool.</p>
+
+<pre><code>[0x000010a0]&gt; pdg@main
+
+undefined8 main(void)
+{
+    int32_t iVar1;
+    undefined8 *arg1;
+    undefined8 uVar2;
+    char *s2;
+    char *s1;
+    
+    arg1 = (undefined8 *)sym.imp.malloc(0x1a);
+    *arg1 = 0x7e394c2f38323434;
+    arg1[1] = 0x54834c1f7b783a78;
+    arg1[2] = 0x2f72857884842928;
+    *(undefined2 *)(arg1 + 3) = 0x7667;
+    *(undefined *)((int64_t)arg1 + 0x1a) = 0;
+    sym.deobfuscate((char *)arg1);
+    uVar2 = sym.imp.malloc(0x1b);
+    sym.imp.printf(0x2019, &quot;Enter password: &quot;);
+    sym.imp.fgets(uVar2, 0x1b, _reloc.stdin);
+    iVar1 = sym.imp.strcmp(arg1, uVar2, uVar2);
+    if (iVar1 == 0) {
+        sym.imp.puts(&quot;Correct!  That\'s the password!&quot;);
+    } else {
+        sym.imp.puts(&quot;Sorry, that isn\'t the right password.&quot;);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>As we can see the pointer variable <code>arg1</code> allocates 0x1a -&gt; 26 bytes, in the next line after <code>arg1</code> stores the hex value and there is a <code>sym.deobfuscate</code> function call. After that the value of <code>arg1</code> will be compared with our input.</p>
+
+<p>The easiest way to complete this challenge without needing to know the task of the <code>sym.deobfuscate</code> function is to place breakpoints after calling the <code>sym.deobfuscate</code> function. I use gdb to do debugging.</p>
+
+<pre><code>gdb-peda$ start
+   ...
+   ...
+
+gdb-peda$ disassemble 
+   ...
+   0x55555555531d &lt;main+84&gt;:    call   0x555555555185 &lt;deobfuscate&gt;
+   0x555555555322 &lt;main+89&gt;:    mov    edi,0x1b
+   ...
+
+gdb-peda$ b*main+89
+Breakpoint 3 at 0x555555555322
+
+gdb-peda$ c
+Continuing.
+[----------------------------------registers-----------------------------------]
+RAX: 0x5555555592a0 (&quot;gigem{p455w0rd_1n_m3m0ry1}&quot;)
+RBX: 0x0 
+RCX: 0x69 ('i')
+RDX: 0x67 ('g')
+RSI: 0x67 ('g')
+RDI: 0x5555555592a0 (&quot;gigem{p455w0rd_1n_m3m0ry1}&quot;)
+RBP: 0x7fffffffdad0 --&gt; 0x5555555553a0 (&lt;__libc_csu_init&gt;:      push   r15)
+RSP: 0x7fffffffdac0 --&gt; 0x7fffffffdbb0 --&gt; 0x1 
+RIP: 0x555555555322 (&lt;main+89&gt;: mov    edi,0x1b)
+R8 : 0xf8ff 
+R9 : 0x7ffff7e70fc0 (&lt;__wcpcpy&gt;:        endbr64)
+R10: 0xfffffffffffff49f 
+R11: 0x7ffff7e65d60 (&lt;__strlen_sse2&gt;:   endbr64)
+R12: 0x5555555550a0 (&lt;_start&gt;:  xor    ebp,ebp)
+R13: 0x7fffffffdbb0 --&gt; 0x1 
+R14: 0x0 
+R15: 0x0
+EFLAGS: 0x246 (carry PARITY adjust ZERO sign trap INTERRUPT direction overflow)
+[-------------------------------------code-------------------------------------]
+   0x555555555316 &lt;main+77&gt;:    mov    rax,QWORD PTR [rbp-0x8]
+   0x55555555531a &lt;main+81&gt;:    mov    rdi,rax
+   0x55555555531d &lt;main+84&gt;:    call   0x555555555185 &lt;deobfuscate&gt;
+=&gt; 0x555555555322 &lt;main+89&gt;:    mov    edi,0x1b
+   0x555555555327 &lt;main+94&gt;:    call   0x555555555080 &lt;malloc@plt&gt;
+   0x55555555532c &lt;main+99&gt;:    mov    QWORD PTR [rbp-0x10],rax
+   0x555555555330 &lt;main+103&gt;:   lea    rsi,[rip+0xcd1]        # 0x555555556008
+   0x555555555337 &lt;main+110&gt;:   lea    rdi,[rip+0xcdb]        # 0x555555556019
+[------------------------------------stack-------------------------------------]
+0000| 0x7fffffffdac0 --&gt; 0x7fffffffdbb0 --&gt; 0x1 
+0008| 0x7fffffffdac8 --&gt; 0x5555555592a0 (&quot;gigem{p455w0rd_1n_m3m0ry1}&quot;)
+0016| 0x7fffffffdad0 --&gt; 0x5555555553a0 (&lt;__libc_csu_init&gt;:     push   r15)
+0024| 0x7fffffffdad8 --&gt; 0x7ffff7dd81e3 (&lt;__libc_start_main+243&gt;:       mov    edi,eax)
+0032| 0x7fffffffdae0 --&gt; 0x7ffff7f98598 --&gt; 0x7ffff7dd7ac0 (&lt;init_cacheinfo&gt;:   endbr64)
+0040| 0x7fffffffdae8 --&gt; 0x7fffffffdbb8 --&gt; 0x7fffffffdf8c (&quot;/home/insomnia/CTF101/CTFtime2020/12.TAMUctf
+0048| 0x7fffffffdaf0 --&gt; 0x1f7f66e88 
+0056| 0x7fffffffdaf8 --&gt; 0x5555555552c9 (&lt;main&gt;:        push   rbp)
+[------------------------------------------------------------------------------]
+Legend: code, data, rodata, value
+
+Breakpoint 3, 0x0000555555555322 in main ()
+gdb-peda$ 
+</code></pre>
+
+<p>Clearly visible on the column stack and at the $ RAX register, the <code>deobfucate</code> function returns the <code>arg1</code> value as char, and the password is our flag.</p>
+
+<pre><code> ➜  Vault ./vault 
+Enter password: gigem{p455w0rd_1n_m3m0ry1}
+Correct!  That's the password!
+</code></pre>
+
+<p>FLAG: <code>gigem{p455w0rd_1n_m3m0ry1}</code></p>
+
+<hr />
+
+<h3 id="angrmanagement">ANGRMANAGEMENT</h3>
+
+<pre><code>Description:
+
+
+File:
+angrmanagement
+</code></pre>
+
+<p>At this time we are given the <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/ANGRMANAGEMENT"><em>angrmanagement</em></a> binary file.</p>
+
+<pre><code>➜  ANGRMANAGEMENT file angrmanagement
+angrmanagement: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=73fc1cce8d06eebb6bda739fb22cd50059cf73ba, for GNU/Linux 3.2.0, not stripped
+</code></pre>
+
+<p>The challenge this time is the same as the challenges in general, where we are asked to enter the correct input.</p>
+
+<pre><code>➜  ANGRMANAGEMENT ./angrmanagement 
+Enter the password:
+123321123321
+Incorrect.
+</code></pre>
+
+<p>Let&rsquo;s see disassambly from this program.</p>
+
+<pre><code>[0x00001120]&gt; afl
+...
+...
+0x000013cf    6 74           sym.check_4
+0x0000199c    6 122          sym.check_18
+0x00001fff    6 112          sym.check_31
+0x00001209    1 36           sym.intify
+0x000023e0    4 101          sym.__libc_csu_init
+0x0000129c    6 119          sym.check_1
+0x0000206f   42 874          main
+0x00001ac6    6 178          sym.check_20
+0x00001bf1    6 173          sym.check_22
+0x00001d10    6 74           sym.check_24
+0x00001dca    6 113          sym.check_26
+0x00001e85    6 109          sym.check_28
+0x000016a5    6 165          sym.check_11
+0x00001794    6 133          sym.check_13
+0x00001898    6 74           sym.check_15
+...
+...
+
+[0x00001120]&gt; pdf@main
+     ...
+     ...
+             0x000020bb      488d45d0       lea rax, [s]
+│           0x000020bf      be21000000     mov esi, 0x21               ; '!' ; int size
+│           0x000020c4      4889c7         mov rdi, rax                ; char *s
+│           0x000020c7      e824f0ffff     call sym.imp.fgets          ; char *fgets(char *s, int size, FILE *stream)
+│           0x000020cc      488d45d0       lea rax, [s]
+     ...
+     ...
+│       │   0x000020e7      e866f1ffff     call sym.check_0
+│       │   0x000020ec      84c0           test al, al
+│      ┌──&lt; 0x000020ee      0f8453020000   je 0x2347
+│      ││   0x000020f4      488d45d0       lea rax, [s]
+│      ││   0x000020f8      4889c7         mov rdi, rax
+│      ││   0x000020fb      e89cf1ffff     call sym.check_1
+│      ││   0x00002100      84c0           test al, al
+│     ┌───&lt; 0x00002102      0f843f020000   je 0x2347
+     ...
+     ...
+           0x0000234f      8065a701       and byte [var_59h], 1
+│           0x00002353      807da700       cmp byte [var_59h], 0
+│       ┌─&lt; 0x00002357      7459           je 0x23b2
+│       │   0x00002359      488d3db80c00.  lea rdi, str.Correct        ; 0x3018 ; &quot;Correct!&quot; ; const char *s
+│       │   0x00002360      e84bedffff     call sym.imp.puts           ; int puts(const char *s)
+│       │   0x00002365      488d35b50c00.  lea rsi, [0x00003021]       ; &quot;r&quot; ; const char *mode
+│       │   0x0000236c      488d3db00c00.  lea rdi, str.flag.txt       ; 0x3023 ; &quot;flag.txt&quot; ; const char *filename
+│       │   0x00002373      e898edffff     call sym.imp.fopen          ; file*fopen(const char *filename, const char *mode)
+│       │   0x00002378      488945a8       mov qword [stream], rax
+│       │   0x0000237c      48837da800     cmp qword [stream], 0
+│      ┌──&lt; 0x00002381      743b           je 0x23be
+│      ││   0x00002383      488b55a8       mov rdx, qword [stream]     ; FILE *stream
+│      ││   0x00002387      488d45b0       lea rax, [var_50h]
+│      ││   0x0000238b      be19000000     mov esi, 0x19               ; int size
+│      ││   0x00002390      4889c7         mov rdi, rax                ; char *s
+│      ││   0x00002393      e858edffff     call sym.imp.fgets          ; char *fgets(char *s, int size, FILE *stream)
+│      ││   0x00002398      488d45b0       lea rax, [var_50h]
+│      ││   0x0000239c      4889c6         mov rsi, rax
+│      ││   0x0000239f      488d3d860c00.  lea rdi, [0x0000302c]       ; &quot;%s&quot; ; const char *format
+│      ││   0x000023a6      b800000000     mov eax, 0
+│      ││   0x000023ab      e830edffff     call sym.imp.printf         ; int printf(const char *format)
+│     ┌───&lt; 0x000023b0      eb0c           jmp 0x23be
+│     │││   ; CODE XREF from main @ 0x2357
+│     ││└─&gt; 0x000023b2      488d3d760c00.  lea rdi, str.Incorrect.     ; 0x302f ; &quot;Incorrect.&quot; ; const char *s
+│     ││    0x000023b9      e8f2ecffff     call sym.imp.puts           ; int puts(const char *s)
+│     ││    ; CODE XREFS from main @ 0x2381, 0x23b0
+
+     ...
+     ...
+</code></pre>
+
+<p>There are 32 <code>check</code> functions, in which each character of our input will be calculated in different check functions. If our input is correct then the program will read the <em>flag.txt</em> file.</p>
+
+<p>If we pay close attention to the title of this challenge is a guide, angr is a tool in python that we can use to solve arithmetic operations problems that are quite complicated. This is a <a href="https://docs.angr.io/"><em>link</em></a> to learn more about angr.</p>
+
+<p>The following is a solver I created, based on <a href="https://docs.angr.io/core-concepts/pathgroups"><em>angr Documentation.</em></a></p>
+
+<pre><code>import angr
+
+proj = angr.Project('./angrmanagement')
+
+state = proj.factory.entry_state()
+simgr = proj.factory.simulation_manager(state)
+simgr.explore(find=lambda s: b&quot;Correct!&quot; in s.posix.dumps(1))
+s = simgr.found[0]
+print(s.posix.dumps(1))
+
+result = s.posix.dumps(0)
+print(result)
+</code></pre>
+
+<p>Run our script.</p>
+
+<pre><code>➜  ANGRMANAGEMENT python solver.py 
+b'Enter the password:\nCorrect!\n'
+b'P#P7J\xb9YmT[$D5\x06[cxhtAd\xb0{(d.qxBA]j'
+
+➜  ANGRMANAGEMENT echo 'P#P7J\xb9YmT[$D5\x06[cxhtAd\xb0{(d.qxBA]j' | ./angrmanagement
+Enter the password:
+Correct!
+gigem{4n63r_m4n463m3n7}
+</code></pre>
+
+<p>FLAG: <code>gigem{4n63r_m4n463m3n7}</code></p>
+
+<hr />
+
+<h3 id="about-time">ABOUT_TIME</h3>
+
+<pre><code>Description:
+
+
+nc challenges.tamuctf.com 4321
+
+File:
+about_time
+</code></pre>
+
+<p>In this challenge we are given file  <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/ABOUT_TIME"><em>about_time</em></a> and nc service, where the flag is placed.</p>
+
+<pre><code>➜  ABOUT_TIME file about_time 
+about_time: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-musl-x86_64.so.1, stripped
+</code></pre>
+
+<pre><code>➜  ABOUT_TIME nc challenges.tamuctf.com 4321
+2020-03-30T22:57:20WIB&gt; Encrypted password: Omt&lt;aMel5gwTao9&lt;UH6tsSb
+Enter the password: test
+Incorrect password! Try again.
+➜  ABOUT_TIME nc challenges.tamuctf.com 4321
+2020-03-30T22:58:01WIB&gt; Encrypted password: nt=bMem6gxTap:=VH7tsTbO
+Enter the password: ttest
+Incorrect password! Try again.
+</code></pre>
+
+<p>Just like the <em>RE</em> challenge before, at this time we were asked to enter a password, but the password was encrypted. If we look carefully, the encrypted password changes when the minutes of that time change. Does that mean the flags are different hhmm .. interesting 🤔️</p>
+
+<p>Let&rsquo;s look at the pseudocode from the program, the following is the pseudocode result from IDA Demo.</p>
+
+<pre><code>__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  ...
+  ...
+  timer = time(0LL);
+  tp = localtime(&amp;timer);
+  strftime(s, 0x32uLL, &quot;%Y-%m-%dT%H:%M:%S%Z&quot;, tp);
+  strftime(nptr, 5uLL, &quot;%M&quot;, tp);
+  v4 = atoi(nptr);
+  dword_4100 = v4 % 6 + 2;
+  v8 = v4 % 6 + 2;
+  stream = fopen(&quot;flag.txt&quot;, &quot;r&quot;);
+  if ( stream )
+  {
+    fgets(&amp;src, 50, stream);
+    fclose(stream);
+    for ( i = 0; i &lt; strlen(&amp;src); ++i )
+    {
+      if ( *(&amp;src + i) == 10 )
+        *(&amp;src + i) = 0;
+    }
+    strncpy(&amp;dest, &amp;src, 0x32uLL);
+    v12 = sub_12A9;
+    v13 = sub_13DD;
+    v14 = sub_1473;
+    ((void (__fastcall *)(char *, _QWORD))*(&amp;v12 + (int)v8 % 3))(&amp;dest, v8);
+    ((void (__fastcall *)(char *, _QWORD))*(&amp;v12 + (int)(v8 + 1) % 3))(&amp;dest, v8);
+    ((void (__fastcall *)(char *, _QWORD))*(&amp;v12 + (int)(v8 + 2) % 3))(&amp;dest, v8);
+    printf(&quot;%s&gt; Encrypted password: %s\n&quot;, s, &amp;dest);
+    fflush((FILE *)&amp;dword_0);
+    printf(&quot;Enter the password: &quot;);
+    fflush((FILE *)&amp;dword_0);
+    fgets(byte_4104, 50, (FILE *)&amp;dword_0);
+    for ( j = 0; j &lt; strlen(byte_4104); ++j )
+    {
+      if ( byte_4104[j] == 10 )
+        byte_4104[j] = 0;
+    }
+    ((void (__fastcall *)(char *, _QWORD))*(&amp;v12 + (int)v8 % 3))(byte_4104, v8);
+    ((void (__fastcall *)(char *, _QWORD))*(&amp;v12 + (int)(v8 + 1) % 3))(byte_4104, v8);
+    ((void (__fastcall *)(char *, _QWORD))*(&amp;v12 + (int)(v8 + 2) % 3))(byte_4104, v8);
+    sub_14FB(&amp;dest, byte_4104);
+    result = 0LL;
+  }
+  else
+  {
+    puts(&quot;Flag.txt not found. Exiting...&quot;);
+    result = 0LL;
+  }
+  return result;
+}
+</code></pre>
+
+<p>As we can see there is a <code>v4</code> variable where this variable stores the value <em>&lsquo;minutes&rsquo;</em> of <code>localtime</code>. After that <code>v4</code> is calculated with mod 6 plus 2, as follows <code>v4% 6 + 2</code>. The results are stored on the <code>v8</code>.</p>
+
+<p>In the next line there are three functions, namely <code>sub_12A9</code>, <code>sub_13DD</code>, and <code>sub_1473</code>. Where these three functions use the <em>flag</em> in <code>dest</code> and <code>v8</code>. At this point we can assume that <code>v8</code> is the <em>&lsquo;key&rsquo;</em>. These three functions will do the same thing in our input.</p>
+
+<p>Let&rsquo;s look at the pseudocode again.</p>
+
+<pre><code>size_t __fastcall sub_12A9(const char *a1, int a2)
+{
+  size_t result; // rax
+  int i; // [rsp+1Ch] [rbp-14h]
+
+  for ( i = 0; ; i += 3 )
+  {
+    result = strlen(a1);
+    if ( i &gt;= result )
+      break;
+    if ( a1[i] &gt; 96 &amp;&amp; a1[i] &lt;= 122 )	// a - z
+      a1[i] = (a1[i] - 84 + a2) % 26 + 97;
+    if ( a1[i] &gt; 64 &amp;&amp; a1[i] &lt;= 90 )	// A - Z
+      a1[i] = (a1[i] - 52 + a2) % 26 + 65;
+  }
+  return result;
+}
+</code></pre>
+
+<p>Okay until here, don&rsquo;t confuse what the <code>sub_12A9</code> function actually does.</p>
+
+<p>This is the form of the Caesar Cipher function that we usually encounter in CTF challenges in general. In this case <em>Caesar Cipher</em> looks very <em>&lsquo;mathematical&rsquo;</em>.</p>
+
+<p>I will not explain in more detail about this, this <a href="https://www.dcode.fr/caesar-cipher"><em>Link</em></a> explains in detail about the workings of <em>Caesar Cipher</em>.</p>
+
+<pre><code>unsigned __int64 __fastcall sub_13DD(const char *a1, int a2)
+{
+  ...
+  ...
+  v6 = __readfsqword(0x28u);
+  strncpy(dest, a1, 0x32uLL);
+  v4 = strlen(a1);
+  for ( i = 0; i &lt; v4; ++i )
+    a1[i] = dest[(i + a2) % v4];
+  return __readfsqword(0x28u) ^ v6;
+}
+</code></pre>
+
+<p>The function of <code>sub_13DD</code> is to make a shift for each character in <code>a1</code>, where the character shift distance is determined from <code>a2</code>.</p>
+
+<pre><code>Example:
+a1 = 'insomn14', a2 = 4;
+The result will be : 'mn14inso'
+</code></pre>
+
+<pre><code>__int64 __fastcall sub_1473(const char *a1, char a2)
+{
+  ...
+  ...
+  v4 = strlen(a1);
+  for ( i = 0; ; ++i )
+  {
+    result = i;
+    if ( (int)i &gt;= v4 )
+      break;
+    if ( a1[i] &gt; 47 &amp;&amp; a1[i] &lt;= 57 )	// 0 - 9
+      a1[i] += a2;
+  }
+  return result;
+}
+</code></pre>
+
+<p>In the <code>sub_1473</code> function, each number character in <code>a1</code> will be added to <code>a2</code></p>
+
+<p>There is a function I forgot to mention in the first <code>sub_14FB</code>.</p>
+
+<pre><code>int __fastcall sub_14FB(const char *a1, const char *a2)
+{
+  if ( !strcmp(a1, a2) )
+    printf(&quot;Correct! Here you go: gigem{%s}\n&quot;, &amp;src);
+  else
+    puts(&quot;Incorrect password! Try again.&quot;);
+  return fflush((FILE *)&amp;dword_0);
+}
+</code></pre>
+
+<p>After our flag and input go through the three previous functions, this function compares our input with the flag.</p>
+
+<p>To solve this challenge, we can inverse each of the functions I explained earlier.</p>
+
+<p>The following are the scripts that I made to solve the challenge.</p>
+
+<pre><code>def dec3(a1, a2):
+    a1 = bytearray(a1)
+    v4 = len(a1)
+    for i in range(v4):
+        if a1[i] &gt; 47 and a1[i] &lt;= 64:
+            a1[i] -= a2
+        i += 1
+    return a1
+
+def dec2(a1, a2):
+    a1 = bytearray(a1)
+    new = ''
+    v4 = len(a1)
+    for i in range(v4):
+        new += chr(a1[(i-a2)%v4])
+    return new
+
+def dec1(a1, a2):
+    a1 = bytearray(a1)
+    i = 0
+    while(i &lt; len(a1)):
+        if a1[i] &gt; 96 and a1[i] &lt;= 122:
+            a1[i] = (a1[i] + 46 - a2) % 26 + 97
+        if a1[i] &gt; 64 and a1[i] &lt;= 90:
+            a1[i] = (a1[i] + 52 - a2) % 26 + 65
+        i+=3
+    return a1
+
+mnt = input(&quot;Key : &quot;) % 6 + 2
+dec = raw_input(&quot;Cipher : &quot;)
+res = dec1(dec2(dec3(dec, mnt), mnt), mnt)
+print &quot;Plantext :&quot;,res
+</code></pre>
+
+<p>Let&rsquo;s test our script on nc service.</p>
+
+<pre><code># Terminal 1
+➜  ABOUT_TIME  nc challenges.tamuctf.com 4321
+2020-03-30T22:46:52WIB&gt; Encrypted password: nt=bMem6gxTap:=VH7tsTbO
+Enter the password:
+
+----------------------------------
+# Open Terminal 2
+➜  ABOUT_TIME python2 solver.py
+Key : 46
+Cipher : nt=bMem6gxTap:=VH7tsTbO
+Plantext : 1tsAbOut7iMet0geTaw47CH
+
+----------------------------------
+# Back to Terminal 1
+➜  ABOUT_TIME  nc challenges.tamuctf.com 4321
+2020-03-30T22:46:52WIB&gt; Encrypted password: nt=bMem6gxTap:=VH7tsTbO
+Enter the password: 1tsAbOut7iMet0geTaw47CH
+Correct! Here you go: gigem{1tsAbOut7iMet0geTaw47CH}
+</code></pre>
+
+<p>FLAG: <code>gigem{1tsAbOut7iMet0geTaw47CH}</code></p>
+
+<hr />
+
+<h3 id="just-bc">JUST_BC</h3>
+
+<pre><code>Description:
+
+
+nc challenges.tamuctf.com 4932
+
+File:
+just-bc.bin
+
+</code></pre>
+
+<p>In the following challenge we are given <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/JUST_BC"><em>just-bc.bin</em></a> file and nc service files.</p>
+
+<pre><code>➜  JUST_BC file just-bc.bin 
+just-bc.bin: LLVM IR bitcode
+
+➜  JUST_BC nc challenges.tamuctf.com 4932
+Password: test
+lmao nice try, but that's not it
+</code></pre>
+
+<p>Honestly I&rsquo;m not familiar with challenges like this, but it doesn&rsquo;t take too much time to complete this challenge.</p>
+
+<p>After several hours of asking Google, I finally found this <a href="https://subscription.packtpub.com/book/application_development/9781785285981/1/ch01lvl1sec14/converting-llvm-bitcode-to-target-machine-assembly"><em>article</em></a>.</p>
+
+<p>We can use the llc command to see the assembly code, if you use linux you can type the <code>man llc</code> command to find out more in detail.</p>
+
+<pre><code>➜  JUST_BC llc just-bc.bin -o out.s
+
+➜  JUST_BC ll
+total 1,6M
+-rwxr-xr-x 1 insomnia insomnia   48 Mar 30 23:01 connect.sh
+-rwxr-xr-x 1 insomnia insomnia 261K Mar 19 04:38 just-bc.bin
+-rw-r--r-- 1 insomnia insomnia 640K Mar 29 21:17 out.s
+</code></pre>
+
+<p>After opening the file out.s there are many assembly code instructions. From here I just need to find the String of <em>&lsquo;Password&rsquo;</em>. When I find the string at the same time I see a suspicious string.</p>
+
+<pre><code>.Lanon.112aa5216417f3e30cbfa40815f3b444.61:
+	.ascii	&quot;lmaoniceonebuddypalfriendolino&quot;  &lt;------------------- &quot;That string is what I mean&quot;
+	.size	.Lanon.112aa5216417f3e30cbfa40815f3b444.61, 30
+
+	.type	.Lanon.112aa5216417f3e30cbfa40815f3b444.62,@object # @anon.112aa5216417f3e30cbfa40815f3b444.62
+.Lanon.112aa5216417f3e30cbfa40815f3b444.62:
+	.ascii	&quot;src/main.rs&quot;
+	.size	.Lanon.112aa5216417f3e30cbfa40815f3b444.62, 11
+
+	.type	.Lanon.112aa5216417f3e30cbfa40815f3b444.63,@object # @anon.112aa5216417f3e30cbfa40815f3b444.63
+	.p2align	3
+.Lanon.112aa5216417f3e30cbfa40815f3b444.63:
+	.quad	.Lanon.112aa5216417f3e30cbfa40815f3b444.62
+	.asciz	&quot;\013\000\000\000\000\000\000\000\030\000\000\000!\000\000&quot;
+	.size	.Lanon.112aa5216417f3e30cbfa40815f3b444.63, 24
+
+	.type	.Lanon.112aa5216417f3e30cbfa40815f3b444.64,@object # @anon.112aa5216417f3e30cbfa40815f3b444.64
+.Lanon.112aa5216417f3e30cbfa40815f3b444.64:
+	.ascii	&quot;Password: &quot;
+	.size	.Lanon.112aa5216417f3e30cbfa40815f3b444.64, 10
+
+</code></pre>
+
+<p>I just need to copy and paste the string and run it on the nc service, and see what I get.</p>
+
+<pre><code>➜  JUST_BC nc challenges.tamuctf.com 4932
+Password: lmaoniceonebuddypalfriendolino
+gigem{hmm_yes_interesting_very_interesting}
+</code></pre>
+
+<p>FLAG: <code>gigem{hmm_yes_interesting_very_interesting}</code></p>
+]]></content>
+        </item>
         
         <item>
             <title>ÅngstromCTF 2020 | RE *Writeups*</title>
@@ -478,7 +1193,7 @@ def main():
     guess[28] = gen_value(8,4,val[28])
     guess[29] = gen_value(8,8,val[29])
     for i,j in enumerate(guess):
-        print(f'No.{i} Guess: {j} --&gt; Val: {val[i]}')
+        print(f'Guess: {j} --&gt; Val: {val[i]}')
       
 if __name__ == '__main__':
     main()
