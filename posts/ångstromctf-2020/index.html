@@ -34,7 +34,7 @@
 <meta itemprop="description" content="Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &quot;shell&quot; link at the top of the site. Hint : Try some google searches for &quot;how to run a file in linux&quot; or &quot;bash for beginners&quot;. File: revving_up Author: aplet123 In this challenge we are given the revving_up binary file.">
 <meta itemprop="datePublished" content="2020-03-19T12:59:21&#43;07:00" />
 <meta itemprop="dateModified" content="2020-03-19T12:59:21&#43;07:00" />
-<meta itemprop="wordCount" content="2486">
+<meta itemprop="wordCount" content="2437">
 <meta itemprop="image" content="https://insomn14.github.io/"/>
 
 
@@ -412,7 +412,7 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
 |   |   |   |   |   |   |   |   |   |
 +---+---+---+---+---+---+---+---+---+
 </code></pre><p>This challenge is very interesting, so I need IDA to debug. When after opening it with IDA there are very many instructions, but there is a function that interests me, the <em>check_flag</em> function.</p>
-<p>![check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-49-53.png &ldquo;check_flag&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2022-49-53.png" alt="check_flag" title="check_flag"></p>
 <p>Following is the pseudocode of the <em>check_flag</em> function.</p>
 <pre><code>...
 ...
@@ -446,7 +446,7 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
   return rand();
 }
 </code></pre><p>And there is also the gen_value function. To understand what happens to the <em>check_flag</em> function, let&rsquo;s place breakpoints in the <em>check_flag</em> function and press the F9 key until we hit breakpoint.</p>
-<p>![break_check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-52-06.png  &ldquo;break_check_flag&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2022-52-06.png" alt="break_check_flag" title="break_check_flag"></p>
 <p>Following is the technique that I use to find out the value of each box that will go through the <em>gen_value</em> function:</p>
 <ol>
 <li>
@@ -459,10 +459,10 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
 <p>Repeat the first and second steps, until the last 6 squares</p>
 </li>
 </ol>
-<p>![sudoku](/img/Screenshot/ÅngstromCTF 2020/Color Screenshot from 2020-03-19 23-05-54.jpg  &ldquo;sudoku&rdquo;)</p>
-<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-11-25.png  &ldquo;Sudoku&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Color%20Screenshot%20from%202020-03-19%2023-05-54.jpg" alt="sudoku" title="sudoku"></p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2023-11-25.png" alt="Sudoku" title="Sudoku"></p>
 <p>Following are my observations, the numbers represent that the values ​​contained in the box will be used as parameters in the <em>gen_value</em> function.</p>
-<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-54-37.png  &ldquo;Sudoku&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2023-54-37.png" alt="Sudoku" title="Sudoku"></p>
 <p>Let&rsquo;s create a script to find a suitable value to match in each box that we find.</p>
 <pre><code>from ctypes import *
 
@@ -547,7 +547,7 @@ Guess: 1 --&gt; Val: 1427855150    // (7,9)
 Guess: 3 --&gt; Val: 323649682     // (8,8)
 Guess: 4 --&gt; Val: 1443247958    // (9,9)
 </code></pre><p>After we get the value, then enter each value into the box that we found earlier.</p>
-<p>![Found_value](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-16-52.png  &ldquo;Found_value&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-20%2000-16-52.png" alt="Found_value" title="Found_value"></p>
 <p>Now is the time to fill in the empty boxes. There are three ways to solve it.</p>
 <ol>
 <li>
@@ -561,9 +561,9 @@ Guess: 4 --&gt; Val: 1443247958    // (9,9)
 </li>
 </ol>
 <p>I prefer to use number 2.</p>
-<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-31-50.png  &ldquo;final&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-20%2000-31-50.png" alt="final" title="final"></p>
 <p>Then press q.</p>
-<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-32-28.png  &ldquo;final&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-20%2000-32-28.png" alt="final" title="final"></p>
 <p>Now we prove it on ssh server.</p>
 <pre><code>team5385@actf:~$ cd /problems/2020/masochistic_sudoku/
 team5385@actf:/problems/2020/masochistic_sudoku$ ./masochistic_sudoku 
@@ -582,7 +582,7 @@ team5385@actf:/problems/2020/masochistic_sudoku$
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://insomn14.github.io/tags/reverse-engineering">Reverse Engineering</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2486 Words</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2437 Words</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-03-19 12:59 &#43;0700</p>
         </div>

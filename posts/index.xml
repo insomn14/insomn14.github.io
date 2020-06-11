@@ -1052,7 +1052,7 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
 |   |   |   |   |   |   |   |   |   |
 +---+---+---+---+---+---+---+---+---+
 </code></pre><p>This challenge is very interesting, so I need IDA to debug. When after opening it with IDA there are very many instructions, but there is a function that interests me, the <em>check_flag</em> function.</p>
-<p>![check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-49-53.png &ldquo;check_flag&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2022-49-53.png" alt="check_flag" title="check_flag"></p>
 <p>Following is the pseudocode of the <em>check_flag</em> function.</p>
 <pre><code>...
 ...
@@ -1086,7 +1086,7 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
   return rand();
 }
 </code></pre><p>And there is also the gen_value function. To understand what happens to the <em>check_flag</em> function, let&rsquo;s place breakpoints in the <em>check_flag</em> function and press the F9 key until we hit breakpoint.</p>
-<p>![break_check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-52-06.png  &ldquo;break_check_flag&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2022-52-06.png" alt="break_check_flag" title="break_check_flag"></p>
 <p>Following is the technique that I use to find out the value of each box that will go through the <em>gen_value</em> function:</p>
 <ol>
 <li>
@@ -1099,10 +1099,10 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
 <p>Repeat the first and second steps, until the last 6 squares</p>
 </li>
 </ol>
-<p>![sudoku](/img/Screenshot/ÅngstromCTF 2020/Color Screenshot from 2020-03-19 23-05-54.jpg  &ldquo;sudoku&rdquo;)</p>
-<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-11-25.png  &ldquo;Sudoku&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Color%20Screenshot%20from%202020-03-19%2023-05-54.jpg" alt="sudoku" title="sudoku"></p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2023-11-25.png" alt="Sudoku" title="Sudoku"></p>
 <p>Following are my observations, the numbers represent that the values ​​contained in the box will be used as parameters in the <em>gen_value</em> function.</p>
-<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-54-37.png  &ldquo;Sudoku&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-19%2023-54-37.png" alt="Sudoku" title="Sudoku"></p>
 <p>Let&rsquo;s create a script to find a suitable value to match in each box that we find.</p>
 <pre><code>from ctypes import *
 
@@ -1187,7 +1187,7 @@ Guess: 1 --&gt; Val: 1427855150    // (7,9)
 Guess: 3 --&gt; Val: 323649682     // (8,8)
 Guess: 4 --&gt; Val: 1443247958    // (9,9)
 </code></pre><p>After we get the value, then enter each value into the box that we found earlier.</p>
-<p>![Found_value](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-16-52.png  &ldquo;Found_value&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-20%2000-16-52.png" alt="Found_value" title="Found_value"></p>
 <p>Now is the time to fill in the empty boxes. There are three ways to solve it.</p>
 <ol>
 <li>
@@ -1201,9 +1201,9 @@ Guess: 4 --&gt; Val: 1443247958    // (9,9)
 </li>
 </ol>
 <p>I prefer to use number 2.</p>
-<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-31-50.png  &ldquo;final&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-20%2000-31-50.png" alt="final" title="final"></p>
 <p>Then press q.</p>
-<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-32-28.png  &ldquo;final&rdquo;)</p>
+<p><img src="/img/Screenshot/%C3%85ngstromCTF%202020/Screenshot%20from%202020-03-20%2000-32-28.png" alt="final" title="final"></p>
 <p>Now we prove it on ssh server.</p>
 <pre><code>team5385@actf:~$ cd /problems/2020/masochistic_sudoku/
 team5385@actf:/problems/2020/masochistic_sudoku$ ./masochistic_sudoku 
