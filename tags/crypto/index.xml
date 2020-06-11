@@ -19,7 +19,7 @@
       
       <guid>https://insomn14.github.io/posts/noobctf0x1-crypto/</guid>
       <description>Gross 120pts Cipher: OQWKWPUVMYTIUSSTHHPI Keep this: 12345 , will help you. Flag format: noob{FLAG} Author: D3v1LaL In CTF competitions the title of the challenge sometimes can be a clue. For example in this challenge, I thought that the word &amp;lsquo;Gross&amp;rsquo; was a play on words from &amp;lsquo;Grons&amp;rsquo; so I concluded it might be &amp;lsquo;Gronsfeld Cipher&amp;rsquo;. The conclusion I got after reading the pycipher documentation.
-&amp;gt;&amp;gt;&amp;gt; import pyciphet &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; msg = pycipher.</description>
+&amp;gt;&amp;gt;&amp;gt; import pycipher &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; msg = pycipher.</description>
     </item>
     
   </channel>

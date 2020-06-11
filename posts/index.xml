@@ -16,7 +16,7 @@
             
             <guid>https://insomn14.github.io/posts/noobctf0x1-crypto/</guid>
             <description>Gross 120pts Cipher: OQWKWPUVMYTIUSSTHHPI Keep this: 12345 , will help you. Flag format: noob{FLAG} Author: D3v1LaL In CTF competitions the title of the challenge sometimes can be a clue. For example in this challenge, I thought that the word &amp;lsquo;Gross&amp;rsquo; was a play on words from &amp;lsquo;Grons&amp;rsquo; so I concluded it might be &amp;lsquo;Gronsfeld Cipher&amp;rsquo;. The conclusion I got after reading the pycipher documentation.
-&amp;gt;&amp;gt;&amp;gt; import pyciphet &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; msg = pycipher.</description>
+&amp;gt;&amp;gt;&amp;gt; import pycipher &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; msg = pycipher.</description>
             <content type="html"><![CDATA[<hr>
 <h2 id="gross-120pts">Gross 120pts</h2>
 <pre><code>Cipher: OQWKWPUVMYTIUSSTHHPI
@@ -25,7 +25,7 @@ Keep this: 12345 , will help you. Flag format: noob{FLAG}
 
 Author: D3v1LaL
 </code></pre><p>In CTF competitions the title of the challenge sometimes can be a clue. For example in this challenge, I thought that the word &lsquo;Gross&rsquo; was a play on words from &lsquo;Grons&rsquo; so I concluded it might be &lsquo;Gronsfeld Cipher&rsquo;. The conclusion I got after reading the <a href="https://pycipher.readthedocs.io/en/master/#id16">pycipher</a> documentation.</p>
-<pre><code>&gt;&gt;&gt; import pyciphet
+<pre><code>&gt;&gt;&gt; import pycipher
 &gt;&gt;&gt;
 &gt;&gt;&gt; msg = pycipher.Gronsfeld([1,2,3,4,5]).decipher('OQWKWPUVMYTIUSSTHHPI')
 &gt;&gt;&gt; msg
