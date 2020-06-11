@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="">
-<meta name="description" content="Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db  This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
-❯ file encrypted_db encrypted_db: ASCII text  This file has a text format, let&amp;rsquo;s look at the contents of the file." />
-<meta name="keywords" content=", Reverse Engineering" />
+<meta name="description" content="Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
+❯ file encrypted_db encrypted_db: ASCII text This file has a text format, let&amp;rsquo;s look at the contents of the file." />
+<meta name="keywords" content="insomn14, Reverse Engineering" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://insomn14.github.io/posts/neverlanctf-2020/" />
@@ -15,7 +15,7 @@
 
     <title>
         
-            NeverLAN CTF 2020 |  RE *Writeups* :: Hallo Dunia!  — this blog is about my CTFs writeups &amp; other cool things
+            NeverLAN CTF 2020 |  RE *Writeups* :: Hello World!  — this blog is about my CTFs writeups &amp; other cool things
         
     </title>
 
@@ -26,29 +26,27 @@
 
 
 
-<link rel="stylesheet" href="/main.min.2f0d18b84270567c723bff340b09ab08db3a7634237cd9667d052eb6b14669b8.css">
+<link rel="stylesheet" href="/main.min.5dcefbf8102eb536dd3e2de53ffebfa58599ab2435c241a0db81728a5e015f2e.css">
 
 
 
 
 <meta itemprop="name" content="NeverLAN CTF 2020 |  RE *Writeups*">
-<meta itemprop="description" content="Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db  This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
-❯ file encrypted_db encrypted_db: ASCII text  This file has a text format, let&rsquo;s look at the contents of the file.">
-
-
+<meta itemprop="description" content="Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
+❯ file encrypted_db encrypted_db: ASCII text This file has a text format, let&rsquo;s look at the contents of the file.">
 <meta itemprop="datePublished" content="2020-02-14T00:46:37&#43;07:00" />
 <meta itemprop="dateModified" content="2020-02-14T00:46:37&#43;07:00" />
 <meta itemprop="wordCount" content="536">
+<meta itemprop="image" content="https://insomn14.github.io/"/>
 
 
 
-<meta itemprop="keywords" content="Reverse Engineering," />
-<meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Reverse Engineering," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://insomn14.github.io/"/>
 
 <meta name="twitter:title" content="NeverLAN CTF 2020 |  RE *Writeups*"/>
-<meta name="twitter:description" content="Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db  This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
-❯ file encrypted_db encrypted_db: ASCII text  This file has a text format, let&rsquo;s look at the contents of the file."/>
+<meta name="twitter:description" content="Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
+❯ file encrypted_db encrypted_db: ASCII text This file has a text format, let&rsquo;s look at the contents of the file."/>
 
 
 
@@ -89,7 +87,7 @@
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://insomn14.github.io/posts">Blog</a></li>
+    <ul class="menu__inner"><li><a href="https://insomn14.github.io/posts">Writeups</a></li>
     </ul>
 </nav>
 
@@ -132,27 +130,17 @@
             
 
             <div class="post-content">
-                
-
-<hr />
-
+                <hr>
 <h3 id="script-kiddie-100pts">Script Kiddie 100pts</h3>
-
 <pre><code>Description:
 It looks like a script kiddie was trying to build a crypto locker.
 See if you can get the database back?
 File:
 encrypted_db
-</code></pre>
-
-<p>This problem gives us the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/ScriptKiddie">encrypted_db</a></em> file, you can download it on my github. After that we can see the file format using the following command.</p>
-
+</code></pre><p>This problem gives us the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/ScriptKiddie">encrypted_db</a></em> file, you can download it on my github. After that we can see the file format using the following command.</p>
 <pre><code>❯ file encrypted_db
 encrypted_db: ASCII text
-</code></pre>
-
-<p>This file has a text format, let&rsquo;s look at the contents of the file.</p>
-
+</code></pre><p>This file has a text format, let&rsquo;s look at the contents of the file.</p>
 <pre><code>❯ cat encrypted_db
 ..... 
 764c6d4e7662534973496d466b5a484a6c63334d694f6e7369633352795a
@@ -162,10 +150,7 @@ encrypted_db: ASCII text
 6d6c775932396b5a534936496a63784e6a4d33496977695a325676496a70
 37496d786864434936496a4d7a4c6a45794d6a4d694c434a73626d63694f
 .....
-</code></pre>
-
-<p>After opening the file I thought that it had been encoded into the hex form. I use python2 interactive to decode the contents of the file.</p>
-
+</code></pre><p>After opening the file I thought that it had been encoded into the hex form. I use python2 interactive to decode the contents of the file.</p>
 <pre><code>&gt;&gt;&gt; enc = open('encrypted_db', 'r').read().replace('\n','')
 &gt;&gt;&gt; dec = enc.decode('hex')
 &gt;&gt;&gt; dec
@@ -173,10 +158,7 @@ encrypted_db: ASCII text
 ....
 ZGVyIC0gSmFjb2JpIiwiY2F0\nY2hQaHJhc2UiOiJDdXN0b21pemFibGUgb3B0aW1pemluZyBpbnRlcmZhY2UiLCJicyI6ImUtYnVz\naW5lc3Mgc3ludGhlc2l6ZSBzY2hlbWFzIn19fQo=\n'
 
-</code></pre>
-
-<p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>&rsquo;=&rsquo;</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
-
+</code></pre><p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>&lsquo;=&rsquo;</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
 <pre><code>❯ nl solver.py
      1	import re
      2	from base64 import b64decode
@@ -188,25 +170,16 @@ ZGVyIC0gSmFjb2JpIiwiY2F0\nY2hQaHJhc2UiOiJDdXN0b21pemFibGUgb3B0aW1pemluZyBpbnRlcm
 ❯ python solver.py
 ['flag{ENC0D1NG_D4TA_1S_N0T_ENCRY7I0N}']
 
-</code></pre>
-
-<p>And we got the flag.</p>
-
+</code></pre><p>And we got the flag.</p>
 <p><code>flag{ENC0D1NG_D4TA_1S_N0T_ENCRY7I0N}</code></p>
-
-<hr />
-
+<hr>
 <h3 id="adobe-payroll-100pts">Adobe Payroll 100pts</h3>
-
 <pre><code>Description:
 We've forgotten the password to our payroll machine. Can you extract it?
 File:
 Adobe_Payroll.7z
-</code></pre>
-
-<p>Almost the same as the previous challange, in this problem we were given <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/AdobePlayroll">Adobe_Payroll.7z</a></em>,
+</code></pre><p>Almost the same as the previous challange, in this problem we were given <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/AdobePlayroll">Adobe_Payroll.7z</a></em>,
 you can download the file on my github. Let&rsquo;s extract the <em>7z</em> file, in the <em>7z</em> file there are two files, including the  <em>executable</em> file and <em>description.md</em>.</p>
-
 <pre><code>❯ file Adobe_Employee_Payroll.exe
 Adobe_Employee_Payroll.exe: PE32 executable (GUI) Intel 80386 Mono/.Net assembly, for MS Windows
 
@@ -219,47 +192,33 @@ Adobe_Employee_Payroll.exe: PE32 executable (GUI) Intel 80386 Mono/.Net assembly
 ## Description
 
 This is a .NET file. Take a look at dotPeek.
-</code></pre>
-
-<p>So basically, I think this program uses C# language. So you can use <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwi7o_PPwM_nAhX4yDgGHYAjCVAQFjAEegQIDBAG&amp;url=https%3A%2F%2Fwww.jetbrains.com%2Fdecompiler%2F&amp;usg=AOvVaw1pcfEbCKhdDrtRMXeXhm3k">dotPeek</a>   to decompile. But in this case I use IDA to do static analysis.
-<img src="/img/Screenshot/neverlanctf2020/Re/3.PNG" alt="AdobePayroll" />
+</code></pre><p>So basically, I think this program uses C# language. So you can use <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwi7o_PPwM_nAhX4yDgGHYAjCVAQFjAEegQIDBAG&amp;url=https%3A%2F%2Fwww.jetbrains.com%2Fdecompiler%2F&amp;usg=AOvVaw1pcfEbCKhdDrtRMXeXhm3k">dotPeek</a>   to decompile. But in this case I use IDA to do static analysis.
+<img src="/img/Screenshot/neverlanctf2020/Re/3.PNG" alt="AdobePayroll">
 Select <code>Microsoft.Net assembly [pe.ldw]</code> then click Ok.
-<img src="/img/Screenshot/neverlanctf2020/Re/4.PNG" alt="AdobePayroll" />
+<img src="/img/Screenshot/neverlanctf2020/Re/4.PNG" alt="AdobePayroll">
 In the <em>Functions window</em> there is a function of <code>employee_payroll_checkUsername</code> &amp; <code>employee_payroll_chackPassword</code>, That function I think is used to compare a string.
-<img src="/img/Screenshot/neverlanctf2020/Re/5.PNG" alt="AdobePayroll" />
-<img src="/img/Screenshot/neverlanctf2020/Re/6.PNG" alt="AdobePayroll" />
- Let&rsquo;s try using the <code>admin</code> as the <em>Username</em> and <code>bmV2ZXJfZ29ubmFfZ212ZV95b3VfdXAh</code> as the <em>Password</em>.
-<img src="/img/Screenshot/neverlanctf2020/Re/flag.PNG" alt="AdobePayroll" />
+<img src="/img/Screenshot/neverlanctf2020/Re/5.PNG" alt="AdobePayroll">
+<img src="/img/Screenshot/neverlanctf2020/Re/6.PNG" alt="AdobePayroll">
+Let&rsquo;s try using the <code>admin</code> as the <em>Username</em> and <code>bmV2ZXJfZ29ubmFfZ212ZV95b3VfdXAh</code> as the <em>Password</em>.
+<img src="/img/Screenshot/neverlanctf2020/Re/flag.PNG" alt="AdobePayroll">
 And boom!.. we got the flag.</p>
-
 <p><code>flag{.net_is_pretty_eassy_to_decompile}</code></p>
-
-<hr />
-
+<hr>
 <h3 id="reverse-engineer-300pts">Reverse Engineer 300pts</h3>
-
 <pre><code>Description:
 This program seems to get stuck while running...
 Can you get it to continue past the broken function?
 File:
 reverseng
-</code></pre>
-
-<p>In this case we are given a binary <a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/Reverse%20Engineer">reverseng</a>  file, once again you can check on my github to download the binary file ;). when we try to run the program we will get the SEGV message.</p>
-
+</code></pre><p>In this case we are given a binary <a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/Reverse%20Engineer">reverseng</a>  file, once again you can check on my github to download the binary file ;). when we try to run the program we will get the SEGV message.</p>
 <pre><code>❯ ./revseng
 [1]    12675 segmentation fault (core dumped)  ./revseng
 
 ❯ file revseng
 revseng: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=89d54c514d9f6bec697e52edfee4a495266b3577, for GNU/Linux 3.2.0, with debug_info, not stripped
-</code></pre>
-
-<p>So without further ado let&rsquo;s get started analyzing it using IDA. There is a function called <code>void __cdecl print ()</code> and <code>malloc ()</code> function that allocates memory of 0x15 or 21byte to <code>flg</code>, And each byte contains a decimal value. So this is the Pseudocode of the function, after we convert each index value of <code>flg</code> to character.</p>
-
-<p><img src="/img/Screenshot/neverlanctf2020/Re/pseudocode.png" alt="revseng" /></p>
-
+</code></pre><p>So without further ado let&rsquo;s get started analyzing it using IDA. There is a function called <code>void __cdecl print ()</code> and <code>malloc ()</code> function that allocates memory of 0x15 or 21byte to <code>flg</code>, And each byte contains a decimal value. So this is the Pseudocode of the function, after we convert each index value of <code>flg</code> to character.</p>
+<p><img src="/img/Screenshot/neverlanctf2020/Re/pseudocode.png" alt="revseng"></p>
 <p>And we get the flag again.</p>
-
 <p><code>flag{w3con7r0lth3b1nari3s}</code></p>
 
             </div>
@@ -310,7 +269,7 @@ revseng: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically li
         <div class="footer__content">
             <span>&copy; 2020</span>
             
-            <span></span>
+            <span>insomn14</span>
             <span> <a href="https://insomn14.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
         </div>
     </div>

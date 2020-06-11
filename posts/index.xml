@@ -1,12 +1,174 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on Hallo Dunia!</title>
+        <title>Posts on Hello World!</title>
         <link>https://insomn14.github.io/posts/</link>
-        <description>Recent content in Posts on Hallo Dunia!</description>
+        <description>Recent content in Posts on Hello World!</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 30 Mar 2020 06:16:12 +0700</lastBuildDate>
+        <copyright>insomn14</copyright>
+        <lastBuildDate>Tue, 09 Jun 2020 12:16:12 +0700</lastBuildDate>
         <atom:link href="https://insomn14.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>NoobCTF0x1 | Crypto *Writeups*</title>
+            <link>https://insomn14.github.io/posts/noobctf0x1-crypto/</link>
+            <pubDate>Tue, 09 Jun 2020 12:16:12 +0700</pubDate>
+            
+            <guid>https://insomn14.github.io/posts/noobctf0x1-crypto/</guid>
+            <description>Gross 120pts Cipher: OQWKWPUVMYTIUSSTHHPI Keep this: 12345 , will help you. Flag format: noob{FLAG} Author: D3v1LaL In CTF competitions the title of the challenge sometimes can be a clue. For example in this challenge, I thought that the word &amp;lsquo;Gross&amp;rsquo; was a play on words from &amp;lsquo;Grons&amp;rsquo; so I concluded it might be &amp;lsquo;Gronsfeld Cipher&amp;rsquo;. The conclusion I got after reading the pycipher documentation.
+&amp;gt;&amp;gt;&amp;gt; import pyciphet &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; msg = pycipher.</description>
+            <content type="html"><![CDATA[<hr>
+<h2 id="gross-120pts">Gross 120pts</h2>
+<pre><code>Cipher: OQWKWPUVMYTIUSSTHHPI
+
+Keep this: 12345 , will help you. Flag format: noob{FLAG}
+
+Author: D3v1LaL
+</code></pre><p>In CTF competitions the title of the challenge sometimes can be a clue. For example in this challenge, I thought that the word &lsquo;Gross&rsquo; was a play on words from &lsquo;Grons&rsquo; so I concluded it might be &lsquo;Gronsfeld Cipher&rsquo;. The conclusion I got after reading the <a href="https://pycipher.readthedocs.io/en/master/#id16">pycipher</a> documentation.</p>
+<pre><code>&gt;&gt;&gt; import pyciphet
+&gt;&gt;&gt;
+&gt;&gt;&gt; msg = pycipher.Gronsfeld([1,2,3,4,5]).decipher('OQWKWPUVMYTIUSSTHHPI')
+&gt;&gt;&gt; msg
+'NOTGROSSITSGRONSFELD'
+</code></pre><p>FLAG : <code>noob{NOTGROSSITSGRONSFELD}</code></p>
+<hr>
+<h2 id="aar_ess_ae-20-200pts">Aar_Ess_Ae 2.0 200pts</h2>
+<pre><code>Optimus Prime Loves The Title Of This Song: https://www.youtube.com/watch?v=wyx6JDQCslE
+
+Author: D3v1LaL
+</code></pre><p>We were given an aresae2.txt file that contained</p>
+<pre><code>n: 1209143407476550975641959824312993703149920344437422193042293131572745298662696284279928622412441255652391493241414170537319784298367821654726781089600780498369402167443363862621886943970468819656731959468058528787895569936536904387979815183897568006750131879851263753496120098205966442010445601534305483783759226510120860633770814540166419495817666312474484061885435295870436055727722073738662516644186716532891328742452198364825809508602208516407566578212780807
+e: 65537
+c: 479864533376761605695501447173868480555428955121197237667644363164782871896916177280454277070395501072881821206028710238061428135752902868021510351013602427444705377461961807606024656743172785917677779391848195684330103645049456693618142623342949445393135435605296850775153054696353591431012573391751673267024658145416936335505273041995697052197680305689264142043959382559774510439925577487721780439642813074520685265074584526487330950173513520723457640547997316 
+</code></pre><p>I use <a href="https://github.com/Ganapati/RsaCtfTool">RsaCtfTool</a> to help me get a private key. After that we can create simple script to decrypt value of c
+<!-- raw HTML omitted --></p>
+<pre><code>from Crypto.Util.number import long_to_bytes
+from Crypto.PublicKey import RSA
+
+c = 479864533376761605695501447173868480555428955121197237667644363164782871896916177280454277070395501072881821206028710238061428135752902868021510351013602427444705377461961807606024656743172785917677779391848195684330103645049456693618142623342949445393135435605296850775153054696353591431012573391751673267024658145416936335505273041995697052197680305689264142043959382559774510439925577487721780439642813074520685265074584526487330950173513520723457640547997316
+f = open('keypair.pem', 'r').read()
+key = RSA.importKey(f)
+m = long_to_bytes(pow(c, key.d, key.n))
+with open('flag.txt', 'w') as w:
+        w.write(str(m))
+        w.close()
+print(m)
+</code></pre>
+<!-- raw HTML omitted -->
+<p>FLAG : <code>noob{Primes_Can_B3_Saxy_T00}</code></p>
+<hr>
+<h2 id="crackmeh-250pts">CrackMeh 250pts</h2>
+<pre><code>3lli0t found a diary from Evil Corp. He have to get into the system, but can't as he have a hash of a password and no plaintext. Help him to get into system.
+
+flag format: noob{plaintext}
+
+hash: 4ee805f9397a1d584ef9be9d2a4f8f20
+
+Author: D3v1LaL
+</code></pre><p>We were given an diary.txt file that contained</p>
+<pre><code>_________________________
+|                       |
+|                       |
+|                       |
+|         Alice         |
+|        January        |
+|         1994          |
+|         USA           |
+|          25           |
+|       Security        |
+|                       |
+|                       |
+|_______________________|
+</code></pre><p>To solve this challenge, we can use diary.txt as information, maybe the hash contains some of these words.</p>
+<!-- raw HTML omitted -->
+<pre><code>from itertools import permutations
+import hashlib
+
+def checked(inc, data):
+    for data in permutations(data, inc):
+        temp = bytes(''.join((data)), 'utf-8')
+        m = hashlib.md5()
+        m.update(temp)
+        result = m.hexdigest()
+        if result == hashed:
+            print(f'FOUND : {result} -&gt; {temp}')
+            return True
+    return False
+
+hashed = '4ee805f9397a1d584ef9be9d2a4f8f20'
+data = ['Alice', 'January', '1994', 'USA', '25', 'Security']
+for cnt in range(1, len(data)+1):
+    if checked(cnt, data):
+        exit()
+</code></pre>
+<!-- raw HTML omitted -->
+<p>FLAG : <code>noob{AliceSecurity1994}</code></p>
+<hr>
+<h2 id="frequency-250pts">Frequency 250pts</h2>
+<pre><code>Elliot captured something, while noob called his friend
+
+Flag format: noob{FLAG}
+
+Author: D3v1LaL
+</code></pre><p>in this challenge we were given Cipher.txt file</p>
+<pre><code>1209-770 1209-770 1477-697 1477-697 1336-770 1336-770 1336-770 1336-770 1336-770 1336-770 1477-770 1477-770 1477-770 1477-697 1336-852 1477-770 1477-697 1477-697 1477-697
+</code></pre><p>As I mentioned earlier, the title of the challenge is usually a hint. The following challenges are <a href="https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling">DTMF</a> keypad frequencies.</p>
+<p>After decoding the signal we will get a number <code>44335555566386333</code>,
+replace the numbers you have obtained with the letter at each press of the T9 keyboard.
+<code>HELLODTMF</code></p>
+<p>FLAG : <code>noob{HELLODTMF}</code></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>NoobCTF0x1 | Forensics *Writeups*</title>
+            <link>https://insomn14.github.io/posts/noobctf0x1-forensics/</link>
+            <pubDate>Tue, 09 Jun 2020 09:16:12 +0700</pubDate>
+            
+            <guid>https://insomn14.github.io/posts/noobctf0x1-forensics/</guid>
+            <description>Can You Hear Me !!! 50pts While performing Man in the Middle attack, I got a secret message from a scientist which can save the world from COVID-19. But unfortunatly I am not able to hear that. I believe that someone with good knowledge of some tools can get the secret message. Note: Online tools also works. Link: https://mega.nz/file/xdxHiQbb#vK91LAP9JjVKxQnMp6e_J1x7-IOIiqbST-htEAmdQWo Replace spaces with _ At this challenge we were given the audio file Challenge.</description>
+            <content type="html"><![CDATA[<hr>
+<h2 id="can-you-hear-me--50pts">Can You Hear Me !!! 50pts</h2>
+<pre><code>While performing Man in the Middle attack, I got a secret message from a scientist which can save the world from COVID-19. But unfortunatly I am not able to hear that. I believe that someone with good knowledge of some tools can get the secret message.
+
+Note: Online tools also works.
+
+Link: https://mega.nz/file/xdxHiQbb#vK91LAP9JjVKxQnMp6e_J1x7-IOIiqbST-htEAmdQWo
+
+Replace spaces with _
+</code></pre><p>At this challenge we were given the audio file Challenge.mp3, the sound on this audio is very small. So you have to increase the volume to hear the sound clearly, and you will get the link. <a href="https://www.shortto.com/noobarmy">https://www.shortto.com/noobarmy</a></p>
+<p>After that you will be directed to download the audio.wav file. The file contains the Morse code sound. now we can decode the message <a href="https://morsecode.world/international/decoder/audio-decoder-adaptive.html">link</a></p>
+<p>FLAG : <code>noob{I_H4V3_M4D3_C0R0NA_VACC1N3}</code></p>
+<hr>
+<h2 id="its-easy-50pts">It&rsquo;s easy 50pts</h2>
+<pre><code>It's just an image
+
+Link: https://github.com/AdityaSec/NoobCTF-0x1/tree/master/Forensics/It's easy
+
+Author: Cryptonic007
+</code></pre><p>on these challenge we were given image file iameasy.jpg but the file was corrupted. after doing analyze the signatures a.k.a Magic Bytes is different according to <a href="https://en.wikipedia.org/wiki/List_of_file_signatures">List of file signatures</a></p>
+<p>Before :</p>
+<pre><code>$ xxd iameasy.jpg | head -n2
+00000000: 0510 1902 0010 4a46 4946 0001 0100 0048  ......JFIF.....H
+00000010: 0048 0000 fffe 003b 4352 4541 544f 523a  .H.....;CREATOR:
+</code></pre><p>After :</p>
+<pre><code>$ xxd mod_iameasy.jpg | head -n2
+00000000: ffd8 ffe0 0010 4a46 4946 0001 0100 0048  ......JFIF.....H
+00000010: 0048 0000 fffe 003b 4352 4541 544f 523a  .H.....;CREATOR:
+</code></pre><p>FLAG : <code>noob{1_t0ld_y0u_1ts_34sy}</code></p>
+<hr>
+<h2 id="fine-the-tone-250pts">Fine the tone 250pts</h2>
+<pre><code>James bond tried to find the tone. But, he tired now. Can you help me?
+
+NOTE: Flag format noob{ALLCAPITAL}
+
+Author: Cryptonic007
+</code></pre><p>In this challenge, it is almost similar to the &lsquo;Frequency&rsquo; crypto challenge. but this time we have to analyze the frequency, to do that we can use Audacity, change it to spectrogram. <a href="https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling">link</a></p>
+<p><img src="https://github.com/insomn14/CTFtime2020/NoobCTF0x1/Forensics/Fine%20the%20tone/Screenshot.png" alt="image" title="Screenshot.png"></p>
+<p>From there we can start analyzing each frequency. after you get a number, replace it with the letter at each T9 keyboard emphasis.</p>
+<p>FLAG : <code>noob{YOUGOTTHETONE}</code></p>
+]]></content>
+        </item>
         
         <item>
             <title>TAMUctf 2020 | RE *Writeups*</title>
@@ -14,30 +176,20 @@
             <pubDate>Mon, 30 Mar 2020 06:16:12 +0700</pubDate>
             
             <guid>https://insomn14.github.io/posts/tamuctf-2020/</guid>
-            <description>RUSTY_AT_REVERSING Description: A nice little reversing challenge for those who are a little rusty! File: librusty_at_reversing.so  In this challenge we are given the file librusty_at_reversing.so file, as know as Shared Object file.
-➜ RUSTY_AT_REVERSING file librusty_at_reversing.so librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped  Let&amp;rsquo;s just decompile the file using radare2.
-[0x00001040]&amp;gt; afl 0x00001040 4 41 -&amp;gt; 34 entry0 0x00001220 13 292 sym.</description>
-            <content type="html"><![CDATA[
-
-<hr />
-
-<h3 id="rusty-at-reversing">RUSTY_AT_REVERSING</h3>
-
+            <description>RUSTY_AT_REVERSING Description: A nice little reversing challenge for those who are a little rusty! File: librusty_at_reversing.so In this challenge we are given the file librusty_at_reversing.so file, as know as Shared Object file.
+➜ RUSTY_AT_REVERSING file librusty_at_reversing.so librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped Let&amp;rsquo;s just decompile the file using radare2.
+[0x00001040]&amp;gt; afl 0x00001040 4 41 -&amp;gt; 34 entry0 0x00001220 13 292 sym.decrypt 0x00001100 13 288 sym.</description>
+            <content type="html"><![CDATA[<hr>
+<h3 id="rusty_at_reversing">RUSTY_AT_REVERSING</h3>
 <pre><code>Description:
 A nice little reversing challenge for those who are a little rusty!
 
 File:
 librusty_at_reversing.so
-</code></pre>
-
-<p>In this challenge we are given the file <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/RUSTY_AT_REVERSING"><em>librusty_at_reversing.so</em></a> file, as know as <a href="https://superuser.com/questions/71404/what-is-an-so-file"><em>Shared Object</em></a>  file.</p>
-
+</code></pre><p>In this challenge we are given the file <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/RUSTY_AT_REVERSING"><em>librusty_at_reversing.so</em></a> file, as know as <a href="https://superuser.com/questions/71404/what-is-an-so-file"><em>Shared Object</em></a>  file.</p>
 <pre><code>➜  RUSTY_AT_REVERSING file librusty_at_reversing.so 
 librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped
-</code></pre>
-
-<p>Let&rsquo;s just decompile the file using radare2.</p>
-
+</code></pre><p>Let&rsquo;s just decompile the file using radare2.</p>
 <pre><code>[0x00001040]&gt; afl
 
 0x00001040    4 41   -&gt; 34   entry0
@@ -47,10 +199,7 @@ librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV)
 0x000010f0    5 137  -&gt; 60   entry.init0
 0x000010b0    5 57   -&gt; 54   entry.fini0
 0x000018d0    6 79           fcn.000018d0
-</code></pre>
-
-<p>As we can see, there are two very interesting functions namely <code>sym.get_flag</code> and <code>sym.decrypt</code>.</p>
-
+</code></pre><p>As we can see, there are two very interesting functions namely <code>sym.get_flag</code> and <code>sym.decrypt</code>.</p>
 <pre><code>[0x000018d0]&gt; pdg@sym.get_flag
 
 int64_t sym.get_flag(int64_t arg1)
@@ -104,10 +253,7 @@ int64_t sym.get_flag(int64_t arg1)
     *(undefined4 *)(arg1 + 0x18) = uStack4;
     return arg1;
 }
-</code></pre>
-
-<p>In the <code>sym.get_flag</code> function there is a variable <code>uStack4</code> until <code>uStack28</code> we can assume it is an array, then var <code>uStack</code> is sent as a parameter to the <code>sym.decrypt</code> function.</p>
-
+</code></pre><p>In the <code>sym.get_flag</code> function there is a variable <code>uStack4</code> until <code>uStack28</code> we can assume it is an array, then var <code>uStack</code> is sent as a parameter to the <code>sym.decrypt</code> function.</p>
 <pre><code>[0x000018d0]&gt; pdg@sym.decrypt
 
 void sym.decrypt(int64_t arg1)
@@ -133,12 +279,8 @@ void sym.decrypt(int64_t arg1)
 [0x00001040]&gt; px 0xf @ segment.LOAD2
 - offset -   0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
 0x00002000  e473 7263 2f6c 6962 2e72 7300 2ff8 ff    .src/lib.rs./.. 
-</code></pre>
-
-<p>As we see there is a loop where every value in <code>arg1</code> will be xor with <code>uStack9</code> == <em>0xe4 &ndash;&gt; 228</em>.</p>
-
+</code></pre><p>As we see there is a loop where every value in <code>arg1</code> will be xor with <code>uStack9</code> == <em>0xe4 &ndash;&gt; 228</em>.</p>
 <p>Now let&rsquo;s create a simple code to solve it.</p>
-
 <pre><code>def decrypt(a1):
     v3 = 228
     for i in range(len(a1)):
@@ -151,36 +293,22 @@ void sym.decrypt(int64_t arg1)
 flag = [0x83, 0xea, 0x8d, 0xe8, 0x85, 0xfe, 0x93, 0xe1, 0xbe, 0xcd, 0xb9, 0xd8, 0xaa, 0xc1, 0x9e, 0xf7, 0xa8, 0xce, 0xab, 0xce, 0xa2, 0xfd, 0x8f, 0xfa, 0x89, 0xfd, 0x84, 0xf9]
 
 print(''.join(decrypt(flag)))
-</code></pre>
-
-<p>Let&rsquo;s run our script.</p>
-
+</code></pre><p>Let&rsquo;s run our script.</p>
 <pre><code>➜  RUSTY_AT_REVERSING python solve.py 
 gigem{mr_stark_i_feel_rusty}
-</code></pre>
-
-<p>FLAG: <code>gigem{mr_stark_i_feel_rusty}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG: <code>gigem{mr_stark_i_feel_rusty}</code></p>
+<hr>
 <h3 id="vault">VAULT</h3>
-
 <pre><code>Description:
 
 
 File:
 vault
 
-</code></pre>
-
-<p>In the following challenge we are given a <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/Vault"><em>vault</em></a> binary file.</p>
-
+</code></pre><p>In the following challenge we are given a <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/Vault"><em>vault</em></a> binary file.</p>
 <pre><code>➜  Vault file vault 
 vault: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=9ff9d23fe640e7aa227f5a4a45123753c1f22298, for GNU/Linux 3.2.0, not stripped
-</code></pre>
-
-<p>As usual, let&rsquo;s look at the pseudocode using my favorite tool.</p>
-
+</code></pre><p>As usual, let&rsquo;s look at the pseudocode using my favorite tool.</p>
 <pre><code>[0x000010a0]&gt; pdg@main
 
 undefined8 main(void)
@@ -209,12 +337,8 @@ undefined8 main(void)
     }
     return 0;
 }
-</code></pre>
-
-<p>As we can see the pointer variable <code>arg1</code> allocates 0x1a -&gt; 26 bytes, in the next line after <code>arg1</code> stores the hex value and there is a <code>sym.deobfuscate</code> function call. After that the value of <code>arg1</code> will be compared with our input.</p>
-
+</code></pre><p>As we can see the pointer variable <code>arg1</code> allocates 0x1a -&gt; 26 bytes, in the next line after <code>arg1</code> stores the hex value and there is a <code>sym.deobfuscate</code> function call. After that the value of <code>arg1</code> will be compared with our input.</p>
 <p>The easiest way to complete this challenge without needing to know the task of the <code>sym.deobfuscate</code> function is to place breakpoints after calling the <code>sym.deobfuscate</code> function. I use gdb to do debugging.</p>
-
 <pre><code>gdb-peda$ start
    ...
    ...
@@ -272,44 +396,27 @@ Legend: code, data, rodata, value
 
 Breakpoint 3, 0x0000555555555322 in main ()
 gdb-peda$ 
-</code></pre>
-
-<p>Clearly visible on the column stack and at the $ RAX register, the <code>deobfucate</code> function returns the <code>arg1</code> value as char, and the password is our flag.</p>
-
-<pre><code> ➜  Vault ./vault 
+</code></pre><p>Clearly visible on the column stack and at the $ RAX register, the <code>deobfucate</code> function returns the <code>arg1</code> value as char, and the password is our flag.</p>
+<pre><code>➜  Vault ./vault 
 Enter password: gigem{p455w0rd_1n_m3m0ry1}
 Correct!  That's the password!
-</code></pre>
-
-<p>FLAG: <code>gigem{p455w0rd_1n_m3m0ry1}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG: <code>gigem{p455w0rd_1n_m3m0ry1}</code></p>
+<hr>
 <h3 id="angrmanagement">ANGRMANAGEMENT</h3>
-
 <pre><code>Description:
 
 
 File:
 angrmanagement
-</code></pre>
-
-<p>At this time we are given the <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/ANGRMANAGEMENT"><em>angrmanagement</em></a> binary file.</p>
-
+</code></pre><p>At this time we are given the <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/ANGRMANAGEMENT"><em>angrmanagement</em></a> binary file.</p>
 <pre><code>➜  ANGRMANAGEMENT file angrmanagement
 angrmanagement: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=73fc1cce8d06eebb6bda739fb22cd50059cf73ba, for GNU/Linux 3.2.0, not stripped
-</code></pre>
-
-<p>The challenge this time is the same as the challenges in general, where we are asked to enter the correct input.</p>
-
+</code></pre><p>The challenge this time is the same as the challenges in general, where we are asked to enter the correct input.</p>
 <pre><code>➜  ANGRMANAGEMENT ./angrmanagement 
 Enter the password:
 123321123321
 Incorrect.
-</code></pre>
-
-<p>Let&rsquo;s see disassambly from this program.</p>
-
+</code></pre><p>Let&rsquo;s see disassambly from this program.</p>
 <pre><code>[0x00001120]&gt; afl
 ...
 ...
@@ -380,14 +487,9 @@ Incorrect.
 
      ...
      ...
-</code></pre>
-
-<p>There are 32 <code>check</code> functions, in which each character of our input will be calculated in different check functions. If our input is correct then the program will read the <em>flag.txt</em> file.</p>
-
+</code></pre><p>There are 32 <code>check</code> functions, in which each character of our input will be calculated in different check functions. If our input is correct then the program will read the <em>flag.txt</em> file.</p>
 <p>If we pay close attention to the title of this challenge is a guide, angr is a tool in python that we can use to solve arithmetic operations problems that are quite complicated. This is a <a href="https://docs.angr.io/"><em>link</em></a> to learn more about angr.</p>
-
 <p>The following is a solver I created, based on <a href="https://docs.angr.io/core-concepts/pathgroups"><em>angr Documentation.</em></a></p>
-
 <pre><code>import angr
 
 proj = angr.Project('./angrmanagement')
@@ -400,10 +502,7 @@ print(s.posix.dumps(1))
 
 result = s.posix.dumps(0)
 print(result)
-</code></pre>
-
-<p>Run our script.</p>
-
+</code></pre><p>Run our script.</p>
 <pre><code>➜  ANGRMANAGEMENT python solver.py 
 b'Enter the password:\nCorrect!\n'
 b'P#P7J\xb9YmT[$D5\x06[cxhtAd\xb0{(d.qxBA]j'
@@ -412,14 +511,9 @@ b'P#P7J\xb9YmT[$D5\x06[cxhtAd\xb0{(d.qxBA]j'
 Enter the password:
 Correct!
 gigem{4n63r_m4n463m3n7}
-</code></pre>
-
-<p>FLAG: <code>gigem{4n63r_m4n463m3n7}</code></p>
-
-<hr />
-
-<h3 id="about-time">ABOUT_TIME</h3>
-
+</code></pre><p>FLAG: <code>gigem{4n63r_m4n463m3n7}</code></p>
+<hr>
+<h3 id="about_time">ABOUT_TIME</h3>
 <pre><code>Description:
 
 
@@ -427,15 +521,10 @@ nc challenges.tamuctf.com 4321
 
 File:
 about_time
-</code></pre>
-
-<p>In this challenge we are given file  <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/ABOUT_TIME"><em>about_time</em></a> and nc service, where the flag is placed.</p>
-
+</code></pre><p>In this challenge we are given file  <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/ABOUT_TIME"><em>about_time</em></a> and nc service, where the flag is placed.</p>
 <pre><code>➜  ABOUT_TIME file about_time 
 about_time: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib/ld-musl-x86_64.so.1, stripped
-</code></pre>
-
-<pre><code>➜  ABOUT_TIME nc challenges.tamuctf.com 4321
+</code></pre><pre><code>➜  ABOUT_TIME nc challenges.tamuctf.com 4321
 2020-03-30T22:57:20WIB&gt; Encrypted password: Omt&lt;aMel5gwTao9&lt;UH6tsSb
 Enter the password: test
 Incorrect password! Try again.
@@ -443,12 +532,8 @@ Incorrect password! Try again.
 2020-03-30T22:58:01WIB&gt; Encrypted password: nt=bMem6gxTap:=VH7tsTbO
 Enter the password: ttest
 Incorrect password! Try again.
-</code></pre>
-
-<p>Just like the <em>RE</em> challenge before, at this time we were asked to enter a password, but the password was encrypted. If we look carefully, the encrypted password changes when the minutes of that time change. Does that mean the flags are different hhmm .. interesting 🤔️</p>
-
+</code></pre><p>Just like the <em>RE</em> challenge before, at this time we were asked to enter a password, but the password was encrypted. If we look carefully, the encrypted password changes when the minutes of that time change. Does that mean the flags are different hhmm .. interesting 🤔️</p>
 <p>Let&rsquo;s look at the pseudocode from the program, the following is the pseudocode result from IDA Demo.</p>
-
 <pre><code>__int64 __fastcall main(int a1, char **a2, char **a3)
 {
   ...
@@ -500,14 +585,9 @@ Incorrect password! Try again.
   }
   return result;
 }
-</code></pre>
-
-<p>As we can see there is a <code>v4</code> variable where this variable stores the value <em>&lsquo;minutes&rsquo;</em> of <code>localtime</code>. After that <code>v4</code> is calculated with mod 6 plus 2, as follows <code>v4% 6 + 2</code>. The results are stored on the <code>v8</code>.</p>
-
+</code></pre><p>As we can see there is a <code>v4</code> variable where this variable stores the value <em>&lsquo;minutes&rsquo;</em> of <code>localtime</code>. After that <code>v4</code> is calculated with mod 6 plus 2, as follows <code>v4% 6 + 2</code>. The results are stored on the <code>v8</code>.</p>
 <p>In the next line there are three functions, namely <code>sub_12A9</code>, <code>sub_13DD</code>, and <code>sub_1473</code>. Where these three functions use the <em>flag</em> in <code>dest</code> and <code>v8</code>. At this point we can assume that <code>v8</code> is the <em>&lsquo;key&rsquo;</em>. These three functions will do the same thing in our input.</p>
-
 <p>Let&rsquo;s look at the pseudocode again.</p>
-
 <pre><code>size_t __fastcall sub_12A9(const char *a1, int a2)
 {
   size_t result; // rax
@@ -525,14 +605,9 @@ Incorrect password! Try again.
   }
   return result;
 }
-</code></pre>
-
-<p>Okay until here, don&rsquo;t confuse what the <code>sub_12A9</code> function actually does.</p>
-
+</code></pre><p>Okay until here, don&rsquo;t confuse what the <code>sub_12A9</code> function actually does.</p>
 <p>This is the form of the Caesar Cipher function that we usually encounter in CTF challenges in general. In this case <em>Caesar Cipher</em> looks very <em>&lsquo;mathematical&rsquo;</em>.</p>
-
 <p>I will not explain in more detail about this, this <a href="https://www.dcode.fr/caesar-cipher"><em>Link</em></a> explains in detail about the workings of <em>Caesar Cipher</em>.</p>
-
 <pre><code>unsigned __int64 __fastcall sub_13DD(const char *a1, int a2)
 {
   ...
@@ -544,16 +619,11 @@ Incorrect password! Try again.
     a1[i] = dest[(i + a2) % v4];
   return __readfsqword(0x28u) ^ v6;
 }
-</code></pre>
-
-<p>The function of <code>sub_13DD</code> is to make a shift for each character in <code>a1</code>, where the character shift distance is determined from <code>a2</code>.</p>
-
+</code></pre><p>The function of <code>sub_13DD</code> is to make a shift for each character in <code>a1</code>, where the character shift distance is determined from <code>a2</code>.</p>
 <pre><code>Example:
 a1 = 'insomn14', a2 = 4;
 The result will be : 'mn14inso'
-</code></pre>
-
-<pre><code>__int64 __fastcall sub_1473(const char *a1, char a2)
+</code></pre><pre><code>__int64 __fastcall sub_1473(const char *a1, char a2)
 {
   ...
   ...
@@ -568,12 +638,8 @@ The result will be : 'mn14inso'
   }
   return result;
 }
-</code></pre>
-
-<p>In the <code>sub_1473</code> function, each number character in <code>a1</code> will be added to <code>a2</code></p>
-
+</code></pre><p>In the <code>sub_1473</code> function, each number character in <code>a1</code> will be added to <code>a2</code></p>
 <p>There is a function I forgot to mention in the first <code>sub_14FB</code>.</p>
-
 <pre><code>int __fastcall sub_14FB(const char *a1, const char *a2)
 {
   if ( !strcmp(a1, a2) )
@@ -582,14 +648,9 @@ The result will be : 'mn14inso'
     puts(&quot;Incorrect password! Try again.&quot;);
   return fflush((FILE *)&amp;dword_0);
 }
-</code></pre>
-
-<p>After our flag and input go through the three previous functions, this function compares our input with the flag.</p>
-
+</code></pre><p>After our flag and input go through the three previous functions, this function compares our input with the flag.</p>
 <p>To solve this challenge, we can inverse each of the functions I explained earlier.</p>
-
 <p>The following are the scripts that I made to solve the challenge.</p>
-
 <pre><code>def dec3(a1, a2):
     a1 = bytearray(a1)
     v4 = len(a1)
@@ -622,10 +683,7 @@ mnt = input(&quot;Key : &quot;) % 6 + 2
 dec = raw_input(&quot;Cipher : &quot;)
 res = dec1(dec2(dec3(dec, mnt), mnt), mnt)
 print &quot;Plantext :&quot;,res
-</code></pre>
-
-<p>Let&rsquo;s test our script on nc service.</p>
-
+</code></pre><p>Let&rsquo;s test our script on nc service.</p>
 <pre><code># Terminal 1
 ➜  ABOUT_TIME  nc challenges.tamuctf.com 4321
 2020-03-30T22:46:52WIB&gt; Encrypted password: nt=bMem6gxTap:=VH7tsTbO
@@ -644,14 +702,9 @@ Plantext : 1tsAbOut7iMet0geTaw47CH
 2020-03-30T22:46:52WIB&gt; Encrypted password: nt=bMem6gxTap:=VH7tsTbO
 Enter the password: 1tsAbOut7iMet0geTaw47CH
 Correct! Here you go: gigem{1tsAbOut7iMet0geTaw47CH}
-</code></pre>
-
-<p>FLAG: <code>gigem{1tsAbOut7iMet0geTaw47CH}</code></p>
-
-<hr />
-
-<h3 id="just-bc">JUST_BC</h3>
-
+</code></pre><p>FLAG: <code>gigem{1tsAbOut7iMet0geTaw47CH}</code></p>
+<hr>
+<h3 id="just_bc">JUST_BC</h3>
 <pre><code>Description:
 
 
@@ -660,24 +713,16 @@ nc challenges.tamuctf.com 4932
 File:
 just-bc.bin
 
-</code></pre>
-
-<p>In the following challenge we are given <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/JUST_BC"><em>just-bc.bin</em></a> file and nc service files.</p>
-
+</code></pre><p>In the following challenge we are given <a href="https://github.com/insomn14/CTFtime2020/tree/master/TAMUctf_2020/Reversing/JUST_BC"><em>just-bc.bin</em></a> file and nc service files.</p>
 <pre><code>➜  JUST_BC file just-bc.bin 
 just-bc.bin: LLVM IR bitcode
 
 ➜  JUST_BC nc challenges.tamuctf.com 4932
 Password: test
 lmao nice try, but that's not it
-</code></pre>
-
-<p>Honestly I&rsquo;m not familiar with challenges like this, but it doesn&rsquo;t take too much time to complete this challenge.</p>
-
+</code></pre><p>Honestly I&rsquo;m not familiar with challenges like this, but it doesn&rsquo;t take too much time to complete this challenge.</p>
 <p>After several hours of asking Google, I finally found this <a href="https://subscription.packtpub.com/book/application_development/9781785285981/1/ch01lvl1sec14/converting-llvm-bitcode-to-target-machine-assembly"><em>article</em></a>.</p>
-
 <p>We can use the llc command to see the assembly code, if you use linux you can type the <code>man llc</code> command to find out more in detail.</p>
-
 <pre><code>➜  JUST_BC llc just-bc.bin -o out.s
 
 ➜  JUST_BC ll
@@ -685,10 +730,7 @@ total 1,6M
 -rwxr-xr-x 1 insomnia insomnia   48 Mar 30 23:01 connect.sh
 -rwxr-xr-x 1 insomnia insomnia 261K Mar 19 04:38 just-bc.bin
 -rw-r--r-- 1 insomnia insomnia 640K Mar 29 21:17 out.s
-</code></pre>
-
-<p>After opening the file out.s there are many assembly code instructions. From here I just need to find the String of <em>&lsquo;Password&rsquo;</em>. When I find the string at the same time I see a suspicious string.</p>
-
+</code></pre><p>After opening the file out.s there are many assembly code instructions. From here I just need to find the String of <em>&lsquo;Password&rsquo;</em>. When I find the string at the same time I see a suspicious string.</p>
 <pre><code>.Lanon.112aa5216417f3e30cbfa40815f3b444.61:
 	.ascii	&quot;lmaoniceonebuddypalfriendolino&quot;  &lt;------------------- &quot;That string is what I mean&quot;
 	.size	.Lanon.112aa5216417f3e30cbfa40815f3b444.61, 30
@@ -710,16 +752,11 @@ total 1,6M
 	.ascii	&quot;Password: &quot;
 	.size	.Lanon.112aa5216417f3e30cbfa40815f3b444.64, 10
 
-</code></pre>
-
-<p>I just need to copy and paste the string and run it on the nc service, and see what I get.</p>
-
+</code></pre><p>I just need to copy and paste the string and run it on the nc service, and see what I get.</p>
 <pre><code>➜  JUST_BC nc challenges.tamuctf.com 4932
 Password: lmaoniceonebuddypalfriendolino
 gigem{hmm_yes_interesting_very_interesting}
-</code></pre>
-
-<p>FLAG: <code>gigem{hmm_yes_interesting_very_interesting}</code></p>
+</code></pre><p>FLAG: <code>gigem{hmm_yes_interesting_very_interesting}</code></p>
 ]]></content>
         </item>
         
@@ -729,13 +766,9 @@ gigem{hmm_yes_interesting_very_interesting}
             <pubDate>Thu, 19 Mar 2020 12:59:21 +0700</pubDate>
             
             <guid>https://insomn14.github.io/posts/%C3%A5ngstromctf-2020/</guid>
-            <description>Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &amp;quot;shell&amp;quot; link at the top of the site. Hint : Try some google searches for &amp;quot;how to run a file in linux&amp;quot; or &amp;quot;bash for beginners&amp;quot;. File: revving_up Author: aplet123  In this challenge we are given the revving_up binary file.</description>
-            <content type="html"><![CDATA[
-
-<hr />
-
+            <description>Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &amp;quot;shell&amp;quot; link at the top of the site. Hint : Try some google searches for &amp;quot;how to run a file in linux&amp;quot; or &amp;quot;bash for beginners&amp;quot;. File: revving_up Author: aplet123 In this challenge we are given the revving_up binary file.</description>
+            <content type="html"><![CDATA[<hr>
 <h3 id="revving-up">Revving Up</h3>
-
 <pre><code>Description:
 Clam wrote a program for his school's cybersecurity club's first rev lecture! Can you get it to give you the flag?
 You can find it at /problems/2020/revving_up on the shell server,
@@ -749,10 +782,7 @@ revving_up
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In this challenge we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Revving%20Up">revving_up</a></em> binary file.</p>
-
+</code></pre><p>In this challenge we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Revving%20Up">revving_up</a></em> binary file.</p>
 <pre><code>❯ file revving_up
 revving_up: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=e9a5285cc0d71320a73e27870a35a98efbe01a87, not stripped
 
@@ -764,10 +794,7 @@ give flag
 Good job!
 Now run the program with a command line argument of &quot;banana&quot; and you'll be done!
 ❯ 
-</code></pre>
-
-<p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>&rsquo;. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
-
+</code></pre><p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>'. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
 <pre><code>iVar2 = sym.imp.strcmp(&amp;s1, &quot;give flag&quot;);
     if (iVar2 == 0) {
         sym.imp.puts(&quot;Good job!&quot;);
@@ -785,10 +812,7 @@ Now run the program with a command line argument of &quot;banana&quot; and you'l
                 uVar4 = 1;
             }
         }
-</code></pre>
-
-<p>As you can see, on the iVar2 variable there is <code>strcmp (argv [1], 'banana');</code> As we mentioned earlier we need to add an argument to the argument when executing the program. Now run the program on the given server ssh.</p>
-
+</code></pre><p>As you can see, on the iVar2 variable there is <code>strcmp (argv [1], 'banana');</code> As we mentioned earlier we need to add an argument to the argument when executing the program. Now run the program on the given server ssh.</p>
 <pre><code>team5385@actf:/problems/2020/revving_up$ ./revving_up banana
 Congratulations on running the binary!
 Now there are a few more things to tend to.
@@ -797,14 +821,9 @@ give flag
 Good job!
 Well I think it's about time you got the flag!
 actf{g3tting_4_h4ng_0f_l1nux_4nd_b4sh}
-</code></pre>
-
-<p>FLAG : <code>actf{g3tting_4_h4ng_0f_l1nux_4nd_b4sh}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG : <code>actf{g3tting_4_h4ng_0f_l1nux_4nd_b4sh}</code></p>
+<hr>
 <h2 id="windows-of-opportunity">Windows of Opportunity</h2>
-
 <pre><code>Description:
 Clam's a windows elitist and he just can't stand seeing all of these linux challenges!
 So, he decided to step in and create his own rev challenge with the &quot;superior&quot; operating system.
@@ -817,10 +836,7 @@ windows_of_opportunity.exe
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In the following challenge we are given the file <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Windows%20of%20Opportunity">windows_of_opportunity.exe</a></em>.</p>
-
+</code></pre><p>In the following challenge we are given the file <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Windows%20of%20Opportunity">windows_of_opportunity.exe</a></em>.</p>
 <pre><code>❯ file windows_of_opportunity.exe
 windows_of_opportunity.exe: PE32+ executable (console) x86-64, for MS Windows
 
@@ -829,10 +845,7 @@ Welcome to the superior rev challenge compiled for the superior operating system
 What's the superior flag for this superior rev challenge?
 give flag
 Your flag is way too different from my superior flag!
-</code></pre>
-
-<p>As <strong>Hint</strong> said, let&rsquo;s look at the <em>disassembly</em> code. Following is the <em>disassembly</em> code of <em>radare2</em>.</p>
-
+</code></pre><p>As <strong>Hint</strong> said, let&rsquo;s look at the <em>disassembly</em> code. Following is the <em>disassembly</em> code of <em>radare2</em>.</p>
 <pre><code>...
 │           0x00401603      ffd0           call rax
 │           0x00401605      4989c0         mov r8, rax
@@ -861,23 +874,15 @@ Your flag is way too different from my superior flag!
 0x004030a0  6163 7466 7b6f 6b34 795f 6d34 7962 335f  actf{ok4y_m4yb3_
 0x004030b0  6c69 6e75 785f 6973 5f73 3769 6c6c 5f62  linux_is_s7ill_b
 0x004030c0  3374 7433 727d                           3tt3r}
-</code></pre>
-
-<p>We can immediately see the flag very clearly. The flag is located at memory address <em>0x004030a0</em>.</p>
-
+</code></pre><p>We can immediately see the flag very clearly. The flag is located at memory address <em>0x004030a0</em>.</p>
 <pre><code>❯ wine windows_of_opportunity.exe
 Welcome to the superior rev challenge compiled for the superior operating system!
 What's the superior flag for this superior rev challenge?
 actf{ok4y_m4yb3_linux_is_s7ill_b3tt3r}
 Oh wow a fellow windows user!
-</code></pre>
-
-<p>FLAG : <code>actf{ok4y_m4yb3_linux_is_s7ill_b3tt3r}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG : <code>actf{ok4y_m4yb3_linux_is_s7ill_b3tt3r}</code></p>
+<hr>
 <h2 id="taking-off">Taking Off</h2>
-
 <pre><code>Description:
 So you started revving up, but is it enough to take off? Find the problem in /problems/2020/taking_off/ in the shell server.
 
@@ -889,10 +894,7 @@ taking_off
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In the following challenge we are given the binary <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Taking%20Off">taking_off file</a></em>.</p>
-
+</code></pre><p>In the following challenge we are given the binary <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Taking%20Off">taking_off file</a></em>.</p>
 <pre><code>❯ file taking_off
 taking_off: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=fc4deaf2c2da6fdaf4cb7bc1e83d4f1372720832, not stripped
 
@@ -907,10 +909,7 @@ So you figured out how to provide input and command line arguments.
 But can you figure out what input to provide?
 Don't try to guess the arguments, it won't work.
 
-</code></pre>
-
-<p>Almost the same as the previous challenge, we are asked to execute the program with arguments. As you can see after we add as many as four arguments the program displays different outputs. Let&rsquo;s look at the pseudocode.</p>
-
+</code></pre><p>Almost the same as the previous challenge, we are asked to execute the program with arguments. As you can see after we add as many as four arguments the program displays different outputs. Let&rsquo;s look at the pseudocode.</p>
 <pre><code>[0x00400790]&gt; pdg@main
 ...
 	if (argc == 5) {
@@ -929,10 +928,7 @@ void sym.string_to_int(char *arg1, int64_t arg2)
     sym.imp.sscanf(arg1, 0x400c8d, arg2);
     return;
 }
-</code></pre>
-
-<p>As we can see there is a function <code>string_to_int (char * arg1, int64_t arg2)</code>, where it transforms our argument into an integer.</p>
-
+</code></pre><p>As we can see there is a function <code>string_to_int (char * arg1, int64_t arg2)</code>, where it transforms our argument into an integer.</p>
 <pre><code>[0x00400790]&gt; pdg@main
 ...
     iVar2 = sym.is_invalid((uint64_t)(uint32_t)var_ach);	
@@ -958,22 +954,15 @@ undefined8 sym.is_invalid(undefined8 arg1)
     }
     return uVar1;
 }
-</code></pre>
-
-<p>Next after changing our argument there is also the sym.is_invalid function (undefined8 arg1). The function aims to check whether our argument is smaller than 0 or greater than 9 then returns the value of uVar1.</p>
-
+</code></pre><p>Next after changing our argument there is also the sym.is_invalid function (undefined8 arg1). The function aims to check whether our argument is smaller than 0 or greater than 9 then returns the value of uVar1.</p>
 <pre><code>...
     if (var_a4h + var_ach._4_4_ * 100 + (uint32_t)var_ach * 10 == 0x3a4) {
         iVar2 = sym.imp.strcmp(argv[4], &quot;chicken&quot;);
         if (iVar2 == 0) {
             sym.imp.puts(&quot;Well, you found the arguments, but what\'s the password?&quot;);
 ...
-</code></pre>
-
-<p>Next there is the condition  <code>if (var_a4h + var_ach._4_4_ * 100 + (uint32_t)var_ach * 10 == 0x3a4)</code>. our three arguments after calculated the result must be equal to 932. And in the next line our fourth argument is chicken.</p>
-
+</code></pre><p>Next there is the condition  <code>if (var_a4h + var_ach._4_4_ * 100 + (uint32_t)var_ach * 10 == 0x3a4)</code>. our three arguments after calculated the result must be equal to 932. And in the next line our fourth argument is chicken.</p>
 <p>Here is a simple code to get to our three arguments.</p>
-
 <pre><code>&gt;&gt;&gt;  for i in range(0, 10):
 ...		for j in range(0, 10):
 ...		     for k in range(0, 10):
@@ -982,10 +971,7 @@ undefined8 sym.is_invalid(undefined8 arg1)
 ...			       break
 ... 
 3 9 2
-</code></pre>
-
-<p>So our argument is <code>3 9 2 chicken</code>. Let&rsquo;s look at the following lines of code.</p>
-
+</code></pre><p>So our argument is <code>3 9 2 chicken</code>. Let&rsquo;s look at the following lines of code.</p>
 <pre><code>...
     sym.imp.puts(&quot;Well, you found the arguments, but what\'s the password?&quot;);
     sym.imp.fgets(&amp;s, 0x80, _reloc.stdin);
@@ -1008,10 +994,7 @@ undefined8 sym.is_invalid(undefined8 arg1)
     uVar3 = 0;
     goto code_r0x00400bc7;
 ...
-</code></pre>
-
-<p>In this section we are asked to enter a password, each character will be xor with 0x2a and the result must be the same as <code>ZFOKYO\nMC\\O\nLFKM*</code>. Let&rsquo;s make a simple code to guess the password.</p>
-
+</code></pre><p>In this section we are asked to enter a password, each character will be xor with 0x2a and the result must be the same as <code>ZFOKYO\nMC\\O\nLFKM*</code>. Let&rsquo;s make a simple code to guess the password.</p>
 <pre><code>&gt;&gt;&gt; from string import printable
 &gt;&gt;&gt; password = ''
 &gt;&gt;&gt; res = &quot;ZFOKYO\nMC\\O\nLFKM*&quot;
@@ -1022,10 +1005,7 @@ undefined8 sym.is_invalid(undefined8 arg1)
 ... 
 &gt;&gt;&gt; password
 'please give flag'
-</code></pre>
-
-<p>Now that we know the password, it&rsquo;s time to prove. Let&rsquo;s run the program from the ssh server.</p>
-
+</code></pre><p>Now that we know the password, it&rsquo;s time to prove. Let&rsquo;s run the program from the ssh server.</p>
 <pre><code>team5385@actf:~$ cd /problems/2020/taking_off/
 team5385@actf:/problems/2020/taking_off$ ./taking_off 3 9 2 chicken
 So you figured out how to provide input and command line arguments.
@@ -1035,14 +1015,9 @@ please give flag
 Good job! You're ready to move on to bigger and badder rev!
 actf{th3y_gr0w_up_s0_f4st}
 team5385@actf:/problems/2020/taking_off$ 
-</code></pre>
-
-<p>FLAG : <code>actf{th3y_gr0w_up_s0_f4st}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG : <code>actf{th3y_gr0w_up_s0_f4st}</code></p>
+<hr>
 <h2 id="masochistic-sudoku">Masochistic Sudoku</h2>
-
 <pre><code>Description:
 Clam's tired of the ease and boredom of traditional sudoku. Having just one solution that can be determined via a simple online sudoku solver isn't good enough for him.
 So, he made masochistic sudoku! Since there are no hints, there are around 6*10^21 possible solutions but only one is actually accepted!
@@ -1053,10 +1028,7 @@ masochistic_sudoku
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In the following problem we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Masochistic%20Sudoku">masochistic_sudoku</a></em> binary file.</p>
-
+</code></pre><p>In the following problem we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Masochistic%20Sudoku">masochistic_sudoku</a></em> binary file.</p>
 <pre><code>❯ file masochistic_sudoku
 masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=d812dc3b76f3241ad03e6018d45d1d18665ce1dd, not stripped
 ❯ ./masochistic_sudoku
@@ -1079,14 +1051,9 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
 +---+---+---+---+---+---+---+---+---+
 |   |   |   |   |   |   |   |   |   |
 +---+---+---+---+---+---+---+---+---+
-</code></pre>
-
-<p>This challenge is very interesting, so I need IDA to debug. When after opening it with IDA there are very many instructions, but there is a function that interests me, the <em>check_flag</em> function.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-49-53.png" alt="check_flag" title="check_flag" /></p>
-
+</code></pre><p>This challenge is very interesting, so I need IDA to debug. When after opening it with IDA there are very many instructions, but there is a function that interests me, the <em>check_flag</em> function.</p>
+<p>![check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-49-53.png &ldquo;check_flag&rdquo;)</p>
 <p>Following is the pseudocode of the <em>check_flag</em> function.</p>
-
 <pre><code>...
 ...
   v0 = gen_value(0LL, 0LL, (unsigned int)board[0]);
@@ -1113,39 +1080,30 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
   assert(v10 == 1855404474);
 ...
 ...
-</code></pre>
-
-<pre><code>int __fastcall gen_value(int a1, int a2, int a3)
+</code></pre><pre><code>int __fastcall gen_value(int a1, int a2, int a3)
 {
   srand(13 * ((100 * a1 + 10 * a2 + a3) ^ 0x2A) % 10067);
   return rand();
 }
-</code></pre>
-
-<p>And there is also the gen_value function. To understand what happens to the <em>check_flag</em> function, let&rsquo;s place breakpoints in the <em>check_flag</em> function and press the F9 key until we hit breakpoint.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-52-06.png" alt="break_check_flag" title="break_check_flag" /></p>
-
+</code></pre><p>And there is also the gen_value function. To understand what happens to the <em>check_flag</em> function, let&rsquo;s place breakpoints in the <em>check_flag</em> function and press the F9 key until we hit breakpoint.</p>
+<p>![break_check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-52-06.png  &ldquo;break_check_flag&rdquo;)</p>
 <p>Following is the technique that I use to find out the value of each box that will go through the <em>gen_value</em> function:</p>
-
 <ol>
-<li><p>Fill every 6 squares with numbers 1 through 9</p></li>
-
-<li><p>View changes that occur in the .bss stack</p></li>
-
-<li><p>Repeat the first and second steps, until the last 6 squares</p></li>
+<li>
+<p>Fill every 6 squares with numbers 1 through 9</p>
+</li>
+<li>
+<p>View changes that occur in the .bss stack</p>
+</li>
+<li>
+<p>Repeat the first and second steps, until the last 6 squares</p>
+</li>
 </ol>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Color Screenshot from 2020-03-19 23-05-54.jpg" alt="sudoku" title="sudoku" /></p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-11-25.png" alt="Sudoku" title="Sudoku" /></p>
-
+<p>![sudoku](/img/Screenshot/ÅngstromCTF 2020/Color Screenshot from 2020-03-19 23-05-54.jpg  &ldquo;sudoku&rdquo;)</p>
+<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-11-25.png  &ldquo;Sudoku&rdquo;)</p>
 <p>Following are my observations, the numbers represent that the values ​​contained in the box will be used as parameters in the <em>gen_value</em> function.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-54-37.png" alt="Sudoku" title="Sudoku" /></p>
-
+<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-54-37.png  &ldquo;Sudoku&rdquo;)</p>
 <p>Let&rsquo;s create a script to find a suitable value to match in each box that we find.</p>
-
 <pre><code>from ctypes import *
 
 libc = cdll.LoadLibrary(&quot;/lib/x86_64-linux-gnu/libdl.so.2&quot;)
@@ -1197,10 +1155,7 @@ def main():
       
 if __name__ == '__main__':
     main()
-</code></pre>
-
-<p>Output :</p>
-
+</code></pre><p>Output :</p>
 <pre><code>Guess: 1 --&gt; Val: 1754831936    // (1,1)
 Guess: 6 --&gt; Val: 1322670498    // (2,2)
 Guess: 8 --&gt; Val: 2075469024    // (3,1)
@@ -1231,40 +1186,31 @@ Guess: 2 --&gt; Val: 2136198019    // (7,8)
 Guess: 1 --&gt; Val: 1427855150    // (7,9)
 Guess: 3 --&gt; Val: 323649682     // (8,8)
 Guess: 4 --&gt; Val: 1443247958    // (9,9)
-</code></pre>
-
-<p>After we get the value, then enter each value into the box that we found earlier.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-16-52.png" alt="Found_value" title="Found_value" /></p>
-
+</code></pre><p>After we get the value, then enter each value into the box that we found earlier.</p>
+<p>![Found_value](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-16-52.png  &ldquo;Found_value&rdquo;)</p>
 <p>Now is the time to fill in the empty boxes. There are three ways to solve it.</p>
-
 <ol>
-<li><p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">Using z3-Solver.</a></p></li>
-
-<li><p><a href="https://anysudokusolver.com/">Using Sudoku Solver.</a></p></li>
-
-<li><p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Using our brain.</a></p></li>
+<li>
+<p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">Using z3-Solver.</a></p>
+</li>
+<li>
+<p><a href="https://anysudokusolver.com/">Using Sudoku Solver.</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Using our brain.</a></p>
+</li>
 </ol>
-
 <p>I prefer to use number 2.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-31-50.png" alt="final" title="final" /></p>
-
+<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-31-50.png  &ldquo;final&rdquo;)</p>
 <p>Then press q.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-32-28.png" alt="final" title="final" /></p>
-
+<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-32-28.png  &ldquo;final&rdquo;)</p>
 <p>Now we prove it on ssh server.</p>
-
 <pre><code>team5385@actf:~$ cd /problems/2020/masochistic_sudoku/
 team5385@actf:/problems/2020/masochistic_sudoku$ ./masochistic_sudoku 
 Wow you're good at sudoku!
 actf{sud0ku_but_f0r_pe0ple_wh0_h4te_th3mselves}
 team5385@actf:/problems/2020/masochistic_sudoku$ 
-</code></pre>
-
-<p>FLAG : <code>actf{sud0ku_but_f0r_pe0ple_wh0_h4te_th3mselves}</code></p>
+</code></pre><p>FLAG : <code>actf{sud0ku_but_f0r_pe0ple_wh0_h4te_th3mselves}</code></p>
 ]]></content>
         </item>
         
@@ -1274,29 +1220,19 @@ team5385@actf:/problems/2020/masochistic_sudoku$
             <pubDate>Fri, 14 Feb 2020 00:46:37 +0700</pubDate>
             
             <guid>https://insomn14.github.io/posts/neverlanctf-2020/</guid>
-            <description>Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db  This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
-❯ file encrypted_db encrypted_db: ASCII text  This file has a text format, let&amp;rsquo;s look at the contents of the file.</description>
-            <content type="html"><![CDATA[
-
-<hr />
-
+            <description>Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
+❯ file encrypted_db encrypted_db: ASCII text This file has a text format, let&amp;rsquo;s look at the contents of the file.</description>
+            <content type="html"><![CDATA[<hr>
 <h3 id="script-kiddie-100pts">Script Kiddie 100pts</h3>
-
 <pre><code>Description:
 It looks like a script kiddie was trying to build a crypto locker.
 See if you can get the database back?
 File:
 encrypted_db
-</code></pre>
-
-<p>This problem gives us the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/ScriptKiddie">encrypted_db</a></em> file, you can download it on my github. After that we can see the file format using the following command.</p>
-
+</code></pre><p>This problem gives us the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/ScriptKiddie">encrypted_db</a></em> file, you can download it on my github. After that we can see the file format using the following command.</p>
 <pre><code>❯ file encrypted_db
 encrypted_db: ASCII text
-</code></pre>
-
-<p>This file has a text format, let&rsquo;s look at the contents of the file.</p>
-
+</code></pre><p>This file has a text format, let&rsquo;s look at the contents of the file.</p>
 <pre><code>❯ cat encrypted_db
 ..... 
 764c6d4e7662534973496d466b5a484a6c63334d694f6e7369633352795a
@@ -1306,10 +1242,7 @@ encrypted_db: ASCII text
 6d6c775932396b5a534936496a63784e6a4d33496977695a325676496a70
 37496d786864434936496a4d7a4c6a45794d6a4d694c434a73626d63694f
 .....
-</code></pre>
-
-<p>After opening the file I thought that it had been encoded into the hex form. I use python2 interactive to decode the contents of the file.</p>
-
+</code></pre><p>After opening the file I thought that it had been encoded into the hex form. I use python2 interactive to decode the contents of the file.</p>
 <pre><code>&gt;&gt;&gt; enc = open('encrypted_db', 'r').read().replace('\n','')
 &gt;&gt;&gt; dec = enc.decode('hex')
 &gt;&gt;&gt; dec
@@ -1317,10 +1250,7 @@ encrypted_db: ASCII text
 ....
 ZGVyIC0gSmFjb2JpIiwiY2F0\nY2hQaHJhc2UiOiJDdXN0b21pemFibGUgb3B0aW1pemluZyBpbnRlcmZhY2UiLCJicyI6ImUtYnVz\naW5lc3Mgc3ludGhlc2l6ZSBzY2hlbWFzIn19fQo=\n'
 
-</code></pre>
-
-<p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>&rsquo;=&rsquo;</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
-
+</code></pre><p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>&lsquo;=&rsquo;</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
 <pre><code>❯ nl solver.py
      1	import re
      2	from base64 import b64decode
@@ -1332,25 +1262,16 @@ ZGVyIC0gSmFjb2JpIiwiY2F0\nY2hQaHJhc2UiOiJDdXN0b21pemFibGUgb3B0aW1pemluZyBpbnRlcm
 ❯ python solver.py
 ['flag{ENC0D1NG_D4TA_1S_N0T_ENCRY7I0N}']
 
-</code></pre>
-
-<p>And we got the flag.</p>
-
+</code></pre><p>And we got the flag.</p>
 <p><code>flag{ENC0D1NG_D4TA_1S_N0T_ENCRY7I0N}</code></p>
-
-<hr />
-
+<hr>
 <h3 id="adobe-payroll-100pts">Adobe Payroll 100pts</h3>
-
 <pre><code>Description:
 We've forgotten the password to our payroll machine. Can you extract it?
 File:
 Adobe_Payroll.7z
-</code></pre>
-
-<p>Almost the same as the previous challange, in this problem we were given <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/AdobePlayroll">Adobe_Payroll.7z</a></em>,
+</code></pre><p>Almost the same as the previous challange, in this problem we were given <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/AdobePlayroll">Adobe_Payroll.7z</a></em>,
 you can download the file on my github. Let&rsquo;s extract the <em>7z</em> file, in the <em>7z</em> file there are two files, including the  <em>executable</em> file and <em>description.md</em>.</p>
-
 <pre><code>❯ file Adobe_Employee_Payroll.exe
 Adobe_Employee_Payroll.exe: PE32 executable (GUI) Intel 80386 Mono/.Net assembly, for MS Windows
 
@@ -1363,47 +1284,33 @@ Adobe_Employee_Payroll.exe: PE32 executable (GUI) Intel 80386 Mono/.Net assembly
 ## Description
 
 This is a .NET file. Take a look at dotPeek.
-</code></pre>
-
-<p>So basically, I think this program uses C# language. So you can use <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwi7o_PPwM_nAhX4yDgGHYAjCVAQFjAEegQIDBAG&amp;url=https%3A%2F%2Fwww.jetbrains.com%2Fdecompiler%2F&amp;usg=AOvVaw1pcfEbCKhdDrtRMXeXhm3k">dotPeek</a>   to decompile. But in this case I use IDA to do static analysis.
-<img src="/img/Screenshot/neverlanctf2020/Re/3.PNG" alt="AdobePayroll" />
+</code></pre><p>So basically, I think this program uses C# language. So you can use <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwi7o_PPwM_nAhX4yDgGHYAjCVAQFjAEegQIDBAG&amp;url=https%3A%2F%2Fwww.jetbrains.com%2Fdecompiler%2F&amp;usg=AOvVaw1pcfEbCKhdDrtRMXeXhm3k">dotPeek</a>   to decompile. But in this case I use IDA to do static analysis.
+<img src="/img/Screenshot/neverlanctf2020/Re/3.PNG" alt="AdobePayroll">
 Select <code>Microsoft.Net assembly [pe.ldw]</code> then click Ok.
-<img src="/img/Screenshot/neverlanctf2020/Re/4.PNG" alt="AdobePayroll" />
+<img src="/img/Screenshot/neverlanctf2020/Re/4.PNG" alt="AdobePayroll">
 In the <em>Functions window</em> there is a function of <code>employee_payroll_checkUsername</code> &amp; <code>employee_payroll_chackPassword</code>, That function I think is used to compare a string.
-<img src="/img/Screenshot/neverlanctf2020/Re/5.PNG" alt="AdobePayroll" />
-<img src="/img/Screenshot/neverlanctf2020/Re/6.PNG" alt="AdobePayroll" />
- Let&rsquo;s try using the <code>admin</code> as the <em>Username</em> and <code>bmV2ZXJfZ29ubmFfZ212ZV95b3VfdXAh</code> as the <em>Password</em>.
-<img src="/img/Screenshot/neverlanctf2020/Re/flag.PNG" alt="AdobePayroll" />
+<img src="/img/Screenshot/neverlanctf2020/Re/5.PNG" alt="AdobePayroll">
+<img src="/img/Screenshot/neverlanctf2020/Re/6.PNG" alt="AdobePayroll">
+Let&rsquo;s try using the <code>admin</code> as the <em>Username</em> and <code>bmV2ZXJfZ29ubmFfZ212ZV95b3VfdXAh</code> as the <em>Password</em>.
+<img src="/img/Screenshot/neverlanctf2020/Re/flag.PNG" alt="AdobePayroll">
 And boom!.. we got the flag.</p>
-
 <p><code>flag{.net_is_pretty_eassy_to_decompile}</code></p>
-
-<hr />
-
+<hr>
 <h3 id="reverse-engineer-300pts">Reverse Engineer 300pts</h3>
-
 <pre><code>Description:
 This program seems to get stuck while running...
 Can you get it to continue past the broken function?
 File:
 reverseng
-</code></pre>
-
-<p>In this case we are given a binary <a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/Reverse%20Engineer">reverseng</a>  file, once again you can check on my github to download the binary file ;). when we try to run the program we will get the SEGV message.</p>
-
+</code></pre><p>In this case we are given a binary <a href="https://github.com/insomn14/CTFtime2020/tree/master/NeverLAN-CTF/Re/Reverse%20Engineer">reverseng</a>  file, once again you can check on my github to download the binary file ;). when we try to run the program we will get the SEGV message.</p>
 <pre><code>❯ ./revseng
 [1]    12675 segmentation fault (core dumped)  ./revseng
 
 ❯ file revseng
 revseng: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=89d54c514d9f6bec697e52edfee4a495266b3577, for GNU/Linux 3.2.0, with debug_info, not stripped
-</code></pre>
-
-<p>So without further ado let&rsquo;s get started analyzing it using IDA. There is a function called <code>void __cdecl print ()</code> and <code>malloc ()</code> function that allocates memory of 0x15 or 21byte to <code>flg</code>, And each byte contains a decimal value. So this is the Pseudocode of the function, after we convert each index value of <code>flg</code> to character.</p>
-
-<p><img src="/img/Screenshot/neverlanctf2020/Re/pseudocode.png" alt="revseng" /></p>
-
+</code></pre><p>So without further ado let&rsquo;s get started analyzing it using IDA. There is a function called <code>void __cdecl print ()</code> and <code>malloc ()</code> function that allocates memory of 0x15 or 21byte to <code>flg</code>, And each byte contains a decimal value. So this is the Pseudocode of the function, after we convert each index value of <code>flg</code> to character.</p>
+<p><img src="/img/Screenshot/neverlanctf2020/Re/pseudocode.png" alt="revseng"></p>
 <p>And we get the flag again.</p>
-
 <p><code>flag{w3con7r0lth3b1nari3s}</code></p>
 ]]></content>
         </item>

@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="">
-<meta name="description" content="Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &amp;quot;shell&amp;quot; link at the top of the site. Hint : Try some google searches for &amp;quot;how to run a file in linux&amp;quot; or &amp;quot;bash for beginners&amp;quot;. File: revving_up Author: aplet123  In this challenge we are given the revving_up binary file." />
-<meta name="keywords" content=", Reverse Engineering" />
+<meta name="description" content="Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &amp;quot;shell&amp;quot; link at the top of the site. Hint : Try some google searches for &amp;quot;how to run a file in linux&amp;quot; or &amp;quot;bash for beginners&amp;quot;. File: revving_up Author: aplet123 In this challenge we are given the revving_up binary file." />
+<meta name="keywords" content="insomn14, Reverse Engineering" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://insomn14.github.io/posts/%C3%A5ngstromctf-2020/" />
@@ -14,7 +14,7 @@
 
     <title>
         
-            ÅngstromCTF 2020 | RE *Writeups* :: Hallo Dunia!  — this blog is about my CTFs writeups &amp; other cool things
+            ÅngstromCTF 2020 | RE *Writeups* :: Hello World!  — this blog is about my CTFs writeups &amp; other cool things
         
     </title>
 
@@ -25,27 +25,25 @@
 
 
 
-<link rel="stylesheet" href="/main.min.2f0d18b84270567c723bff340b09ab08db3a7634237cd9667d052eb6b14669b8.css">
+<link rel="stylesheet" href="/main.min.5dcefbf8102eb536dd3e2de53ffebfa58599ab2435c241a0db81728a5e015f2e.css">
 
 
 
 
 <meta itemprop="name" content="ÅngstromCTF 2020 | RE *Writeups*">
-<meta itemprop="description" content="Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &quot;shell&quot; link at the top of the site. Hint : Try some google searches for &quot;how to run a file in linux&quot; or &quot;bash for beginners&quot;. File: revving_up Author: aplet123  In this challenge we are given the revving_up binary file.">
-
-
+<meta itemprop="description" content="Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &quot;shell&quot; link at the top of the site. Hint : Try some google searches for &quot;how to run a file in linux&quot; or &quot;bash for beginners&quot;. File: revving_up Author: aplet123 In this challenge we are given the revving_up binary file.">
 <meta itemprop="datePublished" content="2020-03-19T12:59:21&#43;07:00" />
 <meta itemprop="dateModified" content="2020-03-19T12:59:21&#43;07:00" />
-<meta itemprop="wordCount" content="2437">
+<meta itemprop="wordCount" content="2486">
+<meta itemprop="image" content="https://insomn14.github.io/"/>
 
 
 
-<meta itemprop="keywords" content="Reverse Engineering," />
-<meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Reverse Engineering," /><meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://insomn14.github.io/"/>
 
 <meta name="twitter:title" content="ÅngstromCTF 2020 | RE *Writeups*"/>
-<meta name="twitter:description" content="Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &quot;shell&quot; link at the top of the site. Hint : Try some google searches for &quot;how to run a file in linux&quot; or &quot;bash for beginners&quot;. File: revving_up Author: aplet123  In this challenge we are given the revving_up binary file."/>
+<meta name="twitter:description" content="Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &quot;shell&quot; link at the top of the site. Hint : Try some google searches for &quot;how to run a file in linux&quot; or &quot;bash for beginners&quot;. File: revving_up Author: aplet123 In this challenge we are given the revving_up binary file."/>
 
 
 
@@ -86,7 +84,7 @@
         <span class="header__right">
             
                 <nav class="menu">
-    <ul class="menu__inner"><li><a href="https://insomn14.github.io/posts">Blog</a></li>
+    <ul class="menu__inner"><li><a href="https://insomn14.github.io/posts">Writeups</a></li>
     </ul>
 </nav>
 
@@ -129,12 +127,8 @@
             
 
             <div class="post-content">
-                
-
-<hr />
-
+                <hr>
 <h3 id="revving-up">Revving Up</h3>
-
 <pre><code>Description:
 Clam wrote a program for his school's cybersecurity club's first rev lecture! Can you get it to give you the flag?
 You can find it at /problems/2020/revving_up on the shell server,
@@ -148,10 +142,7 @@ revving_up
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In this challenge we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Revving%20Up">revving_up</a></em> binary file.</p>
-
+</code></pre><p>In this challenge we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Revving%20Up">revving_up</a></em> binary file.</p>
 <pre><code>❯ file revving_up
 revving_up: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=e9a5285cc0d71320a73e27870a35a98efbe01a87, not stripped
 
@@ -163,10 +154,7 @@ give flag
 Good job!
 Now run the program with a command line argument of &quot;banana&quot; and you'll be done!
 ❯ 
-</code></pre>
-
-<p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>&rsquo;. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
-
+</code></pre><p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>'. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
 <pre><code>iVar2 = sym.imp.strcmp(&amp;s1, &quot;give flag&quot;);
     if (iVar2 == 0) {
         sym.imp.puts(&quot;Good job!&quot;);
@@ -184,10 +172,7 @@ Now run the program with a command line argument of &quot;banana&quot; and you'l
                 uVar4 = 1;
             }
         }
-</code></pre>
-
-<p>As you can see, on the iVar2 variable there is <code>strcmp (argv [1], 'banana');</code> As we mentioned earlier we need to add an argument to the argument when executing the program. Now run the program on the given server ssh.</p>
-
+</code></pre><p>As you can see, on the iVar2 variable there is <code>strcmp (argv [1], 'banana');</code> As we mentioned earlier we need to add an argument to the argument when executing the program. Now run the program on the given server ssh.</p>
 <pre><code>team5385@actf:/problems/2020/revving_up$ ./revving_up banana
 Congratulations on running the binary!
 Now there are a few more things to tend to.
@@ -196,14 +181,9 @@ give flag
 Good job!
 Well I think it's about time you got the flag!
 actf{g3tting_4_h4ng_0f_l1nux_4nd_b4sh}
-</code></pre>
-
-<p>FLAG : <code>actf{g3tting_4_h4ng_0f_l1nux_4nd_b4sh}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG : <code>actf{g3tting_4_h4ng_0f_l1nux_4nd_b4sh}</code></p>
+<hr>
 <h2 id="windows-of-opportunity">Windows of Opportunity</h2>
-
 <pre><code>Description:
 Clam's a windows elitist and he just can't stand seeing all of these linux challenges!
 So, he decided to step in and create his own rev challenge with the &quot;superior&quot; operating system.
@@ -216,10 +196,7 @@ windows_of_opportunity.exe
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In the following challenge we are given the file <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Windows%20of%20Opportunity">windows_of_opportunity.exe</a></em>.</p>
-
+</code></pre><p>In the following challenge we are given the file <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Windows%20of%20Opportunity">windows_of_opportunity.exe</a></em>.</p>
 <pre><code>❯ file windows_of_opportunity.exe
 windows_of_opportunity.exe: PE32+ executable (console) x86-64, for MS Windows
 
@@ -228,10 +205,7 @@ Welcome to the superior rev challenge compiled for the superior operating system
 What's the superior flag for this superior rev challenge?
 give flag
 Your flag is way too different from my superior flag!
-</code></pre>
-
-<p>As <strong>Hint</strong> said, let&rsquo;s look at the <em>disassembly</em> code. Following is the <em>disassembly</em> code of <em>radare2</em>.</p>
-
+</code></pre><p>As <strong>Hint</strong> said, let&rsquo;s look at the <em>disassembly</em> code. Following is the <em>disassembly</em> code of <em>radare2</em>.</p>
 <pre><code>...
 │           0x00401603      ffd0           call rax
 │           0x00401605      4989c0         mov r8, rax
@@ -260,23 +234,15 @@ Your flag is way too different from my superior flag!
 0x004030a0  6163 7466 7b6f 6b34 795f 6d34 7962 335f  actf{ok4y_m4yb3_
 0x004030b0  6c69 6e75 785f 6973 5f73 3769 6c6c 5f62  linux_is_s7ill_b
 0x004030c0  3374 7433 727d                           3tt3r}
-</code></pre>
-
-<p>We can immediately see the flag very clearly. The flag is located at memory address <em>0x004030a0</em>.</p>
-
+</code></pre><p>We can immediately see the flag very clearly. The flag is located at memory address <em>0x004030a0</em>.</p>
 <pre><code>❯ wine windows_of_opportunity.exe
 Welcome to the superior rev challenge compiled for the superior operating system!
 What's the superior flag for this superior rev challenge?
 actf{ok4y_m4yb3_linux_is_s7ill_b3tt3r}
 Oh wow a fellow windows user!
-</code></pre>
-
-<p>FLAG : <code>actf{ok4y_m4yb3_linux_is_s7ill_b3tt3r}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG : <code>actf{ok4y_m4yb3_linux_is_s7ill_b3tt3r}</code></p>
+<hr>
 <h2 id="taking-off">Taking Off</h2>
-
 <pre><code>Description:
 So you started revving up, but is it enough to take off? Find the problem in /problems/2020/taking_off/ in the shell server.
 
@@ -288,10 +254,7 @@ taking_off
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In the following challenge we are given the binary <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Taking%20Off">taking_off file</a></em>.</p>
-
+</code></pre><p>In the following challenge we are given the binary <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Taking%20Off">taking_off file</a></em>.</p>
 <pre><code>❯ file taking_off
 taking_off: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=fc4deaf2c2da6fdaf4cb7bc1e83d4f1372720832, not stripped
 
@@ -306,10 +269,7 @@ So you figured out how to provide input and command line arguments.
 But can you figure out what input to provide?
 Don't try to guess the arguments, it won't work.
 
-</code></pre>
-
-<p>Almost the same as the previous challenge, we are asked to execute the program with arguments. As you can see after we add as many as four arguments the program displays different outputs. Let&rsquo;s look at the pseudocode.</p>
-
+</code></pre><p>Almost the same as the previous challenge, we are asked to execute the program with arguments. As you can see after we add as many as four arguments the program displays different outputs. Let&rsquo;s look at the pseudocode.</p>
 <pre><code>[0x00400790]&gt; pdg@main
 ...
 	if (argc == 5) {
@@ -328,10 +288,7 @@ void sym.string_to_int(char *arg1, int64_t arg2)
     sym.imp.sscanf(arg1, 0x400c8d, arg2);
     return;
 }
-</code></pre>
-
-<p>As we can see there is a function <code>string_to_int (char * arg1, int64_t arg2)</code>, where it transforms our argument into an integer.</p>
-
+</code></pre><p>As we can see there is a function <code>string_to_int (char * arg1, int64_t arg2)</code>, where it transforms our argument into an integer.</p>
 <pre><code>[0x00400790]&gt; pdg@main
 ...
     iVar2 = sym.is_invalid((uint64_t)(uint32_t)var_ach);	
@@ -357,22 +314,15 @@ undefined8 sym.is_invalid(undefined8 arg1)
     }
     return uVar1;
 }
-</code></pre>
-
-<p>Next after changing our argument there is also the sym.is_invalid function (undefined8 arg1). The function aims to check whether our argument is smaller than 0 or greater than 9 then returns the value of uVar1.</p>
-
+</code></pre><p>Next after changing our argument there is also the sym.is_invalid function (undefined8 arg1). The function aims to check whether our argument is smaller than 0 or greater than 9 then returns the value of uVar1.</p>
 <pre><code>...
     if (var_a4h + var_ach._4_4_ * 100 + (uint32_t)var_ach * 10 == 0x3a4) {
         iVar2 = sym.imp.strcmp(argv[4], &quot;chicken&quot;);
         if (iVar2 == 0) {
             sym.imp.puts(&quot;Well, you found the arguments, but what\'s the password?&quot;);
 ...
-</code></pre>
-
-<p>Next there is the condition  <code>if (var_a4h + var_ach._4_4_ * 100 + (uint32_t)var_ach * 10 == 0x3a4)</code>. our three arguments after calculated the result must be equal to 932. And in the next line our fourth argument is chicken.</p>
-
+</code></pre><p>Next there is the condition  <code>if (var_a4h + var_ach._4_4_ * 100 + (uint32_t)var_ach * 10 == 0x3a4)</code>. our three arguments after calculated the result must be equal to 932. And in the next line our fourth argument is chicken.</p>
 <p>Here is a simple code to get to our three arguments.</p>
-
 <pre><code>&gt;&gt;&gt;  for i in range(0, 10):
 ...		for j in range(0, 10):
 ...		     for k in range(0, 10):
@@ -381,10 +331,7 @@ undefined8 sym.is_invalid(undefined8 arg1)
 ...			       break
 ... 
 3 9 2
-</code></pre>
-
-<p>So our argument is <code>3 9 2 chicken</code>. Let&rsquo;s look at the following lines of code.</p>
-
+</code></pre><p>So our argument is <code>3 9 2 chicken</code>. Let&rsquo;s look at the following lines of code.</p>
 <pre><code>...
     sym.imp.puts(&quot;Well, you found the arguments, but what\'s the password?&quot;);
     sym.imp.fgets(&amp;s, 0x80, _reloc.stdin);
@@ -407,10 +354,7 @@ undefined8 sym.is_invalid(undefined8 arg1)
     uVar3 = 0;
     goto code_r0x00400bc7;
 ...
-</code></pre>
-
-<p>In this section we are asked to enter a password, each character will be xor with 0x2a and the result must be the same as <code>ZFOKYO\nMC\\O\nLFKM*</code>. Let&rsquo;s make a simple code to guess the password.</p>
-
+</code></pre><p>In this section we are asked to enter a password, each character will be xor with 0x2a and the result must be the same as <code>ZFOKYO\nMC\\O\nLFKM*</code>. Let&rsquo;s make a simple code to guess the password.</p>
 <pre><code>&gt;&gt;&gt; from string import printable
 &gt;&gt;&gt; password = ''
 &gt;&gt;&gt; res = &quot;ZFOKYO\nMC\\O\nLFKM*&quot;
@@ -421,10 +365,7 @@ undefined8 sym.is_invalid(undefined8 arg1)
 ... 
 &gt;&gt;&gt; password
 'please give flag'
-</code></pre>
-
-<p>Now that we know the password, it&rsquo;s time to prove. Let&rsquo;s run the program from the ssh server.</p>
-
+</code></pre><p>Now that we know the password, it&rsquo;s time to prove. Let&rsquo;s run the program from the ssh server.</p>
 <pre><code>team5385@actf:~$ cd /problems/2020/taking_off/
 team5385@actf:/problems/2020/taking_off$ ./taking_off 3 9 2 chicken
 So you figured out how to provide input and command line arguments.
@@ -434,14 +375,9 @@ please give flag
 Good job! You're ready to move on to bigger and badder rev!
 actf{th3y_gr0w_up_s0_f4st}
 team5385@actf:/problems/2020/taking_off$ 
-</code></pre>
-
-<p>FLAG : <code>actf{th3y_gr0w_up_s0_f4st}</code></p>
-
-<hr />
-
+</code></pre><p>FLAG : <code>actf{th3y_gr0w_up_s0_f4st}</code></p>
+<hr>
 <h2 id="masochistic-sudoku">Masochistic Sudoku</h2>
-
 <pre><code>Description:
 Clam's tired of the ease and boredom of traditional sudoku. Having just one solution that can be determined via a simple online sudoku solver isn't good enough for him.
 So, he made masochistic sudoku! Since there are no hints, there are around 6*10^21 possible solutions but only one is actually accepted!
@@ -452,10 +388,7 @@ masochistic_sudoku
 
 Author: 
 aplet123
-</code></pre>
-
-<p>In the following problem we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Masochistic%20Sudoku">masochistic_sudoku</a></em> binary file.</p>
-
+</code></pre><p>In the following problem we are given the <em><a href="https://github.com/insomn14/CTFtime2020/tree/master/angstromctf_2020/Reverse/Masochistic%20Sudoku">masochistic_sudoku</a></em> binary file.</p>
 <pre><code>❯ file masochistic_sudoku
 masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=d812dc3b76f3241ad03e6018d45d1d18665ce1dd, not stripped
 ❯ ./masochistic_sudoku
@@ -478,14 +411,9 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
 +---+---+---+---+---+---+---+---+---+
 |   |   |   |   |   |   |   |   |   |
 +---+---+---+---+---+---+---+---+---+
-</code></pre>
-
-<p>This challenge is very interesting, so I need IDA to debug. When after opening it with IDA there are very many instructions, but there is a function that interests me, the <em>check_flag</em> function.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-49-53.png" alt="check_flag" title="check_flag" /></p>
-
+</code></pre><p>This challenge is very interesting, so I need IDA to debug. When after opening it with IDA there are very many instructions, but there is a function that interests me, the <em>check_flag</em> function.</p>
+<p>![check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-49-53.png &ldquo;check_flag&rdquo;)</p>
 <p>Following is the pseudocode of the <em>check_flag</em> function.</p>
-
 <pre><code>...
 ...
   v0 = gen_value(0LL, 0LL, (unsigned int)board[0]);
@@ -512,39 +440,30 @@ masochistic_sudoku: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamic
   assert(v10 == 1855404474);
 ...
 ...
-</code></pre>
-
-<pre><code>int __fastcall gen_value(int a1, int a2, int a3)
+</code></pre><pre><code>int __fastcall gen_value(int a1, int a2, int a3)
 {
   srand(13 * ((100 * a1 + 10 * a2 + a3) ^ 0x2A) % 10067);
   return rand();
 }
-</code></pre>
-
-<p>And there is also the gen_value function. To understand what happens to the <em>check_flag</em> function, let&rsquo;s place breakpoints in the <em>check_flag</em> function and press the F9 key until we hit breakpoint.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-52-06.png" alt="break_check_flag" title="break_check_flag" /></p>
-
+</code></pre><p>And there is also the gen_value function. To understand what happens to the <em>check_flag</em> function, let&rsquo;s place breakpoints in the <em>check_flag</em> function and press the F9 key until we hit breakpoint.</p>
+<p>![break_check_flag](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 22-52-06.png  &ldquo;break_check_flag&rdquo;)</p>
 <p>Following is the technique that I use to find out the value of each box that will go through the <em>gen_value</em> function:</p>
-
 <ol>
-<li><p>Fill every 6 squares with numbers 1 through 9</p></li>
-
-<li><p>View changes that occur in the .bss stack</p></li>
-
-<li><p>Repeat the first and second steps, until the last 6 squares</p></li>
+<li>
+<p>Fill every 6 squares with numbers 1 through 9</p>
+</li>
+<li>
+<p>View changes that occur in the .bss stack</p>
+</li>
+<li>
+<p>Repeat the first and second steps, until the last 6 squares</p>
+</li>
 </ol>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Color Screenshot from 2020-03-19 23-05-54.jpg" alt="sudoku" title="sudoku" /></p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-11-25.png" alt="Sudoku" title="Sudoku" /></p>
-
+<p>![sudoku](/img/Screenshot/ÅngstromCTF 2020/Color Screenshot from 2020-03-19 23-05-54.jpg  &ldquo;sudoku&rdquo;)</p>
+<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-11-25.png  &ldquo;Sudoku&rdquo;)</p>
 <p>Following are my observations, the numbers represent that the values ​​contained in the box will be used as parameters in the <em>gen_value</em> function.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-54-37.png" alt="Sudoku" title="Sudoku" /></p>
-
+<p>![Sudoku](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-19 23-54-37.png  &ldquo;Sudoku&rdquo;)</p>
 <p>Let&rsquo;s create a script to find a suitable value to match in each box that we find.</p>
-
 <pre><code>from ctypes import *
 
 libc = cdll.LoadLibrary(&quot;/lib/x86_64-linux-gnu/libdl.so.2&quot;)
@@ -596,10 +515,7 @@ def main():
       
 if __name__ == '__main__':
     main()
-</code></pre>
-
-<p>Output :</p>
-
+</code></pre><p>Output :</p>
 <pre><code>Guess: 1 --&gt; Val: 1754831936    // (1,1)
 Guess: 6 --&gt; Val: 1322670498    // (2,2)
 Guess: 8 --&gt; Val: 2075469024    // (3,1)
@@ -630,40 +546,31 @@ Guess: 2 --&gt; Val: 2136198019    // (7,8)
 Guess: 1 --&gt; Val: 1427855150    // (7,9)
 Guess: 3 --&gt; Val: 323649682     // (8,8)
 Guess: 4 --&gt; Val: 1443247958    // (9,9)
-</code></pre>
-
-<p>After we get the value, then enter each value into the box that we found earlier.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-16-52.png" alt="Found_value" title="Found_value" /></p>
-
+</code></pre><p>After we get the value, then enter each value into the box that we found earlier.</p>
+<p>![Found_value](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-16-52.png  &ldquo;Found_value&rdquo;)</p>
 <p>Now is the time to fill in the empty boxes. There are three ways to solve it.</p>
-
 <ol>
-<li><p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">Using z3-Solver.</a></p></li>
-
-<li><p><a href="https://anysudokusolver.com/">Using Sudoku Solver.</a></p></li>
-
-<li><p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Using our brain.</a></p></li>
+<li>
+<p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">Using z3-Solver.</a></p>
+</li>
+<li>
+<p><a href="https://anysudokusolver.com/">Using Sudoku Solver.</a></p>
+</li>
+<li>
+<p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Using our brain.</a></p>
+</li>
 </ol>
-
 <p>I prefer to use number 2.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-31-50.png" alt="final" title="final" /></p>
-
+<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-31-50.png  &ldquo;final&rdquo;)</p>
 <p>Then press q.</p>
-
-<p><img src="/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-32-28.png" alt="final" title="final" /></p>
-
+<p>![final](/img/Screenshot/ÅngstromCTF 2020/Screenshot from 2020-03-20 00-32-28.png  &ldquo;final&rdquo;)</p>
 <p>Now we prove it on ssh server.</p>
-
 <pre><code>team5385@actf:~$ cd /problems/2020/masochistic_sudoku/
 team5385@actf:/problems/2020/masochistic_sudoku$ ./masochistic_sudoku 
 Wow you're good at sudoku!
 actf{sud0ku_but_f0r_pe0ple_wh0_h4te_th3mselves}
 team5385@actf:/problems/2020/masochistic_sudoku$ 
-</code></pre>
-
-<p>FLAG : <code>actf{sud0ku_but_f0r_pe0ple_wh0_h4te_th3mselves}</code></p>
+</code></pre><p>FLAG : <code>actf{sud0ku_but_f0r_pe0ple_wh0_h4te_th3mselves}</code></p>
 
             </div>
         </article>
@@ -675,7 +582,7 @@ team5385@actf:/problems/2020/masochistic_sudoku$
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://insomn14.github.io/tags/reverse-engineering">Reverse Engineering</a></span>
                 </p>
 
-            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2437 Words</p>
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2486 Words</p>
 
             <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-03-19 12:59 &#43;0700</p>
         </div>
@@ -720,7 +627,7 @@ team5385@actf:/problems/2020/masochistic_sudoku$
         <div class="footer__content">
             <span>&copy; 2020</span>
             
-            <span></span>
+            <span>insomn14</span>
             <span> <a href="https://insomn14.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
         </div>
     </div>

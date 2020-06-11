@@ -1,15 +1,35 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hallo Dunia!</title>
+    <title>Hello World!</title>
     <link>https://insomn14.github.io/</link>
-    <description>Recent content on Hallo Dunia!</description>
+    <description>Recent content on Hello World!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Mar 2020 06:16:12 +0700</lastBuildDate>
+    <copyright>insomn14</copyright>
+    <lastBuildDate>Tue, 09 Jun 2020 12:16:12 +0700</lastBuildDate>
     
 	<atom:link href="https://insomn14.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NoobCTF0x1 | Crypto *Writeups*</title>
+      <link>https://insomn14.github.io/posts/noobctf0x1-crypto/</link>
+      <pubDate>Tue, 09 Jun 2020 12:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/noobctf0x1-crypto/</guid>
+      <description>Gross 120pts Cipher: OQWKWPUVMYTIUSSTHHPI Keep this: 12345 , will help you. Flag format: noob{FLAG} Author: D3v1LaL In CTF competitions the title of the challenge sometimes can be a clue. For example in this challenge, I thought that the word &amp;lsquo;Gross&amp;rsquo; was a play on words from &amp;lsquo;Grons&amp;rsquo; so I concluded it might be &amp;lsquo;Gronsfeld Cipher&amp;rsquo;. The conclusion I got after reading the pycipher documentation.
+&amp;gt;&amp;gt;&amp;gt; import pyciphet &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; msg = pycipher.</description>
+    </item>
+    
+    <item>
+      <title>NoobCTF0x1 | Forensics *Writeups*</title>
+      <link>https://insomn14.github.io/posts/noobctf0x1-forensics/</link>
+      <pubDate>Tue, 09 Jun 2020 09:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/noobctf0x1-forensics/</guid>
+      <description>Can You Hear Me !!! 50pts While performing Man in the Middle attack, I got a secret message from a scientist which can save the world from COVID-19. But unfortunatly I am not able to hear that. I believe that someone with good knowledge of some tools can get the secret message. Note: Online tools also works. Link: https://mega.nz/file/xdxHiQbb#vK91LAP9JjVKxQnMp6e_J1x7-IOIiqbST-htEAmdQWo Replace spaces with _ At this challenge we were given the audio file Challenge.</description>
+    </item>
     
     <item>
       <title>TAMUctf 2020 | RE *Writeups*</title>
@@ -17,9 +37,9 @@
       <pubDate>Mon, 30 Mar 2020 06:16:12 +0700</pubDate>
       
       <guid>https://insomn14.github.io/posts/tamuctf-2020/</guid>
-      <description>RUSTY_AT_REVERSING Description: A nice little reversing challenge for those who are a little rusty! File: librusty_at_reversing.so  In this challenge we are given the file librusty_at_reversing.so file, as know as Shared Object file.
-➜ RUSTY_AT_REVERSING file librusty_at_reversing.so librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped  Let&amp;rsquo;s just decompile the file using radare2.
-[0x00001040]&amp;gt; afl 0x00001040 4 41 -&amp;gt; 34 entry0 0x00001220 13 292 sym.</description>
+      <description>RUSTY_AT_REVERSING Description: A nice little reversing challenge for those who are a little rusty! File: librusty_at_reversing.so In this challenge we are given the file librusty_at_reversing.so file, as know as Shared Object file.
+➜ RUSTY_AT_REVERSING file librusty_at_reversing.so librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped Let&amp;rsquo;s just decompile the file using radare2.
+[0x00001040]&amp;gt; afl 0x00001040 4 41 -&amp;gt; 34 entry0 0x00001220 13 292 sym.decrypt 0x00001100 13 288 sym.</description>
     </item>
     
     <item>
@@ -28,7 +48,7 @@
       <pubDate>Thu, 19 Mar 2020 12:59:21 +0700</pubDate>
       
       <guid>https://insomn14.github.io/posts/%C3%A5ngstromctf-2020/</guid>
-      <description>Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &amp;quot;shell&amp;quot; link at the top of the site. Hint : Try some google searches for &amp;quot;how to run a file in linux&amp;quot; or &amp;quot;bash for beginners&amp;quot;. File: revving_up Author: aplet123  In this challenge we are given the revving_up binary file.</description>
+      <description>Revving Up Description: Clam wrote a program for his school&#39;s cybersecurity club&#39;s first rev lecture! Can you get it to give you the flag? You can find it at /problems/2020/revving_up on the shell server, which you can access via the &amp;quot;shell&amp;quot; link at the top of the site. Hint : Try some google searches for &amp;quot;how to run a file in linux&amp;quot; or &amp;quot;bash for beginners&amp;quot;. File: revving_up Author: aplet123 In this challenge we are given the revving_up binary file.</description>
     </item>
     
     <item>
@@ -37,8 +57,8 @@
       <pubDate>Fri, 14 Feb 2020 00:46:37 +0700</pubDate>
       
       <guid>https://insomn14.github.io/posts/neverlanctf-2020/</guid>
-      <description>Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db  This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
-❯ file encrypted_db encrypted_db: ASCII text  This file has a text format, let&amp;rsquo;s look at the contents of the file.</description>
+      <description>Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
+❯ file encrypted_db encrypted_db: ASCII text This file has a text format, let&amp;rsquo;s look at the contents of the file.</description>
     </item>
     
   </channel>

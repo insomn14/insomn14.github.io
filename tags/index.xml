@@ -1,15 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Hallo Dunia!</title>
+    <title>Tags on Hello World!</title>
     <link>https://insomn14.github.io/tags/</link>
-    <description>Recent content in Tags on Hallo Dunia!</description>
+    <description>Recent content in Tags on Hello World!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Mar 2020 06:16:12 +0700</lastBuildDate>
+    <copyright>insomn14</copyright>
+    <lastBuildDate>Tue, 09 Jun 2020 12:16:12 +0700</lastBuildDate>
     
 	<atom:link href="https://insomn14.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Crypto</title>
+      <link>https://insomn14.github.io/tags/crypto/</link>
+      <pubDate>Tue, 09 Jun 2020 12:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/tags/crypto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Forensics</title>
+      <link>https://insomn14.github.io/tags/forensics/</link>
+      <pubDate>Tue, 09 Jun 2020 09:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/tags/forensics/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Reverse Engineering</title>
