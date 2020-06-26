@@ -6,8 +6,284 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>insomn14</copyright>
-        <lastBuildDate>Tue, 09 Jun 2020 12:16:12 +0700</lastBuildDate>
+        <lastBuildDate>Fri, 26 Jun 2020 12:56:39 +0700</lastBuildDate>
         <atom:link href="https://insomn14.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>redpwn 2020 | RE *Writeups*</title>
+            <link>https://insomn14.github.io/posts/redpwn-2020/</link>
+            <pubDate>Fri, 26 Jun 2020 12:56:39 +0700</pubDate>
+            
+            <guid>https://insomn14.github.io/posts/redpwn-2020/</guid>
+            <description>ropes 128pts Description: It&#39;s not just a string, it&#39;s a rope! File: ropes Author: NotDeGhost on this challenge we were given Mach-O binary file ropes.
+❯ file ropes ropes: Mach-O 64-bit x86_64 executable, flags:&amp;lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&amp;gt; to solve the first challenge is not too difficult, we can use the strings command to find interesting strings that we might be able to see the flag.
+❯ strings ropes ... /usr/lib/libSystem.B.dylib Give me a magic number: First part is: flag{r0pes_ar3_ Second part is: just_l0ng_str1ngs} @dyld_stub_binder @_printf .</description>
+            <content type="html"><![CDATA[<hr>
+<h3 id="ropes-128pts">ropes 128pts</h3>
+<pre><code>Description:
+It's not just a string, it's a rope!
+
+File:
+ropes
+
+Author: 
+NotDeGhost
+</code></pre><p>on this challenge we were given Mach-O binary file <a href="https://github.com/insomn14/CTFtime2020/blob/master/redpwnCTF/rev/ropes"><em>ropes</em></a>.</p>
+<pre><code>❯ file ropes 
+ropes: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
+</code></pre><p>to solve the first challenge is not too difficult, we can use the <code>strings</code> command to find interesting strings that we might be able to see the flag.</p>
+<pre><code>❯ strings ropes
+...
+/usr/lib/libSystem.B.dylib
+Give me a magic number: 
+First part is: flag{r0pes_ar3_
+Second part is: just_l0ng_str1ngs}
+@dyld_stub_binder
+@_printf
+...
+</code></pre><p>FLAG : <code>flag{r0pes_ar3_just_l0ng_str1ngs}</code></p>
+<hr>
+<h3 id="bubbly-395pts">bubbly 395pts</h3>
+<pre><code>Description:
+It never ends
+
+nc 2020.redpwnc.tf 31039
+
+File:
+bubbly
+
+Author: 
+dns
+</code></pre><p>At the challenge we are given binary files <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/bubbly"><em>bubbly</em></a></p>
+<pre><code>❯ file bubbly 
+bubbly: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=edb56d2d9355bcee01909f171d8a272a3e82d053, with debug_info, not stripped
+</code></pre><p>The following is a pseudocode snippet from the <em>bubbly</em> program, as we see there are variable array <code>nums</code> and there are repeats, which are intended to move each element position to array <code>nums</code> and there is a <code>check()</code> function, this function is useful for checking each element on Array <code>nums</code> whether the element in the array <code>nums</code> is sorted, if the element array <code>nums</code> is already passed the <code>check ()</code> function returns the value <code>0 == True</code> if it does not return the value <code>1 == False</code>.</p>
+<pre><code>...
+.data:0000000000004060 nums            dd 1, 10, 3, 2, 5, 9, 8, 7, 4, 6
+...
+  puts(&quot;I hate my data structures class! Why can't I just sort by hand?&quot;);
+  for ( pass = 0; ; pass = check() )
+  {
+    unused = __isoc99_scanf(&quot;%d&quot;, &amp;i);
+    if ( i &gt; 8 )
+      break;
+    nums[i] ^= nums[i + 1];
+    nums[i + 1] ^= nums[i];
+    nums[i] ^= nums[i + 1];
+  }
+ ...
+BOOL8 __fastcall check()
+{
+  uint32_t i; // [rsp+0h] [rbp-8h]
+  bool pass; // [rsp+7h] [rbp-1h]
+
+  pass = 1;
+  for ( i = 0; i &lt;= 8; ++i )
+  {
+    if ( nums[i] &gt; nums[i + 1] )
+      return 0;
+  }
+  return pass;
+}
+</code></pre><p>To solve this challenge I use <a href="https://www.hackerearth.com/practice/algorithms/sorting/bubble-sort/visualize/"><em>hackerearth</em></a> to make it easier to solve the challenge. After getting a value to sort the array of nums, enter a value greater than 8 to exit the loop.</p>
+<pre><code>❯ ./connect.sh        
+I hate my data structures class! Why can't I just sort by hand?
+1
+2
+3
+4
+5
+6
+7
+8
+1
+4
+5
+6
+7
+4
+5
+6
+4
+5
+3
+9
+Well done!
+flag{4ft3r_y0u_put_u54c0_0n_y0ur_c011ege_4pp5_y0u_5t1ll_h4ve_t0_d0_th15_57uff}
+</code></pre><p>FLAG : <code>flag{4ft3r_y0u_put_u54c0_0n_y0ur_c011ege_4pp5_y0u_5t1ll_h4ve_t0_d0_th15_57uff}</code></p>
+<hr>
+<h3 id="smart-solver-475pts">SMarT-solver 475pts</h3>
+<pre><code>Description:
+Find the correct flag. :)
+
+NOTE: All letters in the flag are lowercase
+
+File:
+SMarT-solver
+
+Author: 
+MrSlick
+</code></pre><p>In the following challenges we are given a binary file <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/SMarT-solver"><em>SMarT-solver</em></a>.</p>
+<pre><code>❯ file SMarT-solver
+SMarT-solver: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=27bf1ae8e39bad973a605ab44e3b36a64e2134c6, not stripped
+</code></pre><p>If you are familiar with the challenge of reversing, maybe we will get to know what we should do next. If you don&rsquo;t understand, let me explain briefly. If we pay attention i think they wants to try saying &ldquo;SMT-solver&rdquo;, so we need to prepare our z3 already installed to help us solve this challenge and we are also told that All letters in the flag are lowercase. Let&rsquo;s look deeper to understand how the binary works.</p>
+<pre><code>...
+     90d:       48 8d 85 e0 fe ff ff    lea    rax,[rbp-0x120]	&lt;-----------+
+     914:       48 89 c7                mov    rdi,rax                      |
+     917:       e8 c4 fd ff ff          call   6e0 &lt;strlen@plt&gt;             |
+     91c:       48 83 f8 48             cmp    rax,0x48     &lt;---------------+---&gt; compare input length with 0x48 / 72
+     920:       0f 86 9c b0 01 00       jbe    1b9c2 &lt;main+0x1b168&gt;         
+     926:       0f b6 95 e0 fe ff ff    movzx  edx,BYTE PTR [rbp-0x120] &lt;---+
+     92d:       0f b6 85 e1 fe ff ff    movzx  eax,BYTE PTR [rbp-0x11f] &lt;---| 
+     934:       38 c2                   cmp    dl,al        &lt;---------------|
+     936:       0f 83 8c b0 01 00       jae    1b9c8 &lt;main+0x1b16e&gt;         |
+     93c:       0f b6 95 e0 fe ff ff    movzx  edx,BYTE PTR [rbp-0x120] &lt;---|
+     943:       0f b6 85 e2 fe ff ff    movzx  eax,BYTE PTR [rbp-0x11e] &lt;---|
+     94a:       38 c2                   cmp    dl,al        &lt;---------------+---&gt; compare each character in our input
+     94c:       0f 86 7c b0 01 00       jbe    1b9ce &lt;main+0x1b174&gt;         |
+     952:       0f b6 95 e0 fe ff ff    movzx  edx,BYTE PTR [rbp-0x120] &lt;---|
+     959:       0f b6 85 e3 fe ff ff    movzx  eax,BYTE PTR [rbp-0x11d] &lt;---|
+     960:       38 c2                   cmp    dl,al        &lt;---------------|
+     962:       0f 83 6c b0 01 00       jae    1b9d4 &lt;main+0x1b17a&gt;         |
+...
+</code></pre><p>After conducting a static analysis it can be concluded that the flag length is 72 characters and that each character is compared to each other. The next step is to take the assembly code and clean it to make the code look clearer. After that, let&rsquo;s create a script to complete this challenge. Visit my <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/SMarT-solver"><em>github</em></a> to see my solver code</p>
+<pre><code>❯ python solver.py
+flag{thequickbrownfoxjumpedoverthelazydogandlearnedhowtoautomateanalysis}
+
+❯ python solver.py | ./SMarT-solver
+Welcome to SMarT solver!
+The #1 solution for your flag checking needs.
+
+Enter a flag: 
+Correct input!
+</code></pre><p>FLAG : <code>flag{thequickbrownfoxjumpedoverthelazydogandlearnedhowtoautomateanalysis}</code></p>
+<hr>
+<h3 id="a-round-mechanism-495pts">a-round-mechanism 495pts</h3>
+<pre><code>Description:
+I found a respectable mainframe, can you help me get in? Flag is in flag.txt
+
+nc 2020.redpwnc.tf 31359
+
+File:
+ARM
+
+Author:
+green beans
+</code></pre><p>In this challenge we are given a 32-bit <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/a-round-mechanism"><em>ARM</em></a> stripped binary file</p>
+<pre><code>❯ file ARM
+ARM: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, for GNU/Linux 3.2.0, BuildID[sha1]=714b6b1a1949f1f0d3912e7e13fef4420e2d4efa, stripped
+</code></pre><p>After spending several hours doing static analysis I found a way to solve this challenge. As you can see here is a program flow where the length of the input must be 0x16 / 22 characters, the next step is that each character will be xor with 0x12 / 18.</p>
+<pre><code>...
+.data:00086064                 LDR     R2, =loc_86008 &lt;-------- masukan kita disimpan di loc_86008
+.data:00086068                 MOV     R0, #0     &lt;---------+
+.data:0008606C                 MOV     R1, #0x16  &lt;---------+-- mempersiapkan looping sebanyak 0x16
+.data:00086070 loc_86070                               ; CODE XREF: .data:00086090↓j
+.data:00086070                 LDRB    R3, [R2,R0] &lt;-----------+
+.data:00086074                 MOV     R4, R3                  |
+.data:00086078                 EOR     R4, R4, #0x12 &lt;---------+  setiap karakter di xor dengan 0x12
+.data:0008607C                 STRB    R4, [R2,R0]
+.data:00086080                 CMP     R3, #0xA
+.data:00086084                 BLEQ    loc_163BC
+.data:00086088                 ADD     R0, R0, #1
+.data:0008608C                 CMP     R0, R1   &lt;--------+
+.data:00086090                 BLE     loc_86070  &lt;------+---kembali ke loc_86070 jika R0 &lt; R1 
+...
+</code></pre><p>Then the sub_860EC function will be called and the value 1 and our input as parameters. The essence of the sub_860EC function every two characters from our input will be shifted left and shifted right once. After that the two results will be added up then the result is shifted right 7 times and subtracted by 1. This will be repeated 22 times.</p>
+<pre><code>...
+.data:00086094                 LDR     R0, =loc_86008 &lt;-----+
+.data:00086098                 MOV     R1, #1               |
+.data:0008609C                 BL      sub_860EC &lt;----------+-- sub_860EC(R0, R1)
+...
+.data:000860EC sub_860EC                               ; CODE XREF: .data:0008609C↑p
+.data:000860EC                                         ; sub_860EC+70↓p
+.data:000860EC                 PUSH    {LR}
+.data:000860F0                 PUSH    {R12}
+.data:000860F4                 PUSH    {R0}
+.data:000860F8                 PUSH    {R1}
+.data:000860FC                 SUB     SP, SP, #8
+.data:00086100                 MOV     R12, SP
+.data:00086104                 ADDLT   R1, R1, #1
+.data:00086108                 CMP     R1, #0x16 &lt;-----+
+.data:0008610C                 BNE     loc_86118 &lt;-----+-- Jump to loc_86118 if R1 not Equal 0x16 / 22
+.data:00086110                 MOV     R0, #1
+.data:00086114                 B       loc_86160 &lt;----- exit from function sub_860EC
+.data:00086118 ; ---------------------------------------------------------------------------
+.data:00086118
+.data:00086118 loc_86118                               ; CODE XREF: sub_860EC+20↑j
+.data:00086118                 MOV     R6, R0  &lt;--------------- Our input is moved to R6 from R0 in parameter 1
+.data:0008611C                 MOV     R8, R1  &lt;----------+ 
+.data:00086120                 LDRB    R9, [R6,R8] &lt;------+ R9 = R6[R8] Take the next character from our input
+.data:00086124                 MOV     R10, R9
+.data:00086128                 SUB     R5, R8, #1 &lt;--------+ R8 is subtracted 1 to retrieve the previous character
+.data:0008612C                 LDRB    R12, [R6,R5] &lt;------+ R12 = R6[R5]
+.data:00086130                 MOV     R5, R12
+.data:00086134                 MOV     R5, R5,LSR#1  &lt;------+ LSR (Logical Shift Right) R5 = (R5 &gt;&gt; 1)
+.data:00086138                 MOV     R10, R10,LSL#1 &lt;-----+ LSL (Logical Shift Left) R10 = (R10 &lt;&lt; 1)
+.data:0008613C                 ADD     R7, R5, R10 &lt;--------+ R7 = (R5 + R10)
+.data:00086140                 MOV     R10, R7
+.data:00086144                 MOV     R7, R7,LSR#7  &lt;------+ R7 = (R7 &gt;&gt; 7)
+.data:00086148                 MOV     R10, R10,LSR R7      |
+.data:0008614C                 SUB     R10, R10, #1 &lt;-------+ R10 = (R7 &gt;&gt; (R10 &gt;&gt; R7)) - 1 
+.data:00086150                 STRB    R10, [R6,R8] &lt;----------- R6[R8] = R10
+.data:00086154                 LDR     R0, =loc_86008 &lt;-----+
+.data:00086158                 MOV     R1, R8               |
+.data:0008615C                 BL      sub_860EC &lt;----------+-- sub_860EC(R0, R1)
+.data:00086160
+.data:00086160 loc_86160                               ; CODE XREF: sub_860EC+28↑j
+.data:00086160                 ADD     SP, SP, #8
+.data:00086164                 POP     {R1}
+.data:00086168                 POP     {R0}
+.data:0008616C                 POP     {R12}
+.data:00086170                 POP     {PC}
+...
+</code></pre><p>Last but not least  the results of our input will be compared with <code>te@B}efFk~{^Ixv@}y\\BC4</code> Because this program is &lsquo;little enddian&rsquo; it should look like this <code>4CB\\y}@vxI^{~kFfe}B@et</code>.</p>
+<pre><code>...
+.data:000860A0                 LDR     R2, =loc_86008
+.data:000860A4                 LDR     R3, =aTeBEffkIxvYBc4 ; &quot;te@B}efFk~{^Ixv@}y\\BC4&quot;
+...
+</code></pre><p>The following is the output of my solver. Visit my <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/a-round-mechanism"><em>github</em></a> to see my solver code.</p>
+<pre><code>❯ python3 solver.py
+Know 1st char : 4
+Restore 2nd char: C
+- possibility : 7
+- possibility : {
+- possibility : |
+-----------------------------------
+Result - 7 : 473Mc!cg\vMeaMtVMeg1V\
+Compare key : True
+Key found : &amp;%!_q3quNd_ws_fD_wu#DN
+-----------------------------------
+Result - { : 4{3Mc!cg\vMeaMtVMeg1V\
+Compare key : True
+Key found : &amp;i!_q3quNd_ws_fD_wu#DN
+-----------------------------------
+Result - | : 4|3Mc!cg\vMeaMtVMeg1V\
+Compare key : True
+Key found : &amp;n!_q3quNd_ws_fD_wu#DN
+</code></pre><p>I tried all three keys which I found all worked well.</p>
+<pre><code>❯ ./connect.sh
+I hear you've come to bargain for flags
+ I'm a reasonable machine, if you guess the password I can give you a flag
+&amp;%!_q3quNd_ws_fD_wu#DN
+Nice, you did it! Have your flag:   cat flag.txt
+flag{4_r3gu14R_m0N5tr051Ty}
+
+❯ ./connect.sh
+I hear you've come to bargain for flags
+ I'm a reasonable machine, if you guess the password I can give you a flag
+&amp;i!_q3quNd_ws_fD_wu#DN
+Nice, you did it! Have your flag:   cat flag.txt
+flag{4_r3gu14R_m0N5tr051Ty}
+
+❯ ./connect.sh
+I hear you've come to bargain for flags
+ I'm a reasonable machine, if you guess the password I can give you a flag
+&amp;n!_q3quNd_ws_fD_wu#DN
+Nice, you did it! Have your flag:   cat flag.txt
+flag{4_r3gu14R_m0N5tr051Ty}
+</code></pre><p>FLAG : <code>flag{4_r3gu14R_m0N5tr051Ty}</code></p>
+]]></content>
+        </item>
         
         <item>
             <title>NoobCTF0x1 | Crypto *Writeups*</title>
@@ -40,8 +316,8 @@ Author: D3v1LaL
 <pre><code>n: 1209143407476550975641959824312993703149920344437422193042293131572745298662696284279928622412441255652391493241414170537319784298367821654726781089600780498369402167443363862621886943970468819656731959468058528787895569936536904387979815183897568006750131879851263753496120098205966442010445601534305483783759226510120860633770814540166419495817666312474484061885435295870436055727722073738662516644186716532891328742452198364825809508602208516407566578212780807
 e: 65537
 c: 479864533376761605695501447173868480555428955121197237667644363164782871896916177280454277070395501072881821206028710238061428135752902868021510351013602427444705377461961807606024656743172785917677779391848195684330103645049456693618142623342949445393135435605296850775153054696353591431012573391751673267024658145416936335505273041995697052197680305689264142043959382559774510439925577487721780439642813074520685265074584526487330950173513520723457640547997316 
-</code></pre><p>I use <a href="https://github.com/Ganapati/RsaCtfTool">RsaCtfTool</a> to help me get a private key. After that we can create simple script to decrypt value of c
-<!-- raw HTML omitted --></p>
+</code></pre><p>I use <a href="https://github.com/Ganapati/RsaCtfTool">RsaCtfTool</a> to help me get a private key. After that we can create simple script to decrypt value of c</p>
+<!-- raw HTML omitted -->
 <pre><code>from Crypto.Util.number import long_to_bytes
 from Crypto.PublicKey import RSA
 
@@ -164,7 +440,7 @@ NOTE: Flag format noob{ALLCAPITAL}
 
 Author: Cryptonic007
 </code></pre><p>In this challenge, it is almost similar to the &lsquo;Frequency&rsquo; crypto challenge. but this time we have to analyze the frequency, to do that we can use Audacity, change it to spectrogram. <a href="https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling">link</a></p>
-<p><img src="/img/Screenshot/NoobCTF0x1/Screenshot.png" alt="image" title="Screenshot.png"></p>
+<p><img src="https://github.com/insomn14/CTFtime2020/blob/master/NoobCTF0x1/Forensics/Fine%20the%20tone/Screenshot.png" alt="image" title="Screenshot.png"></p>
 <p>From there we can start analyzing each frequency. after you get a number, replace it with the letter at each T9 keyboard emphasis.</p>
 <p>FLAG : <code>noob{YOUGOTTHETONE}</code></p>
 ]]></content>
@@ -794,7 +1070,7 @@ give flag
 Good job!
 Now run the program with a command line argument of &quot;banana&quot; and you'll be done!
 ❯ 
-</code></pre><p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>'. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
+</code></pre><p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>&rsquo;. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
 <pre><code>iVar2 = sym.imp.strcmp(&amp;s1, &quot;give flag&quot;);
     if (iVar2 == 0) {
         sym.imp.puts(&quot;Good job!&quot;);

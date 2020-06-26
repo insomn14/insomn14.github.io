@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>insomn14</copyright>
-    <lastBuildDate>Mon, 30 Mar 2020 06:16:12 +0700</lastBuildDate>
+    <lastBuildDate>Fri, 26 Jun 2020 12:56:39 +0700</lastBuildDate>
     
 	<atom:link href="https://insomn14.github.io/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>redpwn 2020 | RE *Writeups*</title>
+      <link>https://insomn14.github.io/posts/redpwn-2020/</link>
+      <pubDate>Fri, 26 Jun 2020 12:56:39 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/redpwn-2020/</guid>
+      <description>ropes 128pts Description: It&#39;s not just a string, it&#39;s a rope! File: ropes Author: NotDeGhost on this challenge we were given Mach-O binary file ropes.
+❯ file ropes ropes: Mach-O 64-bit x86_64 executable, flags:&amp;lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&amp;gt; to solve the first challenge is not too difficult, we can use the strings command to find interesting strings that we might be able to see the flag.
+❯ strings ropes ... /usr/lib/libSystem.B.dylib Give me a magic number: First part is: flag{r0pes_ar3_ Second part is: just_l0ng_str1ngs} @dyld_stub_binder @_printf .</description>
+    </item>
     
     <item>
       <title>TAMUctf 2020 | RE *Writeups*</title>

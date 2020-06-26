@@ -154,7 +154,7 @@ give flag
 Good job!
 Now run the program with a command line argument of &quot;banana&quot; and you'll be done!
 ❯ 
-</code></pre><p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>'. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
+</code></pre><p>When we run the program we are asked to enter the input &lsquo;<em>give flag</em>&rsquo;. But in the next instruction we are asked to add the &lsquo;<em>banana</em>&rsquo; argument when executing the program. The following is the pseudocode, I use <em>radare2</em> with <em>r2ghidra-dec</em>.</p>
 <pre><code>iVar2 = sym.imp.strcmp(&amp;s1, &quot;give flag&quot;);
     if (iVar2 == 0) {
         sym.imp.puts(&quot;Good job!&quot;);
