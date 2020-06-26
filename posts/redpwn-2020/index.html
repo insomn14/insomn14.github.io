@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="ropes 128pts Description: It&#39;s not just a string, it&#39;s a rope! File: ropes Author: NotDeGhost on this challenge we were given Mach-O binary file ropes.
+❯ file ropes ropes: Mach-O 64-bit x86_64 executable, flags:&amp;lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&amp;gt; to solve the first challenge is not too difficult, we can use the strings command to find interesting strings that we might be able to see the flag.
+❯ strings ropes ... /usr/lib/libSystem.B.dylib Give me a magic number: First part is: flag{r0pes_ar3_ Second part is: just_l0ng_str1ngs} @dyld_stub_binder @_printf ." />
+<meta name="keywords" content="insomn14, Reverse Engineering" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://insomn14.github.io/posts/redpwn-2020/" />
+
+
+    <title>
+        
+            redpwn 2020 | RE *Writeups* :: Hello World!  — this blog is about my CTFs writeups &amp; other cool things
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.min.5dcefbf8102eb536dd3e2de53ffebfa58599ab2435c241a0db81728a5e015f2e.css">
+
+
+
+
+<meta itemprop="name" content="redpwn 2020 | RE *Writeups*">
+<meta itemprop="description" content="ropes 128pts Description: It&#39;s not just a string, it&#39;s a rope! File: ropes Author: NotDeGhost on this challenge we were given Mach-O binary file ropes.
+❯ file ropes ropes: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt; to solve the first challenge is not too difficult, we can use the strings command to find interesting strings that we might be able to see the flag.
+❯ strings ropes ... /usr/lib/libSystem.B.dylib Give me a magic number: First part is: flag{r0pes_ar3_ Second part is: just_l0ng_str1ngs} @dyld_stub_binder @_printf .">
+<meta itemprop="datePublished" content="2020-06-26T12:56:39&#43;07:00" />
+<meta itemprop="dateModified" content="2020-06-26T12:56:39&#43;07:00" />
+<meta itemprop="wordCount" content="1598">
+<meta itemprop="image" content="https://insomn14.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="Reverse Engineering," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://insomn14.github.io/"/>
+
+<meta name="twitter:title" content="redpwn 2020 | RE *Writeups*"/>
+<meta name="twitter:description" content="ropes 128pts Description: It&#39;s not just a string, it&#39;s a rope! File: ropes Author: NotDeGhost on this challenge we were given Mach-O binary file ropes.
+❯ file ropes ropes: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt; to solve the first challenge is not too difficult, we can use the strings command to find interesting strings that we might be able to see the flag.
+❯ strings ropes ... /usr/lib/libSystem.B.dylib Give me a magic number: First part is: flag{r0pes_ar3_ Second part is: just_l0ng_str1ngs} @dyld_stub_binder @_printf ."/>
+
+
+
+    <meta property="article:section" content="Capture The Flags" />
+
+
+
+    <meta property="article:published_time" content="2020-06-26 12:56:39 &#43;0700 WIB" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ ./insomn14  </span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://insomn14.github.io/posts">Writeups</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>8 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://insomn14.github.io/posts/redpwn-2020/">redpwn 2020 | RE <em>Writeups</em></a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <hr>
+<h3 id="ropes-128pts">ropes 128pts</h3>
+<pre><code>Description:
+It's not just a string, it's a rope!
+
+File:
+ropes
+
+Author: 
+NotDeGhost
+</code></pre><p>on this challenge we were given Mach-O binary file <a href="https://github.com/insomn14/CTFtime2020/blob/master/redpwnCTF/rev/ropes"><em>ropes</em></a>.</p>
+<pre><code>❯ file ropes 
+ropes: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
+</code></pre><p>to solve the first challenge is not too difficult, we can use the <code>strings</code> command to find interesting strings that we might be able to see the flag.</p>
+<pre><code>❯ strings ropes
+...
+/usr/lib/libSystem.B.dylib
+Give me a magic number: 
+First part is: flag{r0pes_ar3_
+Second part is: just_l0ng_str1ngs}
+@dyld_stub_binder
+@_printf
+...
+</code></pre><p>FLAG : <code>flag{r0pes_ar3_just_l0ng_str1ngs}</code></p>
+<hr>
+<h3 id="bubbly-395pts">bubbly 395pts</h3>
+<pre><code>Description:
+It never ends
+
+nc 2020.redpwnc.tf 31039
+
+File:
+bubbly
+
+Author: 
+dns
+</code></pre><p>At the challenge we are given binary files <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/bubbly"><em>bubbly</em></a></p>
+<pre><code>❯ file bubbly 
+bubbly: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=edb56d2d9355bcee01909f171d8a272a3e82d053, with debug_info, not stripped
+</code></pre><p>The following is a pseudocode snippet from the <em>bubbly</em> program, as we see there are variable array <code>nums</code> and there are repeats, which are intended to move each element position to array <code>nums</code> and there is a <code>check()</code> function, this function is useful for checking each element on Array <code>nums</code> whether the element in the array <code>nums</code> is sorted, if the element array <code>nums</code> is already passed the <code>check ()</code> function returns the value <code>0 == True</code> if it does not return the value <code>1 == False</code>.</p>
+<pre><code>...
+.data:0000000000004060 nums            dd 1, 10, 3, 2, 5, 9, 8, 7, 4, 6
+...
+  puts(&quot;I hate my data structures class! Why can't I just sort by hand?&quot;);
+  for ( pass = 0; ; pass = check() )
+  {
+    unused = __isoc99_scanf(&quot;%d&quot;, &amp;i);
+    if ( i &gt; 8 )
+      break;
+    nums[i] ^= nums[i + 1];
+    nums[i + 1] ^= nums[i];
+    nums[i] ^= nums[i + 1];
+  }
+ ...
+BOOL8 __fastcall check()
+{
+  uint32_t i; // [rsp+0h] [rbp-8h]
+  bool pass; // [rsp+7h] [rbp-1h]
+
+  pass = 1;
+  for ( i = 0; i &lt;= 8; ++i )
+  {
+    if ( nums[i] &gt; nums[i + 1] )
+      return 0;
+  }
+  return pass;
+}
+</code></pre><p>To solve this challenge I use <a href="https://www.hackerearth.com/practice/algorithms/sorting/bubble-sort/visualize/"><em>hackerearth</em></a> to make it easier to solve the challenge. After getting a value to sort the array of nums, enter a value greater than 8 to exit the loop.</p>
+<pre><code>❯ ./connect.sh        
+I hate my data structures class! Why can't I just sort by hand?
+1
+2
+3
+4
+5
+6
+7
+8
+1
+4
+5
+6
+7
+4
+5
+6
+4
+5
+3
+9
+Well done!
+flag{4ft3r_y0u_put_u54c0_0n_y0ur_c011ege_4pp5_y0u_5t1ll_h4ve_t0_d0_th15_57uff}
+</code></pre><p>FLAG : <code>flag{4ft3r_y0u_put_u54c0_0n_y0ur_c011ege_4pp5_y0u_5t1ll_h4ve_t0_d0_th15_57uff}</code></p>
+<hr>
+<h3 id="smart-solver-475pts">SMarT-solver 475pts</h3>
+<pre><code>Description:
+Find the correct flag. :)
+
+NOTE: All letters in the flag are lowercase
+
+File:
+SMarT-solver
+
+Author: 
+MrSlick
+</code></pre><p>In the following challenges we are given a binary file <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/SMarT-solver"><em>SMarT-solver</em></a>.</p>
+<pre><code>❯ file SMarT-solver
+SMarT-solver: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=27bf1ae8e39bad973a605ab44e3b36a64e2134c6, not stripped
+</code></pre><p>If you are familiar with the challenge of reversing, maybe we will get to know what we should do next. If you don&rsquo;t understand, let me explain briefly. If we pay attention i think they wants to try saying &ldquo;SMT-solver&rdquo;, so we need to prepare our z3 already installed to help us solve this challenge and we are also told that All letters in the flag are lowercase. Let&rsquo;s look deeper to understand how the binary works.</p>
+<pre><code>...
+     90d:       48 8d 85 e0 fe ff ff    lea    rax,[rbp-0x120]	&lt;-----------+
+     914:       48 89 c7                mov    rdi,rax                      |
+     917:       e8 c4 fd ff ff          call   6e0 &lt;strlen@plt&gt;             |
+     91c:       48 83 f8 48             cmp    rax,0x48     &lt;---------------+---&gt; compare input length with 0x48 / 72
+     920:       0f 86 9c b0 01 00       jbe    1b9c2 &lt;main+0x1b168&gt;         
+     926:       0f b6 95 e0 fe ff ff    movzx  edx,BYTE PTR [rbp-0x120] &lt;---+
+     92d:       0f b6 85 e1 fe ff ff    movzx  eax,BYTE PTR [rbp-0x11f] &lt;---| 
+     934:       38 c2                   cmp    dl,al        &lt;---------------|
+     936:       0f 83 8c b0 01 00       jae    1b9c8 &lt;main+0x1b16e&gt;         |
+     93c:       0f b6 95 e0 fe ff ff    movzx  edx,BYTE PTR [rbp-0x120] &lt;---|
+     943:       0f b6 85 e2 fe ff ff    movzx  eax,BYTE PTR [rbp-0x11e] &lt;---|
+     94a:       38 c2                   cmp    dl,al        &lt;---------------+---&gt; compare each character in our input
+     94c:       0f 86 7c b0 01 00       jbe    1b9ce &lt;main+0x1b174&gt;         |
+     952:       0f b6 95 e0 fe ff ff    movzx  edx,BYTE PTR [rbp-0x120] &lt;---|
+     959:       0f b6 85 e3 fe ff ff    movzx  eax,BYTE PTR [rbp-0x11d] &lt;---|
+     960:       38 c2                   cmp    dl,al        &lt;---------------|
+     962:       0f 83 6c b0 01 00       jae    1b9d4 &lt;main+0x1b17a&gt;         |
+...
+</code></pre><p>After conducting a static analysis it can be concluded that the flag length is 72 characters and that each character is compared to each other. The next step is to take the assembly code and clean it to make the code look clearer. After that, let&rsquo;s create a script to complete this challenge. Visit my <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/SMarT-solver"><em>github</em></a> to see my solver code</p>
+<pre><code>❯ python solver.py
+flag{thequickbrownfoxjumpedoverthelazydogandlearnedhowtoautomateanalysis}
+
+❯ python solver.py | ./SMarT-solver
+Welcome to SMarT solver!
+The #1 solution for your flag checking needs.
+
+Enter a flag: 
+Correct input!
+</code></pre><p>FLAG : <code>flag{thequickbrownfoxjumpedoverthelazydogandlearnedhowtoautomateanalysis}</code></p>
+<hr>
+<h3 id="a-round-mechanism-495pts">a-round-mechanism 495pts</h3>
+<pre><code>Description:
+I found a respectable mainframe, can you help me get in? Flag is in flag.txt
+
+nc 2020.redpwnc.tf 31359
+
+File:
+ARM
+
+Author:
+green beans
+</code></pre><p>In this challenge we are given a 32-bit <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/a-round-mechanism"><em>ARM</em></a> stripped binary file</p>
+<pre><code>❯ file ARM
+ARM: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, for GNU/Linux 3.2.0, BuildID[sha1]=714b6b1a1949f1f0d3912e7e13fef4420e2d4efa, stripped
+</code></pre><p>After spending several hours doing static analysis I found a way to solve this challenge. As you can see here is a program flow where the length of the input must be 0x16 / 22 characters, the next step is that each character will be xor with 0x12 / 18.</p>
+<pre><code>...
+.data:00086064                 LDR     R2, =loc_86008 &lt;-------- masukan kita disimpan di loc_86008
+.data:00086068                 MOV     R0, #0     &lt;---------+
+.data:0008606C                 MOV     R1, #0x16  &lt;---------+-- mempersiapkan looping sebanyak 0x16
+.data:00086070 loc_86070                               ; CODE XREF: .data:00086090↓j
+.data:00086070                 LDRB    R3, [R2,R0] &lt;-----------+
+.data:00086074                 MOV     R4, R3                  |
+.data:00086078                 EOR     R4, R4, #0x12 &lt;---------+  setiap karakter di xor dengan 0x12
+.data:0008607C                 STRB    R4, [R2,R0]
+.data:00086080                 CMP     R3, #0xA
+.data:00086084                 BLEQ    loc_163BC
+.data:00086088                 ADD     R0, R0, #1
+.data:0008608C                 CMP     R0, R1   &lt;--------+
+.data:00086090                 BLE     loc_86070  &lt;------+---kembali ke loc_86070 jika R0 &lt; R1 
+...
+</code></pre><p>Then the sub_860EC function will be called and the value 1 and our input as parameters. The essence of the sub_860EC function every two characters from our input will be shifted left and shifted right once. After that the two results will be added up then the result is shifted right 7 times and subtracted by 1. This will be repeated 22 times.</p>
+<pre><code>...
+.data:00086094                 LDR     R0, =loc_86008 &lt;-----+
+.data:00086098                 MOV     R1, #1               |
+.data:0008609C                 BL      sub_860EC &lt;----------+-- sub_860EC(R0, R1)
+...
+.data:000860EC sub_860EC                               ; CODE XREF: .data:0008609C↑p
+.data:000860EC                                         ; sub_860EC+70↓p
+.data:000860EC                 PUSH    {LR}
+.data:000860F0                 PUSH    {R12}
+.data:000860F4                 PUSH    {R0}
+.data:000860F8                 PUSH    {R1}
+.data:000860FC                 SUB     SP, SP, #8
+.data:00086100                 MOV     R12, SP
+.data:00086104                 ADDLT   R1, R1, #1
+.data:00086108                 CMP     R1, #0x16 &lt;-----+
+.data:0008610C                 BNE     loc_86118 &lt;-----+-- Jump to loc_86118 if R1 not Equal 0x16 / 22
+.data:00086110                 MOV     R0, #1
+.data:00086114                 B       loc_86160 &lt;----- exit from function sub_860EC
+.data:00086118 ; ---------------------------------------------------------------------------
+.data:00086118
+.data:00086118 loc_86118                               ; CODE XREF: sub_860EC+20↑j
+.data:00086118                 MOV     R6, R0  &lt;--------------- Our input is moved to R6 from R0 in parameter 1
+.data:0008611C                 MOV     R8, R1  &lt;----------+ 
+.data:00086120                 LDRB    R9, [R6,R8] &lt;------+ R9 = R6[R8] Take the next character from our input
+.data:00086124                 MOV     R10, R9
+.data:00086128                 SUB     R5, R8, #1 &lt;--------+ R8 is subtracted 1 to retrieve the previous character
+.data:0008612C                 LDRB    R12, [R6,R5] &lt;------+ R12 = R6[R5]
+.data:00086130                 MOV     R5, R12
+.data:00086134                 MOV     R5, R5,LSR#1  &lt;------+ LSR (Logical Shift Right) R5 = (R5 &gt;&gt; 1)
+.data:00086138                 MOV     R10, R10,LSL#1 &lt;-----+ LSL (Logical Shift Left) R10 = (R10 &lt;&lt; 1)
+.data:0008613C                 ADD     R7, R5, R10 &lt;--------+ R7 = (R5 + R10)
+.data:00086140                 MOV     R10, R7
+.data:00086144                 MOV     R7, R7,LSR#7  &lt;------+ R7 = (R7 &gt;&gt; 7)
+.data:00086148                 MOV     R10, R10,LSR R7      |
+.data:0008614C                 SUB     R10, R10, #1 &lt;-------+ R10 = (R7 &gt;&gt; (R10 &gt;&gt; R7)) - 1 
+.data:00086150                 STRB    R10, [R6,R8] &lt;----------- R6[R8] = R10
+.data:00086154                 LDR     R0, =loc_86008 &lt;-----+
+.data:00086158                 MOV     R1, R8               |
+.data:0008615C                 BL      sub_860EC &lt;----------+-- sub_860EC(R0, R1)
+.data:00086160
+.data:00086160 loc_86160                               ; CODE XREF: sub_860EC+28↑j
+.data:00086160                 ADD     SP, SP, #8
+.data:00086164                 POP     {R1}
+.data:00086168                 POP     {R0}
+.data:0008616C                 POP     {R12}
+.data:00086170                 POP     {PC}
+...
+</code></pre><p>Last but not least  the results of our input will be compared with <code>te@B}efFk~{^Ixv@}y\\BC4</code> Because this program is &lsquo;little enddian&rsquo; it should look like this <code>4CB\\y}@vxI^{~kFfe}B@et</code>.</p>
+<pre><code>...
+.data:000860A0                 LDR     R2, =loc_86008
+.data:000860A4                 LDR     R3, =aTeBEffkIxvYBc4 ; &quot;te@B}efFk~{^Ixv@}y\\BC4&quot;
+...
+</code></pre><p>The following is the output of my solver. Visit my <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/a-round-mechanism"><em>github</em></a> to see my solver code.</p>
+<pre><code>❯ python3 solver.py
+Know 1st char : 4
+Restore 2nd char: C
+- possibility : 7
+- possibility : {
+- possibility : |
+-----------------------------------
+Result - 7 : 473Mc!cg\vMeaMtVMeg1V\
+Compare key : True
+Key found : &amp;%!_q3quNd_ws_fD_wu#DN
+-----------------------------------
+Result - { : 4{3Mc!cg\vMeaMtVMeg1V\
+Compare key : True
+Key found : &amp;i!_q3quNd_ws_fD_wu#DN
+-----------------------------------
+Result - | : 4|3Mc!cg\vMeaMtVMeg1V\
+Compare key : True
+Key found : &amp;n!_q3quNd_ws_fD_wu#DN
+</code></pre><p>I tried all three keys which I found all worked well.</p>
+<pre><code>❯ ./connect.sh
+I hear you've come to bargain for flags
+ I'm a reasonable machine, if you guess the password I can give you a flag
+&amp;%!_q3quNd_ws_fD_wu#DN
+Nice, you did it! Have your flag:   cat flag.txt
+flag{4_r3gu14R_m0N5tr051Ty}
+
+❯ ./connect.sh
+I hear you've come to bargain for flags
+ I'm a reasonable machine, if you guess the password I can give you a flag
+&amp;i!_q3quNd_ws_fD_wu#DN
+Nice, you did it! Have your flag:   cat flag.txt
+flag{4_r3gu14R_m0N5tr051Ty}
+
+❯ ./connect.sh
+I hear you've come to bargain for flags
+ I'm a reasonable machine, if you guess the password I can give you a flag
+&amp;n!_q3quNd_ws_fD_wu#DN
+Nice, you did it! Have your flag:   cat flag.txt
+flag{4_r3gu14R_m0N5tr051Ty}
+</code></pre><p>FLAG : <code>flag{4_r3gu14R_m0N5tr051Ty}</code></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://insomn14.github.io/tags/reverse-engineering">Reverse Engineering</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1598 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-06-26 12:56 &#43;0700</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://insomn14.github.io/posts/noobctf0x1-crypto/">
+                                <span class="button__text">NoobCTF0x1 | Crypto *Writeups*</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+            <span>insomn14</span>
+            <span> <a href="https://insomn14.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="/bundle.min.2d5469329143160ae2456a69c3c76dc2d0a3b212b46afe291a51bd68650ed6f8697e001dab54f1c272c77ce08092a8c55e5bb4314e0ee334aab4b927ec896638.js" integrity="sha512-LVRpMpFDFgriRWppw8dtwtCjshK0av4pGlG9aGUO1vhpfgAdq1TxwnLHfOCAkqjFXlu0MU4O4zSqtLkn7IlmOA=="></script>
+
+
+
+    </body>
+</html>
