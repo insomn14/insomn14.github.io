@@ -440,7 +440,7 @@ NOTE: Flag format noob{ALLCAPITAL}
 
 Author: Cryptonic007
 </code></pre><p>In this challenge, it is almost similar to the &lsquo;Frequency&rsquo; crypto challenge. but this time we have to analyze the frequency, to do that we can use Audacity, change it to spectrogram. <a href="https://en.wikipedia.org/wiki/Dual-tone_multi-frequency_signaling">link</a></p>
-<p><img src="https://raw.githubusercontent.com/insomn14/CTFtime2020/master/NoobCTF0x1/Forensics/Fine%20the%20tone/Screenshot.png" alt="image" title="Screenshot.png"></p>
+<p><img src="/img/Screenshot/NoobCTF0x1/Screenshot.png" alt="image" title="Screenshot"></p>
 <p>From there we can start analyzing each frequency. after you get a number, replace it with the letter at each T9 keyboard emphasis.</p>
 <p>FLAG : <code>noob{YOUGOTTHETONE}</code></p>
 ]]></content>
