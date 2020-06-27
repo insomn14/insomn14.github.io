@@ -146,7 +146,7 @@ SMarT-solver: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamicall
      960:       38 c2                   cmp    dl,al        &lt;---------------|
      962:       0f 83 6c b0 01 00       jae    1b9d4 &lt;main+0x1b17a&gt;         |
 ...
-</code></pre><p>After conducting a static analysis it can be concluded that the flag length is 72 characters and that each character is compared to each other. The next step is to take the assembly code and clean it to make the code look clearer. After that, let&rsquo;s create a script to complete this challenge. Visit my <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/SMarT-solver"><em>github</em></a> to see my solver code</p>
+</code></pre><p>After a few minutes doing static analysis it can be concluded that the flag length is 72 characters and that each character is compared to each other. The next step is to take the assembly code and clean it to make the code look clearer. After that, let&rsquo;s create a script to complete this challenge. Visit my <a href="https://github.com/insomn14/CTFtime2020/tree/master/redpwnCTF/rev/SMarT-solver"><em>github</em></a> to see my solver code</p>
 <pre><code>❯ python solver.py
 flag{thequickbrownfoxjumpedoverthelazydogandlearnedhowtoautomateanalysis}
 
@@ -174,19 +174,19 @@ green beans
 ARM: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, for GNU/Linux 3.2.0, BuildID[sha1]=714b6b1a1949f1f0d3912e7e13fef4420e2d4efa, stripped
 </code></pre><p>After spending several hours doing static analysis I found a way to solve this challenge. As you can see here is a program flow where the length of the input must be 0x16 / 22 characters, the next step is that each character will be xor with 0x12 / 18.</p>
 <pre><code>...
-.data:00086064                 LDR     R2, =loc_86008 &lt;-------- masukan kita disimpan di loc_86008
+.data:00086064                 LDR     R2, =loc_86008 &lt;-------- Our input is stored at loc_86008
 .data:00086068                 MOV     R0, #0     &lt;---------+
-.data:0008606C                 MOV     R1, #0x16  &lt;---------+-- mempersiapkan looping sebanyak 0x16
+.data:0008606C                 MOV     R1, #0x16  &lt;---------+-- Prepare looping 22 times
 .data:00086070 loc_86070                               ; CODE XREF: .data:00086090↓j
 .data:00086070                 LDRB    R3, [R2,R0] &lt;-----------+
 .data:00086074                 MOV     R4, R3                  |
-.data:00086078                 EOR     R4, R4, #0x12 &lt;---------+  setiap karakter di xor dengan 0x12
+.data:00086078                 EOR     R4, R4, #0x12 &lt;---------+-- Each character will be xor with 18
 .data:0008607C                 STRB    R4, [R2,R0]
 .data:00086080                 CMP     R3, #0xA
 .data:00086084                 BLEQ    loc_163BC
 .data:00086088                 ADD     R0, R0, #1
 .data:0008608C                 CMP     R0, R1   &lt;--------+
-.data:00086090                 BLE     loc_86070  &lt;------+---kembali ke loc_86070 jika R0 &lt; R1 
+.data:00086090                 BLE     loc_86070  &lt;------+-- Return to loc_86070 if R0 is still smaller than R1 
 ...
 </code></pre><p>Then the sub_860EC function will be called and the value 1 and our input as parameters. The essence of the sub_860EC function every two characters from our input will be shifted left and shifted right once. After that the two results will be added up then the result is shifted right 7 times and subtracted by 1. This will be repeated 22 times.</p>
 <pre><code>...
