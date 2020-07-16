@@ -282,8 +282,7 @@ itJX.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically lin
 <p>The following is the output from my <a href="https://github.com/insomn14/CTFtime2020/blob/master/rgbCTF2020/Pwn%26Rev/sadistic%20reversing%201%20%5B490pts%5D/solver.py"><em>solver</em></a>.</p>
 <pre><code>❯ python3 solver.py
 Found : rgbCTF{th1s_pr0bably_w@s_d1ff1cult6362}
-</code></pre><p>Btw this is not the right way to solve this challenge, why do I say so? because even though I get the flag I still don&rsquo;t understand how the program works.</p>
-<p>FLAG : <code>rgbCTF{th1s_pr0bably_w@s_d1ff1cult6362}</code></p>
+</code></pre><p>FLAG : <code>rgbCTF{th1s_pr0bably_w@s_d1ff1cult6362}</code></p>
 <hr>
 <h3 id="sadistic-reversing-2-496pts">sadistic reversing 2 496pts</h3>
 <pre><code>hopefully harder now
@@ -382,8 +381,7 @@ Found : rgbCTF{hopefully_this_was_har***32494328fdsajsfkl}
 Found : rgbCTF{hopefully_this_was_hard**32494328fdsajsfkl}
 Found : rgbCTF{hopefully_this_was_harde*32494328fdsajsfkl}
 Found : rgbCTF{hopefully_this_was_harder32494328fdsajsfkl}
-</code></pre><p>Again, i think this&rsquo;s not the best way to solve this challenge.</p>
-<p>FLAG : <code>rgbCTF{hopefully_this_was_harder32494328fdsajsfkl}</code></p>
+</code></pre><p>FLAG : <code>rgbCTF{hopefully_this_was_harder32494328fdsajsfkl}</code></p>
 ]]></content>
         </item>
         
