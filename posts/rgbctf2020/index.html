@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="Too Slow 50pts I&#39;ve made this flag decryptor! It&#39;s super secure, but it runs a little slow. ~ungato#3536 a.out Size: 16.46KB MD5: 0552728acb42e5f59c2ff3e8dcafc04d In this challenge we are given an a.out binary file.
+❯ file a.out a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=462dfe207acdfe1da2133cac6b69b45de5169ee2, for GNU/Linux 3.2.0, not stripped ❯ ./a.out Flag Decryptor v1.0 Generating key... ^C If we execute the file, the program only runs without stopping." />
+<meta name="keywords" content="insomn14, Reverse Engineering" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://insomn14.github.io/posts/rgbctf2020/" />
+
+
+    <title>
+        
+            rgbCTF2020 | RE *Writeups* :: Hello World!  — this blog is about my CTFs writeups &amp; other cool things
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.min.5dcefbf8102eb536dd3e2de53ffebfa58599ab2435c241a0db81728a5e015f2e.css">
+
+
+
+
+<meta itemprop="name" content="rgbCTF2020 | RE *Writeups*">
+<meta itemprop="description" content="Too Slow 50pts I&#39;ve made this flag decryptor! It&#39;s super secure, but it runs a little slow. ~ungato#3536 a.out Size: 16.46KB MD5: 0552728acb42e5f59c2ff3e8dcafc04d In this challenge we are given an a.out binary file.
+❯ file a.out a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=462dfe207acdfe1da2133cac6b69b45de5169ee2, for GNU/Linux 3.2.0, not stripped ❯ ./a.out Flag Decryptor v1.0 Generating key... ^C If we execute the file, the program only runs without stopping.">
+<meta itemprop="datePublished" content="2020-07-14T16:09:06&#43;07:00" />
+<meta itemprop="dateModified" content="2020-07-14T16:09:06&#43;07:00" />
+<meta itemprop="wordCount" content="2658">
+<meta itemprop="image" content="https://insomn14.github.io/"/>
+
+
+
+<meta itemprop="keywords" content="Reverse Engineering," /><meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://insomn14.github.io/"/>
+
+<meta name="twitter:title" content="rgbCTF2020 | RE *Writeups*"/>
+<meta name="twitter:description" content="Too Slow 50pts I&#39;ve made this flag decryptor! It&#39;s super secure, but it runs a little slow. ~ungato#3536 a.out Size: 16.46KB MD5: 0552728acb42e5f59c2ff3e8dcafc04d In this challenge we are given an a.out binary file.
+❯ file a.out a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=462dfe207acdfe1da2133cac6b69b45de5169ee2, for GNU/Linux 3.2.0, not stripped ❯ ./a.out Flag Decryptor v1.0 Generating key... ^C If we execute the file, the program only runs without stopping."/>
+
+
+
+    <meta property="article:section" content="Capture The Flags" />
+
+
+
+    <meta property="article:published_time" content="2020-07-14 16:09:06 &#43;0700 WIB" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">$ ./insomn14  </span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://insomn14.github.io/posts">Writeups</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle unselectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>13 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title">
+                <a href="https://insomn14.github.io/posts/rgbctf2020/">rgbCTF2020 | RE <em>Writeups</em></a>
+            </h1>
+
+            
+
+            <div class="post-content">
+                <hr>
+<h3 id="too-slow-50pts">Too Slow 50pts</h3>
+<pre><code>I've made this flag decryptor! It's super secure, but it runs a little slow.
+
+
+~ungato#3536
+a.out Size: 16.46KB  MD5: 0552728acb42e5f59c2ff3e8dcafc04d
+</code></pre><p>In this challenge we are given an <a href="https://github.com/insomn14/CTFtime2020/tree/master/rgbCTF2020/Pwn%26Rev/Too%20Slow%20%5B50pts%5D"><em>a.out</em></a> binary file.</p>
+<pre><code>❯ file a.out
+a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=462dfe207acdfe1da2133cac6b69b45de5169ee2, for GNU/Linux 3.2.0, not stripped
+
+❯ ./a.out
+Flag Decryptor v1.0
+Generating key...
+^C
+</code></pre><p>If we execute the file, the program only runs without stopping. Let&rsquo;s dive deeper into understanding the workings of the program.</p>
+<pre><code>[0x000010a0]&gt; pdg@main
+
+undefined8 main(undefined8 argc, char **argv)
+{
+    uint32_t uVar1;
+    char **var_10h;
+    int64_t var_4h;
+    
+    sym.imp.puts(&quot;Flag Decryptor v1.0&quot;);
+    sym.imp.puts();
+    uVar1 = sym.getKey();
+    sym.win((uint64_t)uVar1);
+    return 0;
+}
+
+[0x000010a0]&gt; pdg@sym.getKey
+
+uint32_t sym.getKey(void)
+{
+    uint32_t var_8h;
+    uint32_t var_4h;
+    
+    var_8h = 0;
+    while (var_8h &lt; 0x265d1d23) {
+        var_4h = var_8h;
+        while (var_4h != 1) {
+            if ((var_4h &amp; 1) == 0) {
+                var_4h = (int32_t)var_4h / 2;
+            } else {
+                var_4h = var_4h * 3 + 1;
+            }
+        }
+        var_8h = var_8h + 1;
+    }
+    return var_8h;
+}
+</code></pre><p>After looking at the pseudocode of the program, there are two interesting functions <code>getKey</code> &amp; <code>win</code>. In the <code>getKey</code> function there is a looping of <code>0x265d1d23</code>. If we note the <code>getKey</code> function will only return the result of the variable var_8h after increment, so the key would be <code>0x265d1d23</code>.</p>
+<pre><code>
+[0x000010a0]&gt; pdg@sym.win
+
+void sym.win(int64_t arg1)
+{
+	...
+	...
+
+    iVar1 = *(int64_t *)(in_FS_OFFSET + 0x28);
+    var_30h = (char *)0x12297e12426e6f53; // 0x42642a41473e425717696a7c49334216426e2e4d79242e48796e714112297e12426e6f53
+    var_34h = 0;
+    while (var_34h &lt; 9) {
+        *(uint32_t *)((int64_t)&amp;var_30h + (uint64_t)var_34h * 4) =
+             *(uint32_t *)((int64_t)&amp;var_30h + (uint64_t)var_34h * 4) ^ (uint32_t)arg1;
+        var_34h = var_34h + 1;
+    }
+    sym.imp.printf(&quot;Your flag: rgbCTF{%36s}\n&quot;, &amp;var_30h);
+    if (iVar1 != *(int64_t *)(in_FS_OFFSET + 0x28)) {
+        sym.imp.__stack_chk_fail();
+    }
+    return;
+}
+</code></pre><p>In the <code>win</code> function every four bytes of the <code>var_30h</code> variable in xor with the key we got from the <code>getKey</code> function. Without the need to wait for a very long loop, let&rsquo;s make a simple script to solve this challenge.</p>
+<pre><code>&gt;&gt;&gt; from Crypto.Util.number import bytes_to_long as btl
+&gt;&gt;&gt; from Crypto.Util.number import long_to_bytes as ltb
+&gt;&gt;&gt; 
+&gt;&gt;&gt; xor = lambda x,y : b''.join(ltb(btl(enc[i*4:i*4+4]) ^ y)[::-1] for i in range(len(x)//4))
+&gt;&gt;&gt; 
+&gt;&gt;&gt; enc = ltb(0x42642a41473e425717696a7c49334216426e2e4d79242e48796e714112297e12426e6f53)
+&gt;&gt;&gt; key = 0x265d1d23
+&gt;&gt;&gt; 
+&gt;&gt;&gt; xor(enc, key)
+b'pr3d1ct4bl3_k3y_n33d5_no_w41t_cab79d'
+</code></pre><p>FLAG : <code>rgbCTF{pr3d1ct4bl3_k3y_n33d5_no_w41t_cab79d}</code></p>
+<hr>
+<h3 id="advanced-reversing-mechanics-1-216pts">Advanced Reversing Mechanics 1 216pts</h3>
+<pre><code>Very very advanced trust me
+71, 66, 61, 42, 53, 45, 7A, 40, 51, 4C, 5E, 30, 79, 5E, 31, 5E, 64, 59, 5E, 38, 61, 36, 65, 37, 63, 7C
+
+~ungato#3536
+arm_easy.o Size: 1.40KB MD5: ee06c35e5e65c89fe91729dc5150bd19
+</code></pre><p>In the following challenge we ARM binary file <a href="https://github.com/insomn14/CTFtime2020/tree/master/rgbCTF2020/Pwn%26Rev/Advanced%20Reversing%20Mechanics%201%20%5B216pts%5D"><em>arm_easy.o</em></a></p>
+<pre><code>❯ file easy.o
+easy.o: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV), not stripped
+</code></pre><p>In this challenge I have a little problem because I don&rsquo;t know how to execute the program, so we have to do a static analysis. Let&rsquo;s look at the pseudocode of this program.</p>
+<pre><code>[0x08000034]&gt; afl
+0x08000034    3 36           sym.encryptFlag
+0x08000058    7 124          sym.main
+
+[0x08000034]&gt; pdg@sym.encryptFlag
+
+void sym.encryptFlag(int32_t arg1)
+{
+    char cVar1;
+    
+    // [01] -r-x section size 36 named .text
+    cVar1 = *(char *)arg1;
+    if (cVar1 == '\0') {
+        return;
+    }
+    do {
+        *(char *)arg1 = cVar1 + -1;
+        arg1 = arg1 + 1;
+        cVar1 = *(char *)arg1;
+    } while (cVar1 != '\0');
+    return;
+}
+</code></pre><p>As you can see there is an encryptFlag function where the function receives an arg1 parameter and each character on arg1 is summed with -1. Btw on this challenge we are given an output, chances are it is a flag that has been encrypted using this program. Here is a simple script to solve this challenge.</p>
+<pre><code>&gt;&gt;&gt; s = [0x71, 0x66, 0x61, 0x42, 0x53, 0x45, 0x7A, 0x40, 0x51, 0x4C, 0x5E, 0x30, 0x79, 0x5E, 0x31, 0x5E, 0x64, 0x59, 0x5E, 0x38, 0x61, 0x36, 0x65, 0x37, 0x63, 0x7C]
+&gt;&gt;&gt; msg = ''.join(chr(i+1) for i in s)
+&gt;&gt;&gt; msg
+'rgbCTF{ARM_1z_2_eZ_9b7f8d}'
+</code></pre><p>FLAG : <code>rgbCTF{ARM_1z_2_eZ_9b7f8d}</code></p>
+<hr>
+<h3 id="object-oriented-programming-413pts">Object Oriented Programming 413pts</h3>
+<pre><code>There's this small up and coming language called java I want to tell you about
+
+
+~Quintec#0689
+src.zip Size: 6.85KB MD5: ea5c341ca73f54b8dd8f52e34403760a
+</code></pre><p>In this challenge we are given the <a href="https://github.com/insomn14/CTFtime2020/tree/master/rgbCTF2020/Pwn%26Rev/Object%20Oriented%20Programming%20%5B413pts%5D"><em>src.zip</em></a> file which contains java programs. Let&rsquo;s extract and compile the challenge.</p>
+<pre><code>❯ cd src
+❯ ls
+bv.java  cd.java  fg.java  gl.java  gq.java  gx.java  iy.java  Main.java
+mo.java  pr.java  qa.java  qg.java  vh.java  wz.java  xp.java  xq.java
+❯ javac *.java
+❯ java Main
+IO is online.
+
+</code></pre><p>After a few hours of analyzing the source code of the program, I finally understood how to work from this challenge.</p>
+<pre><code>	...
+	public static final int SIXTEEN = BigInteger.valueOf(16).intValue();
+	...
+
+		String userInput = getUserInputMethodFromScannerAndInvokeAndReturnOutput(scanner);
+		if (userInput.length() != SIXTEEN)
+			System.exit(0);
+		
+		if (executeCodeThatDoesSomethingThatYouProbablyNeedToFigureOut(userInput).equals(scanner.getClass().getPackageName().replace(&quot;.&quot;, &quot;&quot;))) {
+			invokePrintLineMethodForOutputPrintStream(outputPrintStream, printLineMethod, &quot;Nice. Flag: rgbCTF{&quot; + userInput + &quot;}&quot;);
+		} else {
+			invokePrintLineMethodForOutputPrintStream(outputPrintStream, printLineMethod, &quot;Try again.&quot;);
+		}
+</code></pre><p>As you can see the length of our input must be 16, the next step of our input will be compared with the package name of the <code>scanner</code> that is <code>javautil</code>. Before our input is compared with <code>javautil</code>, we must find out what the <code>executeCodeThatDoesSomethingThatYouProbablyNeedToFigureOut</code> method does with our input.</p>
+<pre><code>	public static String executeCodeThatDoesSomethingThatYouProbablyNeedToFigureOut(String stringToExecuteAforementionedCodeOn) throws Exception {
+		String encryptedString = reallyBasicQuoteUnquoteEncryptionFunctionThatWillOnlyTakeTimeToFigureOutIfYouKeepReadingTheseRidiculouslyLongMethodNames(stringToExecuteAforementionedCodeOn);
+	...
+
+	protected static char secureEncryptionKey; //it's protected, how you gonna crack it now?
+	
+	public static String reallyBasicQuoteUnquoteEncryptionFunctionThatWillOnlyTakeTimeToFigureOutIfYouKeepReadingTheseRidiculouslyLongMethodNames(String stringToQuoteUnquoteEncrypt) throws Exception {
+		secureEncryptionKey = new EncryptionKeyInstantiator().getEncryptionKeyFactory().getEncryptionKey();
+		Integer[] encryptedArrayToBeCalledByStringConstructor = new Integer[stringToQuoteUnquoteEncrypt.length()];
+		for (int loopIndexIterator = ZERO; loopIndexIterator &lt; stringToQuoteUnquoteEncrypt.length(); loopIndexIterator++) {
+			encryptedArrayToBeCalledByStringConstructor[loopIndexIterator] = stringToQuoteUnquoteEncrypt.charAt(loopIndexIterator)^secureEncryptionKey;
+		}
+</code></pre><p>After being in the <code>executeCodeThatDoesSomethingThatYouProbablyNeedToFigureOut</code> method our input is sent to the <code>reallyBasicQuoteUnquoteEncryptionFunctionThatWillOnlyTakeTimeToFigureOutIfYouKeepRead...</code>, method, The possibility of first seeing the source code of this challenge will be a little confusing because of the strange method names and variables, but in fact this is just a simple program. As you can see there are the <code>secureEncryptionKey</code> and for loop variables, where each of our input characters will be xor with <code>secureEncryptionKey</code>. To find out the value of <code>secureEncryptionKey</code> I made a few changes to the source code to display the value of <code>secureEncryptionKey</code>.</p>
+<pre><code>	public static String reallyBasicQuoteUnquoteEncryptionFunctionThatWillOnlyTakeTimeToFigureOutIfYouKeepReadingTheseRidiculouslyLongMethodNames(String stringToQuoteUnquoteEncrypt) throws Exception {
+		secureEncryptionKey = new EncryptionKeyInstantiator().getEncryptionKeyFactory().getEncryptionKey();
+		System.out.println(&quot;Key : &quot;+(int)secureEncryptionKey);    // &lt;----- A little change
+		Integer[] encryptedArrayToBeCalledByStringConstructor = new Integer[stringToQuoteUnquoteEncrypt.length()];
+		for (int loopIndexIterator = ZERO; loopIndexIterator &lt; stringToQuoteUnquoteEncrypt.length(); loopIndexIterator++) {
+			encryptedArrayToBeCalledByStringConstructor[loopIndexIterator] = stringToQuoteUnquoteEncrypt.charAt(loopIndexIterator)^secureEncryptionKey;
+		}
+
+// Recompile the program and execute again
+❯ javac *.java
+❯ java Main
+IO is online.
+AAAAAAAAAAAAAAAA
+Key : 2
+Exception in thread &quot;main&quot; java.lang.ClassNotFoundException: CC
+	...
+</code></pre><p>Now that we know that our input will be xored with a value of 2, okay let&rsquo;s continue the analysis of the previous method.</p>
+<pre><code>...
+public static final int TWO = BigInteger.valueOf(2).intValue();
+public static final int FOUR = BigInteger.valueOf(4).intValue();
+...
+
+public static String executeCodeThatDoesSomethingThatYouProbablyNeedToFigureOut(String stringToExecuteAforementionedCodeOn) throws Exception {
+		String encryptedString = reallyBasicQuoteUnquoteEncryptionFunctionThatWillOnlyTakeTimeToFigureOutIfYouKeepReadingTheseRidiculouslyLongMethodNames(stringToExecuteAforementionedCodeOn);
+		String returnValueOfThisFunction = new String();
+		String[] chunksOfEncryptedStringOfLengthFour = splitStringIntoChunksOfLength(encryptedString, FOUR);
+		...
+</code></pre><p>The next step after our input is encrypted, our input will be split into four parts with the <code>splitStringIntoChunksOfLength</code> method,</p>
+<pre><code>		...
+		for (String chunkOfEncryptedStringOfLengthFour : chunksOfEncryptedStringOfLengthFour) {
+			String[] chunksOfChunkOfEncryptedStringOfLengthFourOfLengthTwo = splitStringIntoChunksOfLength(chunkOfEncryptedStringOfLengthFour, TWO);
+			String firstChunkOfChunkOfEncryptedStringOfLengthFourOfLengthTwo = chunksOfChunkOfEncryptedStringOfLengthFourOfLengthTwo[0];
+			String secondChunkOfChunkOfEncryptedStringOfLengthFourOfLengthTwo = chunksOfChunkOfEncryptedStringOfLengthFourOfLengthTwo[1];
+			Class&lt;?&gt; classAndExtraCharactersSoItsNotAKeyword = Class.forName(firstChunkOfChunkOfEncryptedStringOfLengthFourOfLengthTwo);
+			Object object = classAndExtraCharactersSoItsNotAKeyword.getConstructors()[ZERO].newInstance();
+			for (int loopArbitraryCounterIterator = 0; loopArbitraryCounterIterator &lt; THREE; loopArbitraryCounterIterator++) {
+				Method method = classAndExtraCharactersSoItsNotAKeyword.getMethod(secondChunkOfChunkOfEncryptedStringOfLengthFourOfLengthTwo);
+				secondChunkOfChunkOfEncryptedStringOfLengthFourOfLengthTwo = (String)method.invoke(object);
+			}
+			returnValueOfThisFunction = new String(returnValueOfThisFunction + secondChunkOfChunkOfEncryptedStringOfLengthFourOfLengthTwo);
+		}
+		return returnValueOfThisFunction;
+	}
+</code></pre><p>After dividing it into four parts, our input will be further divided into two parts. In this section I will explain it briefly, where the first part defines a <em>Class</em> and the second part defines a <em>Method</em> and there is a loop for three times, the looping result will produce a string stored in the <code>returnValueOfThisFunction</code> variable and will be compared with the <code>javautil</code> string . So from here we have to choose the right <em>Class</em> and <em>Method</em> to produce a string as we want.</p>
+<p>Following are my observations and simple scripts to solve this challenge.</p>
+<pre><code>1. gl.vg().we().rb() = &quot;ja&quot;
+2. pr.pk().te().wj() = &quot;va&quot;
+3. qg.am().xs().mb() = &quot;ut&quot;
+4. fg.gg().mg().oa() = &quot;il&quot;
+
+input = &quot;glvgprpkqgamfggg&quot; ^ 2
+
+&gt;&gt;&gt; xor = lambda x : ''.join(chr(ord(i) ^ 2) for i in x)
+&gt;&gt;&gt; 
+&gt;&gt;&gt; xor('glvgprpkqgamfggg')
+'enterprisecodeee'
+</code></pre><pre><code>❯ java Main
+IO is online.
+enterprisecodeee
+Key : 2
+Nice. Flag: rgbCTF{enterprisecodeee}
+</code></pre><p>FLAG : <code>rgbCTF{enterprisecodeee}</code></p>
+<hr>
+<h3 id="sadistic-reversing-1-490pts">sadistic reversing 1 490pts</h3>
+<pre><code>[114, 20, 119, 59, 104, 47, 75, 56, 81, 99, 23, 71, 56, 75, 124, 31, 65, 32, 77, 55, 103, 31, 96, 18, 76, 41, 27, 122, 29, 47, 83, 33, 78, 59, 10, 56, 15, 34, 94]
+
+sadrev
+</code></pre><p>In this challenge we are given a binary file <a href="https://github.com/insomn14/CTFtime2020/tree/master/rgbCTF2020/Pwn%26Rev/sadistic%20reversing%201%20%5B490pts%5D"><em>itJX.so</em></a> and an output in the description.</p>
+<pre><code>❯ file itJX.so
+itJX.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=14acf351a09cb300f6bb1d4f4cc474cd3009f525, for GNU/Linux 3.2.0, stripped
+</code></pre><p>After a few hours analyzing the pseudocode of the program, I still did not know how the program works. For a moment I thought that the output possible in the description was a flag, so I tried using different inputs.</p>
+<pre><code>❯ cat output.txt
+[114, 20, 119, 59, 104, 47, 75, 56, 81, 99, 23, 71, 56, 75, 124, 31, 65, 32, 77, 55, 103, 31, 96, 18, 76, 41, 27, 122, 29, 47, 83, 33, 78, 59, 10, 56, 15, 34, 94]
+
+❯ ./itJX.so aaaaa
+[97, 3, 101, 7, 105]
+
+❯ ./itJX.so rgbCTF
+[114, 20, 119, 59, 104, 47]
+
+❯ ./itJX.so rgbCTF{
+[114, 20, 119, 59, 104, 47, 75]
+
+❯ ./itJX.so rgbCTF{a
+[114, 20, 119, 59, 104, 47, 75, 45]
+
+❯ ./itJX.so rgbCTF{b
+[114, 20, 119, 59, 104, 47, 75, 46]
+
+❯ ./itJX.so rgbCTF{c
+[114, 20, 119, 59, 104, 47, 75, 47]
+</code></pre><p>As you can see when I try to enter &ldquo;rgbCTF​​{&rdquo; the result is the same as the output in the description, and when I add one character &lsquo;a, b, c&rsquo; the output is the same and does not affect the previous character. So we can do brute force to guess the next character.</p>
+<p>The following is the output from my <a href="https://github.com/insomn14/CTFtime2020/blob/master/rgbCTF2020/Pwn%26Rev/sadistic%20reversing%201%20%5B490pts%5D/solver.py"><em>solver</em></a>.</p>
+<pre><code>❯ python3 solver.py
+Found : rgbCTF{th1s_pr0bably_w@s_d1ff1cult6362}
+</code></pre><p>Btw this is not the right way to solve this challenge, why do I say so? because even though I get the flag I still don&rsquo;t understand how the program works.</p>
+<p>FLAG : <code>rgbCTF{th1s_pr0bably_w@s_d1ff1cult6362}</code></p>
+<hr>
+<h3 id="sadistic-reversing-2-496pts">sadistic reversing 2 496pts</h3>
+<pre><code>hopefully harder now
+[117, 148, 123, 5, 54, 9, 61, 234, 45, 4, 2, 40, 88, 111, 65, 65, 46, 23, 114, 110, 102, 148, 136, 123, 30, 5, 214, 231, 225, 255, 239, 138, 211, 208, 250, 232, 178, 187, 171, 242, 255, 30, 39, 19, 64, 17, 40, 29, 13, 27]
+
+sadrev
+</code></pre><p>The following challenge we are given a binary file <a href="https://github.com/insomn14/CTFtime2020/tree/master/rgbCTF2020/Pwn%26Rev/sadistic%20reversing%202%20%5B496pts%5D"><em>itwk.so</em></a> and output it in the description.</p>
+<pre><code>❯ file itwk.so
+itwk.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=c701432ac4d8bbaffbcb1bca17fd413a4027f4a1, for GNU/Linux 3.2.0, stripped
+</code></pre><p>Similar to the previous challenge of <code>sadistic reversing 1</code>, in this challenge we have to guess the right character.</p>
+<pre><code>❯ ./itwk.so a
+Exception in thread &quot;main&quot; java.lang.StringIndexOutOfBoundsException: String index out of range: -31
+	at java.lang.String.substring(String.java:1841)
+	at sadrev.leftrotate(sadrev.java:15)
+	at sadrev.main(sadrev.java:21)
+
+❯ ./itwk.so aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[71, 85, 79, 137, 143, 130, 133, 171, 107, 71, 51, 25, 98, 167, 142, 132, 230, 227, 245, 239, 228, 52, 61, 233, 246, 228, 57, 57, 59, 34, 70, 46]
+
+❯ ./itwk.so aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[71, 85, 79, 137, 143, 130, 133, 171, 107, 71, 51, 25, 98, 167, 142, 132, 230, 227, 245, 239, 228, 52, 61, 233, 246, 228, 57, 57, 59, 34, 70, 46, 122, 65, 117, 146, 193, 192, 34, 37, 30, 255, 244, 222, 132, 213, 223, 239, 251, 222]
+
+❯ ./itwk.so rgbCTF{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[71, 85, 79, 137, 143, 130, 133, 171, 107, 71, 51, 25, 98, 167, 142, 132, 230, 227, 134, 154, 146, 96, 124, 143, 234, 248, 37, 37, 39, 62, 90, 50, 102, 93, 105, 142, 221, 220, 62, 57, 2, 227, 232, 194, 152, 201, 195, 243, 231, 194]
+</code></pre><p>As you can see when I try to enter the character &lsquo;a&rsquo;, we get the message <em>Exception: index out of range: -31</em>. After adding 31 characters the program displays output without errors. But the output in the description is 50, so I add 18 more characters and combine it with the flag format. Even though I have combined it with the flag format, the program still produces the same output. If we look more closely, only 18 indexes produce the same output, even though the initial 7 characters have changed to &ldquo;rgbCTF{&rdquo;. So I decided to shoot the exact index location in the hope that the value of &lsquo;71&rsquo; changed.</p>
+<pre><code>❯ ./itwk.so rgbCTF{baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[71, 85, 79, 137, 143, 130, 133, 171, 107, 71, 51, 25, 98, 167, 142, 132, 230, 227, 134, 154, 146, 96, 124, 143, 234, 251, 38, 38, 36, 61, 89, 49, 101, 94, 106, 141, 222, 223, 61, 58, 1, 224, 235, 193, 155, 202, 192, 240, 228, 193]
+❯ ./itwk.so rgbCTF{abaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[71, 85, 79, 137, 143, 130, 133, 171, 107, 71, 51, 25, 98, 167, 142, 132, 230, 227, 134, 154, 146, 96, 124, 143, 234, 248, 38, 38, 36, 61, 89, 49, 101, 94, 106, 141, 222, 223, 61, 58, 1, 224, 235, 193, 155, 202, 192, 240, 228, 193]
+❯ ./itwk.so rgbCTF{aabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[71, 85, 79, 137, 143, 130, 133, 171, 107, 71, 51, 25, 98, 167, 142, 132, 230, 227, 134, 154, 146, 96, 124, 143, 234, 248, 37, 38, 36, 61, 89, 49, 101, 94, 106, 141, 222, 223, 61, 58, 1, 224, 235, 193, 155, 202, 192, 240, 228, 193]
+❯ ./itwk.so rgbCTF{aaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[71, 85, 79, 137, 143, 130, 133, 171, 107, 71, 51, 25, 98, 167, 142, 132, 230, 227, 134, 154, 146, 96, 124, 143, 234, 248, 37, 37, 36, 61, 89, 49, 101, 94, 106, 141, 222, 223, 61, 58, 1, 224, 235, 193, 155, 202, 192, 240, 228, 193]
+...
+...
+❯ ./itwk.so rgbCTF{aaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaa
+[68, 86, 76, 138, 140, 129, 134, 168, 104, 68, 48, 26, 97, 164, 141, 135, 229, 224, 133, 153, 145, 99, 127, 140, 233, 251, 38, 38, 36, 61, 89, 49, 101, 94, 106, 141, 222, 223, 61, 58, 1, 224, 235, 193, 155, 202, 192, 240, 228, 193]
+...
+...
+❯ ./itwk.so rgbCTF{aaaaaaaaaaaaaaaaaaaaaaaaa3aaaaaaaaaaaaaaaaa
+[117, 103, 125, 187, 189, 176, 183, 153, 89, 117, 1, 43, 80, 149, 188, 182, 212, 209, 180, 168, 160, 82, 78, 189, 216, 202, 23, 23, 21, 12, 104, 0, 84, 111, 91, 188, 239, 238, 12, 11, 48, 209, 218, 240, 170, 251, 241, 193, 213, 240]
+...
+...
+❯ ./itwk.so rgbCTF{aaaaaaaaaaaaaaaaaaaaaaaaa32aaaaaaaaaaaaaaaa
+[117, 148, 142, 72, 78, 67, 68, 106, 170, 134, 242, 216, 163, 102, 79, 69, 39, 34, 71, 91, 83, 161, 189, 78, 43, 57, 228, 228, 230, 255, 155, 243, 167, 156, 168, 79, 28, 29, 255, 248, 195, 34, 41, 3, 89, 8, 2, 50, 38, 3]
+</code></pre><p>After taking a long time, as you can see when the character &lsquo;b&rsquo; is in the index 33 the program displays the value &lsquo;68&rsquo;. After knowing the exact index the next step I tried to guess the right character and I got the character &lsquo;3&rsquo; having the same output as the description. Moving to the next index, the character &lsquo;2&rsquo; has the same output as the description.</p>
+<p>After knowing the correct index we can do brute force for each index, the following is the output of my <a href="https://github.com/insomn14/CTFtime2020/blob/master/rgbCTF2020/Pwn%26Rev/sadistic%20reversing%202%20%5B496pts%5D/solver.py"><em>solver</em></a>.</p>
+<pre><code>❯ python3 solver.py
+Found : ********************************3*****************
+Found : ********************************32****************
+Found : ********************************324***************
+Found : ********************************3249**************
+Found : ********************************32494*************
+Found : ********************************324943************
+Found : ********************************3249432***********
+Found : ********************************32494328**********
+Found : ********************************32494328f*********
+Found : ********************************32494328fd********
+Found : ********************************32494328fds*******
+Found : ********************************32494328fdsa******
+Found : ********************************32494328fdsaj*****
+Found : ********************************32494328fdsajs****
+Found : ********************************32494328fdsajsf***
+Found : ********************************32494328fdsajsfk**
+Found : ********************************32494328fdsajsfkl*
+Found : ********************************32494328fdsajsfkl}
+Found : r*******************************32494328fdsajsfkl}
+Found : rg******************************32494328fdsajsfkl}
+Found : rgb*****************************32494328fdsajsfkl}
+Found : rgbC****************************32494328fdsajsfkl}
+Found : rgbCT***************************32494328fdsajsfkl}
+Found : rgbCTF**************************32494328fdsajsfkl}
+Found : rgbCTF{*************************32494328fdsajsfkl}
+Found : rgbCTF{h************************32494328fdsajsfkl}
+Found : rgbCTF{ho***********************32494328fdsajsfkl}
+Found : rgbCTF{hop**********************32494328fdsajsfkl}
+Found : rgbCTF{hope*********************32494328fdsajsfkl}
+Found : rgbCTF{hopef********************32494328fdsajsfkl}
+Found : rgbCTF{hopefu*******************32494328fdsajsfkl}
+Found : rgbCTF{hopeful******************32494328fdsajsfkl}
+Found : rgbCTF{hopefull*****************32494328fdsajsfkl}
+Found : rgbCTF{hopefully****************32494328fdsajsfkl}
+Found : rgbCTF{hopefully_***************32494328fdsajsfkl}
+Found : rgbCTF{hopefully_t**************32494328fdsajsfkl}
+Found : rgbCTF{hopefully_th*************32494328fdsajsfkl}
+Found : rgbCTF{hopefully_thi************32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this***********32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_**********32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_w*********32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_wa********32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was*******32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was_******32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was_h*****32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was_ha****32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was_har***32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was_hard**32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was_harde*32494328fdsajsfkl}
+Found : rgbCTF{hopefully_this_was_harder32494328fdsajsfkl}
+</code></pre><p>Again, i think this&rsquo;s not the best way to solve this challenge.</p>
+<p>FLAG : <code>rgbCTF{hopefully_this_was_harder32494328fdsajsfkl}</code></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://insomn14.github.io/tags/reverse-engineering">Reverse Engineering</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2658 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-07-14 16:09 &#43;0700</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://insomn14.github.io/posts/redpwn-2020/">
+                                <span class="button__text">redpwn 2020 | RE *Writeups*</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+            <span>insomn14</span>
+            <span> <a href="https://insomn14.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="/bundle.min.2d5469329143160ae2456a69c3c76dc2d0a3b212b46afe291a51bd68650ed6f8697e001dab54f1c272c77ce08092a8c55e5bb4314e0ee334aab4b927ec896638.js" integrity="sha512-LVRpMpFDFgriRWppw8dtwtCjshK0av4pGlG9aGUO1vhpfgAdq1TxwnLHfOCAkqjFXlu0MU4O4zSqtLkn7IlmOA=="></script>
+
+
+
+    </body>
+</html>
