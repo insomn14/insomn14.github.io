@@ -34,6 +34,36 @@
     </item>
     
     <item>
+      <title>NoobCTF0x1 | Crypto *Writeups*</title>
+      <link>https://insomn14.github.io/posts/noobctf0x1-crypto/</link>
+      <pubDate>Tue, 09 Jun 2020 12:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/noobctf0x1-crypto/</guid>
+      <description>Gross 120pts Cipher: OQWKWPUVMYTIUSSTHHPI Keep this: 12345 , will help you. Flag format: noob{FLAG} Author: D3v1LaL In CTF competitions the title of the challenge sometimes can be a clue. For example in this challenge, I thought that the word &amp;lsquo;Gross&amp;rsquo; was a play on words from &amp;lsquo;Grons&amp;rsquo; so I concluded it might be &amp;lsquo;Gronsfeld Cipher&amp;rsquo;. The conclusion I got after reading the pycipher documentation.
+&amp;gt;&amp;gt;&amp;gt; import pycipher &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; msg = pycipher.</description>
+    </item>
+    
+    <item>
+      <title>NoobCTF0x1 | Forensics *Writeups*</title>
+      <link>https://insomn14.github.io/posts/noobctf0x1-forensics/</link>
+      <pubDate>Tue, 09 Jun 2020 09:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/noobctf0x1-forensics/</guid>
+      <description>Can You Hear Me !!! 50pts While performing Man in the Middle attack, I got a secret message from a scientist which can save the world from COVID-19. But unfortunatly I am not able to hear that. I believe that someone with good knowledge of some tools can get the secret message. Note: Online tools also works. Link: https://mega.nz/file/xdxHiQbb#vK91LAP9JjVKxQnMp6e_J1x7-IOIiqbST-htEAmdQWo Replace spaces with _ At this challenge we were given the audio file Challenge.</description>
+    </item>
+    
+    <item>
+      <title>TAMUctf 2020 | RE *Writeups*</title>
+      <link>https://insomn14.github.io/posts/tamuctf-2020/</link>
+      <pubDate>Mon, 30 Mar 2020 06:16:12 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/tamuctf-2020/</guid>
+      <description>RUSTY_AT_REVERSING Description: A nice little reversing challenge for those who are a little rusty! File: librusty_at_reversing.so In this challenge we are given the file librusty_at_reversing.so file, as know as Shared Object file.
+➜ RUSTY_AT_REVERSING file librusty_at_reversing.so librusty_at_reversing.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=c4b7c1decfcaa244827e5289a0f88888665caa25, stripped Let&amp;rsquo;s just decompile the file using radare2.
+[0x00001040]&amp;gt; afl 0x00001040 4 41 -&amp;gt; 34 entry0 0x00001220 13 292 sym.decrypt 0x00001100 13 288 sym.</description>
+    </item>
+    
+    <item>
       <title>ÅngstromCTF 2020 | RE *Writeups*</title>
       <link>https://insomn14.github.io/posts/%C3%A5ngstromctf-2020/</link>
       <pubDate>Thu, 19 Mar 2020 12:59:21 +0700</pubDate>
