@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>insomn14</copyright>
-    <lastBuildDate>Fri, 26 Jun 2020 12:56:39 +0700</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2020 16:09:06 +0700</lastBuildDate>
     
 	<atom:link href="https://insomn14.github.io/categories/capture-the-flags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>rgbCTF2020 | RE *Writeups*</title>
+      <link>https://insomn14.github.io/posts/rgbctf2020/</link>
+      <pubDate>Tue, 14 Jul 2020 16:09:06 +0700</pubDate>
+      
+      <guid>https://insomn14.github.io/posts/rgbctf2020/</guid>
+      <description>Too Slow 50pts I&#39;ve made this flag decryptor! It&#39;s super secure, but it runs a little slow. ~ungato#3536 a.out Size: 16.46KB MD5: 0552728acb42e5f59c2ff3e8dcafc04d In this challenge we are given an a.out binary file.
+❯ file a.out a.out: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=462dfe207acdfe1da2133cac6b69b45de5169ee2, for GNU/Linux 3.2.0, not stripped ❯ ./a.out Flag Decryptor v1.0 Generating key... ^C If we execute the file, the program only runs without stopping.</description>
+    </item>
     
     <item>
       <title>redpwn 2020 | RE *Writeups*</title>
