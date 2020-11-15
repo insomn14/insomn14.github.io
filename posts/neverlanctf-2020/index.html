@@ -34,14 +34,15 @@
 <meta itemprop="name" content="NeverLAN CTF 2020 |  RE *Writeups*">
 <meta itemprop="description" content="Script Kiddie 100pts Description: It looks like a script kiddie was trying to build a crypto locker. See if you can get the database back? File: encrypted_db This problem gives us the encrypted_db file, you can download it on my github. After that we can see the file format using the following command.
 ❯ file encrypted_db encrypted_db: ASCII text This file has a text format, let&rsquo;s look at the contents of the file.">
-<meta itemprop="datePublished" content="2020-02-14T00:46:37&#43;07:00" />
-<meta itemprop="dateModified" content="2020-02-14T00:46:37&#43;07:00" />
+<meta itemprop="datePublished" content="2020-02-14T00:46:37+07:00" />
+<meta itemprop="dateModified" content="2020-02-14T00:46:37+07:00" />
 <meta itemprop="wordCount" content="536">
 <meta itemprop="image" content="https://insomn14.github.io/"/>
 
 
 
-<meta itemprop="keywords" content="Reverse Engineering," /><meta name="twitter:card" content="summary_large_image"/>
+<meta itemprop="keywords" content="Reverse Engineering," />
+<meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://insomn14.github.io/"/>
 
 <meta name="twitter:title" content="NeverLAN CTF 2020 |  RE *Writeups*"/>
@@ -158,7 +159,7 @@ encrypted_db: ASCII text
 ....
 ZGVyIC0gSmFjb2JpIiwiY2F0\nY2hQaHJhc2UiOiJDdXN0b21pemFibGUgb3B0aW1pemluZyBpbnRlcmZhY2UiLCJicyI6ImUtYnVz\naW5lc3Mgc3ludGhlc2l6ZSBzY2hlbWFzIn19fQo=\n'
 
-</code></pre><p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>&lsquo;=&rsquo;</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
+</code></pre><p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>'='</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
 <pre><code>❯ nl solver.py
      1	import re
      2	from base64 import b64decode

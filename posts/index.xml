@@ -6,8 +6,513 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>insomn14</copyright>
-        <lastBuildDate>Tue, 14 Jul 2020 16:09:06 +0700</lastBuildDate>
+        <lastBuildDate>Mon, 16 Nov 2020 05:56:50 +0700</lastBuildDate>
         <atom:link href="https://insomn14.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>CyberJawara2020 | RE *Writeups*</title>
+            <link>https://insomn14.github.io/posts/cyberjawara2020_writeup/</link>
+            <pubDate>Mon, 16 Nov 2020 05:56:50 +0700</pubDate>
+            
+            <guid>https://insomn14.github.io/posts/cyberjawara2020_writeup/</guid>
+            <description>BabyBaby Description Binary ini dapat digunakan untuk permulaan belajar reverse engineering. Tips: Soal ini lebih mudah dikerjakan dengan static analysis seperti menggunakan Ghidra (gratis) atau IDA Pro (berbayar) dengan meng-generate kode C-like dari kode mesin yang ada di dalam binary. Problem Pada tantangan ini kita diberikan file binary BabyBaby, dan berikut ini adalah pseudocode dari fungsi main program tersebut.
+ sym.imp.printf(0x9e4); // ps @ 0x9e4 = &amp;quot;Masukkan 3 angka:&amp;quot; sym.</description>
+            <content type="html"><![CDATA[<hr>
+<!-- raw HTML omitted -->
+<h1 id="babybaby">BabyBaby</h1>
+<h3 id="description">Description</h3>
+<pre><code>Binary ini dapat digunakan untuk permulaan belajar reverse engineering.
+
+Tips: Soal ini lebih mudah dikerjakan dengan static analysis seperti menggunakan Ghidra (gratis) atau IDA Pro (berbayar) dengan meng-generate kode C-like dari kode mesin yang ada di dalam binary.
+</code></pre><h3 id="problem">Problem</h3>
+<p>Pada tantangan ini kita diberikan file binary <em><a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/BabyBaby/BabyBaby">BabyBaby</a></em>, dan berikut ini adalah pseudocode dari fungsi main program tersebut.</p>
+<pre><code>    sym.imp.printf(0x9e4);                                      //  ps @ 0x9e4 = &quot;Masukkan 3 angka:&quot;
+    sym.imp.__isoc99_scanf(0x9f7, &amp;c, &amp;var_14h);                //  ps @ 0x9f7 = &quot;%d %d %d&quot;
+    if (((c + var_14h == (uint32_t)var_10h * c) &amp;&amp;
+        ((int32_t)var_14h / (int32_t)(uint32_t)var_10h == 0x14)) &amp;&amp;
+        ((int32_t)var_14h / (int32_t)c == 3)) {
+        var_10h._4_4_ = 0;
+        sym.imp.puts(0xa00, c, (int32_t)var_14h % (int32_t)c);  //  ps @ 0xa00 = &quot;Benar!&quot;
+        var_10h._4_4_ = 0;
+        while (var_10h._4_4_ &lt; 0x15) {
+            if (var_10h._4_4_ % 3 == 0) {
+                sym.imp.putchar(c ^ *(uint32_t *)(&quot;X&quot; + (int64_t)var_10h._4_4_ * 4));
+            }
+            if (var_10h._4_4_ % 3 == 1) {
+                sym.imp.putchar(var_14h ^ *(uint32_t *)(&quot;X&quot; + (int64_t)var_10h._4_4_ * 4));
+            }
+            if (var_10h._4_4_ % 3 == 2) {
+                sym.imp.putchar((uint32_t)var_10h ^ *(uint32_t *)(&quot;X&quot; + (int64_t)var_10h._4_4_ * 4));
+            }
+            var_10h._4_4_ = var_10h._4_4_ + 1;
+        }
+    } else {
+        sym.imp.puts(0xa07);        //  ps @ 0xa07 = &quot;Salah!&quot; 
+    }
+</code></pre><p><em>Pengecekan kondisi :</em></p>
+<pre><code>if ((first + third == second * first)
+&amp;&amp; (third / second == 0x14)
+&amp;&amp; (third / first == 3))
+</code></pre><p>Seperti yang kita lihat <code>scanf</code> menerima 3 masukan sebagai integer, masing-masing masukan akan dihitung dalam kondisi <code>if</code>. jika hasilnya <code>true</code> maka
+program akan mencetak string <em>&ldquo;Benar&rdquo;</em> dan juga <em>Flag</em>.</p>
+<h3 id="solution">Solution</h3>
+<p>Untuk menyelesaikan tantangan ini kita dapat menggunakan library python z3-solver.</p>
+<pre><code>&gt;&gt;&gt; from z3 import *
+&gt;&gt;&gt; 
+&gt;&gt;&gt; inp = [BitVec(f'input_{i}',8)for i in range(1,4)]
+&gt;&gt;&gt; 
+&gt;&gt;&gt; s = Solver()
+&gt;&gt;&gt; s.add(inp[0] + inp[1] == inp[0] * inp[2], inp[1] / inp[2] == 20, inp[1] / inp[0] == 3)
+&gt;&gt;&gt; s.check()
+sat
+&gt;&gt;&gt; s.model()
+[input_2 = 81, input_3 = 4, input_1 = 27]
+</code></pre><pre><code>┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/BabyBaby]
+└─$ ./BabyBaby 
+Masukkan 3 angka: 27 81 4
+Benar!
+CJ2020{b4A4a4BBbb7yy}
+</code></pre><p>FLAG : <code>CJ2020{b4A4a4BBbb7yy}</code></p>
+<hr>
+<h1 id="holmes-code">Holmes Code</h1>
+<h3 id="description-1">Description</h3>
+<pre><code>This Code Secret Dr. Watson to Holmes, Please check message on the Code
+</code></pre><h3 id="problem-1">Problem</h3>
+<p>Pada tantangan kali ini kita diberikan file <em><a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Holmes%20Code/code.zip">code.zip</a></em> yang berisi file binary sejumlah <em>287</em> file. Berikut ini adalah sedikit potongan disassembly dari beberapa program binary tersebut.</p>
+<pre><code>┌──(unknow㉿unknow)-[~/…/CJ2020/Reverse/Holmes Code/code]
+└─$ objdump -d -M intel code0
+  ...
+00000000006000b0 &lt;.shellcode&gt;:
+  ...
+  6000c2:       48 8b 44 24 10          mov    rax,QWORD PTR [rsp+0x10]
+  6000c7:       8a 10                   mov    dl,BYTE PTR [rax]
+  6000c9:       80 ea 1e                sub    dl,0x1e
+  6000cc:       80 fa ec                cmp    dl,0xec
+  ...
+
+┌──(unknow㉿unknow)-[~/…/CJ2020/Reverse/Holmes Code/code]
+└─$ objdump -d -M intel code1
+  ...
+00000000006000b0 &lt;.shellcode&gt;:
+  ...
+  6000c2:       48 8b 44 24 10          mov    rax,QWORD PTR [rsp+0x10]
+  6000c7:       8a 10                   mov    dl,BYTE PTR [rax]
+  6000c9:       80 ea 35                sub    dl,0x35
+  6000cc:       80 fa 1f                cmp    dl,0x1f
+  ...
+
+┌──(unknow㉿unknow)-[~/…/CJ2020/Reverse/Holmes Code/code]
+└─$ objdump -d -M intel code2
+  ...
+00000000006000b0 &lt;.shellcode&gt;:
+  ...
+  6000c2:       48 8b 44 24 10          mov    rax,QWORD PTR [rsp+0x10]
+  6000c7:       8a 10                   mov    dl,BYTE PTR [rax]
+  6000c9:       80 c2 19                add    dl,0x19
+  6000cc:       80 fa 81                cmp    dl,0x81
+  ...
+</code></pre><p>Setelah diamati ternyata setiap binary memiliki alur kode program yang mirip, namun masing-masing binary memiliki instruksi aritmatika yang berbeda-beda diantaranya <em>(add/sub/xor)</em>.</p>
+<h3 id="solution-1">Solution</h3>
+<p>Langkah-langkah yang perlu dilakukan untuk menyelesaikan tantangan ini:</p>
+<ol>
+<li>Membuat <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Holmes%20Code/solve.sh">bash script</a> untuk mengabil potongan kode dissassembly yang dibutuhkan.</li>
+</ol>
+<pre><code>┌──(unknow㉿unknow)-[~/…/CJ2020/Reverse/Holmes Code/code]
+└─$ ./solve.sh &gt; data.txt
+
+┌──(unknow㉿unknow)-[~/…/CJ2020/Reverse/Holmes Code/code]
+└─$ head data.txt
+code0
+  6000c9:       80 ea 1e                sub    dl,0x1e
+  6000cc:       80 fa ec                cmp    dl,0xec
+code1
+  6000c9:       80 ea 35                sub    dl,0x35
+  6000cc:       80 fa 1f                cmp    dl,0x1f
+code2
+  6000c9:       80 c2 19                add    dl,0x19
+  6000cc:       80 fa 81                cmp    dl,0x81
+code3
+</code></pre><ol start="2">
+<li>Membuat <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Holmes%20Code/solver.py">python script</a> untuk menyelesikan tantangan berdasarkan kode disassembly yang sudah kita dapatkan sebelumnya.</li>
+</ol>
+<pre><code>┌──(unknow㉿unknow)-[~/…/CJ2020/Reverse/Holmes Code/code]
+└─$ python solver.py
+
+The story is notable for introducing the character of Irene Adler, who is one of the most notable female characters in the Sherlock Holmes series, despite appearing in only one story.[1] Doyle ranked CJ2020{A_ScaNdal_in_B0h3mia} fifth in his list of his twelve favourite Holmes stories.
+</code></pre><p>FLAG : <code>CJ2020{A_ScaNdal_in_B0h3mia}</code></p>
+<hr>
+<h1 id="home-sherlock">Home Sherlock</h1>
+<h3 id="description-2">Description</h3>
+<pre><code>Number Home Sherlock Holmes ?
+
+Please check on the File
+
+Download home : https://drive.google.com/file/d/14P7xZ4XIsEm6HU5WMvOVw6E0BFRH6CuH/view
+</code></pre><h3 id="problem-2">Problem</h3>
+<p>Di tantangan kali ini kita diberikan file binary dari golang <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Home%20Sherlock/home"><em>home</em></a>. Berikut ini adalah pseudocode dari binary tersebut.</p>
+<pre><code>[0x00454ed0]&gt; pdg@sym.main.main
+
+void sym.main.main(int64_t arg1, int64_t arg2)
+{
+...
+auStack24 = CONCAT88(0x4e9270, 0x4ab9c0);
+    sym.fmt.Fprintln(arg1, arg2, (int64_t)obj.go.itab._os.File_io.Writer);
+    sym.runtime.newobject();
+    auStack40 = CONCAT88(placeholder_3, 0x4a5ca0);
+    sym.fmt.Fscanln();
+    if (*placeholder_3 == 0x9dbdf7f4c117ec) {
+        sym.runtime.convTstring(arg1, arg2, arg3, placeholder_3, in_R8, in_R9);
+        sym.fmt.Fprintln(arg1, arg2, arg3_00);
+    } else {
+        sym.fmt.Fprintln(arg1, arg2, arg3);
+    }
+    sym.fmt.Fscanln();
+...
+</code></pre><p>Jika file binary tersebut di eksekusi maka program akan meminta inputan, jika di perhatikan setelah pemanggilan fungsi <code>sym.fmt.Fscanln();</code> terdapat perbandingan perintah <code>if</code> yang membandingkan pointer <em>&quot;*placeholder_3&quot;</em> dengan nilai hexadesimal <em>&ldquo;0x9dbdf7f4c117ec&rdquo;</em>.</p>
+<pre><code>
+[0x00454ed0]&gt; pdf@sym.main.main
+            ; CODE XREF from sym.main.main @ 0x4997a0
+            ;-- sym.go.main.main:
+┌ 597: sym.main.main (int64_t arg1, int64_t arg2);
+...
+...
+│      │╎   0x00499643      48c744242001.  mov qword [var_20h], 1
+│      │╎   0x0049964c      e8afa2ffff     call sym.fmt.Fscanln
+│      │╎   0x00499651      48b8ec17c1f4.  movabs rax, 0x9dbdf7f4c117ec
+│      │╎   0x0049965b      488b4c2440     mov rcx, qword [var_40h]
+│      │╎   0x00499660      483901         cmp qword [rcx], rax
+│     ┌───&lt; 0x00499663      0f85d5000000   jne 0x49973e
+│     ││╎   0x00499669      488d052bb803.  lea rax, [0x004d4e9b]       ; &quot;Q0oyMDIwezIyMUJfQmFrZXJfU3RyMzN0fQofile type does not support deadlinefindfunc: bad findfunctab entry idxfindrunnable: netpoll &quot;
+│     ││╎   0x00499670      48890424       mov qword [rsp], rax
+│     ││╎   0x00499674      48c744240823.  mov qword [var_8h], 0x23    ; '#'
+...
+
+[0x00454ed0]&gt; ps 35 @ 0x004d4e9b
+Q0oyMDIwezIyMUJfQmFrZXJfU3RyMzN0fQo
+</code></pre><p>Pada saat kami melihat fungsi main dengan tampilan kode disassembly pada radare2, kita dapat melihat dengan jelas terdapat sebuah string yang aneh.</p>
+<h3 id="solution-2">Solution</h3>
+<p>Dari informasi yang sudah kita dapat sebelumnya selama melakukan static analysis, terdapat dua cara untuk menyelesaikan tantangan ini.</p>
+<ol>
+<li>Decode <em>&ldquo;Q0oyMDIwezIyMUJfQmFrZXJfU3RyMzN0fQo&rdquo;</em> kedalam base64.</li>
+</ol>
+<pre><code>┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/Home Sherlock]
+└─$ echo 'Q0oyMDIwezIyMUJfQmFrZXJfU3RyMzN0fQo' | base64 -d
+CJ2020{221B_Baker_Str33t}
+base64: invalid input
+</code></pre><ol start="2">
+<li>Ubah nilai hexadesimal <em>&ldquo;0x9dbdf7f4c117ec&rdquo;</em> kedalam desimal lalu jadikan sebagai inputan.</li>
+</ol>
+<pre><code>┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/Home Sherlock]
+└─$ python -c 'print(0x9dbdf7f4c117ec)'
+44400444004440044
+
+┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/Home Sherlock]
+└─$ ./home 
+Sherlock Holmes Home
+44400444004440044
+Q0oyMDIwezIyMUJfQmFrZXJfU3RyMzN0fQo
+
+┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/Home Sherlock]
+└─$ echo 'Q0oyMDIwezIyMUJfQmFrZXJfU3RyMzN0fQo' | base64 -d
+CJ2020{221B_Baker_Str33t}
+base64: invalid input
+</code></pre><p>FLAG : <code>CJ2020{221B_Baker_Str33t}</code></p>
+<hr>
+<h1 id="pawon">Pawon</h1>
+<h3 id="description-3">Description</h3>
+<pre><code>Yet another reverse engineering challenge
+</code></pre><h3 id="problem-3">Problem</h3>
+<p>Pada tantangan berikut ini kita diberikan file binary <em><a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Pawon/pawon">pawon</a></em>, dan berikut ini adalah potongan pseudocode kode dari fungsi <code>main</code> program tersebut yang sudah saya modif sedikit.</p>
+<pre><code>...
+    sym.banner();
+    sym.imp.printf(&quot; Enter Your Mail\n &gt; &quot;);
+    sym.imp.std::basic_istream_char__std::(reloc.std::cin, &amp;s);
+
+    sym.imp.printf(&quot; Enter Serial\n &gt; &quot;);
+    sym.imp.std::basic_istream_char__std::(reloc.std::cin);
+
+    var_18h._0_4_ = 0;
+    while( true ) {
+        uVar7 = SEXT48((int32_t)var_18h);
+        uVar3 = sym.imp.strlen(&amp;s);
+        if (uVar3 &lt;= uVar7) break;
+        if (*(char *)((int64_t)&amp;s + (int64_t)(int32_t)var_18h) == '@') {
+            var_18h._7_1_ = '\x01';
+        }
+        var_18h._0_4_ = (int32_t)var_18h + 1;
+    }
+    if (var_18h._7_1_ == '\x01') {
+        uVar3 = sym.imp.strlen(&amp;s);
+        if (3 &lt; uVar3) goto code_r0x0000138d;
+    }
+    sym.seret();
+...
+</code></pre><p>Ketika saat mengeksekusi program tersebut kita akan diminta untuk memasukan dua inputan, yaitu <em>Mail</em> dan <em>Serial</em>. Terdapa pengecekan <em>Mail</em> yang mana inputan kita harus memiliki karakter <em>&quot;@&quot;</em> dan panjangnya harus lebih dari 3.</p>
+<pre><code>...
+code_r0x0000138d:
+    uVar3 = sym.imp.strlen();
+    if (uVar3 &lt; 0x19) {
+        sym.seret();
+    }
+    if (((var_430h._5_1_ != '-') &amp;&amp; (var_425h != '-')) &amp;&amp; (var_41eh != '-')) {
+        sym.seret();
+    }
+    if ((char)var_430h != var_426h) {
+        sym.seret();
+    }
+    if (var_430h._1_1_ != 'e') {
+        sym.seret();
+    }
+    if (var_430h._3_1_ != 'P') {
+        sym.seret();
+    }
+    if ((char)var_417h != '\0') {
+        sym.seret();
+    }
+    if (var_430h._2_1_ != 'm') {
+        sym.seret();
+    }
+    if (var_430h._4_1_ != var_430h._1_1_) {
+        sym.seret();
+    }
+    if (var_430h._6_1_ != 'j') {
+        sym.seret();
+    }
+    if (var_430h._7_1_ != 'o') {
+        sym.seret();
+    }
+    if (var_428h != var_427h) {
+        sym.seret();
+    }
+    if (var_427h != 'S') {
+        sym.seret();
+    }
+    cVar2 = sym.check_char__char__int
+                      ((uint64_t)(uint32_t)(int32_t)var_430h._5_1_, (uint64_t)(uint32_t)(int32_t)var_424h, 9);
+    if (cVar2 != '\x01') {
+        sym.seret();
+    }
+    if ((int32_t)var_419h != var_41fh + 3) {
+        sym.seret();
+    }
+    if (var_423h != var_41ch) {
+        sym.seret();
+    }
+    if (var_422h != 'z') {
+        sym.seret();
+    }
+    cVar2 = sym.check_char__char__int
+                      ((uint64_t)(uint32_t)(int32_t)var_421h, (uint64_t)(uint32_t)(int32_t)var_420h, 0xffffff7a);
+    if (cVar2 != '\x01') {
+        sym.seret();
+    }
+    if (var_41bh != 'T') {
+        sym.seret();
+    }
+    if (var_420h != 'H') {
+        sym.seret();
+    }
+    if (var_41ch != 'u') {
+        sym.seret();
+    }
+    if (var_41fh != '5') {
+        sym.seret();
+    }
+    if (var_41dh != 'S') {
+        sym.seret();
+    }
+    if (var_41ah != '1') {
+        sym.seret();
+    }
+    if (var_426h != var_41bh) {
+        sym.seret();
+    }
+    cVar2 = sym.check_char__char__int
+                      ((uint64_t)(uint32_t)(int32_t)var_418h, (uint64_t)(uint32_t)(int32_t)var_41ch, 0xffffffc3);
+    if (cVar2 != '\x01') {
+        sym.seret();
+    }
+</code></pre><p>Bagian ini adalah pengecekan dari inputan <em>Serial</em>.</p>
+<h3 id="solution-3">Solution</h3>
+<p>Sama seperti tantangan <em>BabyBaby</em> yang sebelumnya, untuk menyelesaikan tantangan ini kita dapat menggunakan library python z3-solver.</p>
+<p><a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Pawon/solver.py">solver.py</a></p>
+<pre><code>┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/Pawon]
+└─$ python solver.py
+TemPe-joSST-cuzgH5-SuT18­Y
+                                                                           
+┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/Pawon]
+└─$ ./pawon
+          -------                
+          CJ 2020                
+          -------                
+ Enter Your Mail
+ &gt; test@mail.com
+ Enter Serial
+ &gt; TemPe-joSST-cuzgH5-SuT18Y
+
+  CJ2020{r+jKctQn&amp;m14l,.JBH8WckZj}
+</code></pre><p>FLAG : <code>CJ2020{r+jKctQn&amp;m14l,.JBH8WckZj}</code></p>
+<hr>
+<h1 id="ransomnware">Ransomnware</h1>
+<h3 id="description-4">Description</h3>
+<pre><code>Reverse engineering berguna untuk mengetahui alur dari suatu program baik untuk riset binary exploitation, membuat crack/patch, membuat keygen, ataupun analisis malware.
+
+Berikut adalah sebuah ransomware yang mengenkripsi berkas flag.txt. Dapatkah Anda mendekripsi berkas tersebut?
+</code></pre><h3 id="problem-4">Problem</h3>
+<p>Pada tantangan ini kita diberikan file binary <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Ransomnware/ransomnware"><em>ransomnware</em></a> dan juga sebuah file <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Ransomnware/flag.txt.enc"><em>flag</em></a> yang telah terenkripsi. Berikut ini adalah potongan-potongan pseudocode dari file binary tersebut.</p>
+<p><strong>Catatan : beberapa nama fungsi dan variabel telah kami ubah agar lebih mudah dibaca.</strong></p>
+<pre><code>[0x000006e0]&gt; pdg @ randomVal
+void randomVal(int64_t arg1)
+{
+    ...    
+    canary = *(int64_t *)(in_FS_OFFSET + 0x28);
+    fildes._0_4_ = sym.imp.open(0xcd5, 0);      // /dev/urandom
+    sym.imp.read((undefined4)fildes, (int64_t)&amp;fildes + 4, 0x20, (int64_t)&amp;fildes + 4);
+    sym.imp.close((undefined4)fildes);
+    *(int64_t *)arg1 = stack0xffffffffffffffc8;
+    *(void **)(arg1 + 8) = var_28h;
+    *(int64_t *)(arg1 + 0x10) = Flag;
+    *(int64_t *)(arg1 + 0x18) = var_18h;
+    ...
+}
+</code></pre><pre><code>[0x000006e0]&gt; pdg @ fillArr
+undefined8 fillArr(void)
+{
+    undefined8 I;
+    
+    I = 0;
+    while (I &lt; 0x100) {
+        *(FillArray + I) = I;
+        I = I + 1;
+    }
+    *VAR_1 = 0;
+    *VAR_2 = 0;
+    return 1;
+}
+</code></pre><pre><code>[0x000006e0]&gt; pdg @ swapVal
+void swapVal(int64_t arg1, int64_t arg2)
+{
+    ...    
+    uVar1 = *(undefined *)arg1;
+    *(undefined *)arg1 = *(undefined *)arg2;
+    *(undefined *)arg2 = uVar1;
+    return;
+}
+</code></pre><pre><code>[0x000006e0]&gt; pdg @ procSwap
+void procSwap(int64_t arg1, int64_t arg2)
+{
+    ...
+    *VAR_2 = 0;
+    while (*VAR_2 &lt; 0x100) {
+        iVar2 = *(FillArray + VAR_2) + *VAR_1 + *(arg1 + *VAR_2 % arg2);
+        uVar1 = (iVar2 &gt;&gt; 0x1f) &gt;&gt; 0x18;
+        *VAR_1 = (iVar2 + uVar1 &amp; 0xff) - uVar1;
+        swapVal(*(FillArray + VAR_2), *(FillArray + *VAR_1));
+        *VAR_2 = *VAR_2 + 1;
+    }
+    *VAR_1 = 0;
+    *VAR_2 = 0;
+    return;
+}
+</code></pre><pre><code>[0x000006e0]&gt; pdg @ main
+undefined8 main(undefined8 argc, char **argv)
+{
+    ...
+    canary = *(int64_t *)(in_FS_OFFSET + 0x28);
+    Flag._0_4_ = 1;
+    Flag._4_4_ = sym.imp.open(&quot;flag.txt&quot;, 0);
+    if (Flag._4_4_ == -1) {
+    // WARNING: Subroutine does not return
+        sym.imp.exit(0xffffffff);
+    }
+    FlagEnc = sym.imp.open(&quot;flag.txt.enc&quot;, 0x41);
+    if (FlagEnc == 0xffffffff) {
+    // WARNING: Subroutine does not return
+        sym.imp.exit(0xffffffff);
+    }
+
+    randomVal(RandArr);
+    var_14h = 0x20;
+    fillArr();
+    procSwap(*0x202010, 0x10); // 0x202010 -&gt; &quot;rhcmem__c\xadem__\xdaC&quot;
+    ...
+</code></pre><p>Setelah binary memuat file <code>flag.txt</code> dan <code>flag.txt.enc</code>, program memanggil fungsi <code>randomVal(RandArr);</code> yang mana variabel <code>RandArr</code> akan menyimpan nilai random sepanjang 32 byte dari <code>/dev/urandom</code>.</p>
+<p>Berikutnya fungsi <code>fillArr();</code> akan membuat sebuah array yang memiliki nilai 0 s/d 255 dan disimpan pada <code>FillArray</code>.</p>
+<p>Selanjutnya terdapat pemanggilan fungsi <code>procSwap(0x202010,16)</code>, pada fungsi ini setiap index dari <code>FillArray</code> akan calculated 32 byte dari <code>0x202010</code>, lalu dengan <code>swapVal</code> setiap indeks pada <code>FillArray</code> posisinya akan ditukar.</p>
+<pre><code>[0x000006e0]&gt; pdg @ getValFromArr
+undefined getValFromArr(void)
+{
+    uint32_t uVar1;
+    
+    uVar1 = (*VAR_2 + 1 &gt;&gt; 0x1f) &gt;&gt; 0x18;
+    *VAR_2 = (*VAR_2 + 1 + uVar1 &amp; 0xff) - uVar1;
+    *VAR_1 = *(FillArray + VAR_2) + *VAR_1;
+    uVar1 = (*VAR_1 &gt;&gt; 0x1f) &gt;&gt; 0x18;
+    *VAR_1 = (*VAR_1 + uVar1 &amp; 0xff) - uVar1;
+    swapVal(*(FillArray + VAR_2), *(FillArray + VAR_1));
+    return *(FillArray (*(FillArray + VAR_1) + *(FillArray + VAR_2)));
+}
+</code></pre><pre><code>    ...
+    var_14h = 16;
+    ...
+    J = 0;
+    while (J &lt; (int32_t)var_14h) {
+        var_25h = getValFromArr();
+        ptr = *(RandArr + J) ^ var_25h;
+        sym.imp.write(FlagEnc, &amp;ptr, 1);
+        J = J + 1;
+    }
+    fillArr();
+    procSwap(RandArr, var_14h);
+    while( true ) {
+        Flag._0_4_ = sym.imp.read(Flag._4_4_, &amp;buf, 1, &amp;buf);
+        if ((int32_t)Flag &lt; 1) break;
+        var_25h = getValFromArr();
+        ptr = buf ^ var_25h;
+        sym.imp.write(FlagEnc, &amp;ptr, 1, &amp;ptr);
+    }
+    sym.imp.close(Flag._4_4_);
+    sym.imp.close(FlagEnc);
+    ...
+</code></pre><p>Pada bagian ini terdapat looping sebanyak 16x, dimana setiap indeks yang ada pada <code>RandArr</code> akan di XOR dengan nilai yang didapat dari fungsi <code>getValFromArr();</code>. Setiap nilai yang ada pada indeks <code>FillArray</code> akan swap, setiap kali terjadi pemanggilan pada fungsi <code>getValFromArr();</code>. Setiap hasil XOR antara <code>RandArr</code> dan <code>var_25h</code> akan ditulis pada <code>FlagEnc</code>.</p>
+<p>Selanjutnya terdapat pemanggialn fungsi <code>fillArr();</code> dan <code>procSwap(RandArr,var_14h);</code>, kurang lebih penjelasnya hampir sama dengan yang sebelumnya. Namun kali ini variabel setiap indeks <code>FillArray</code> akan di calculated dengan 32 byte dari <code>RandArr</code>, kemudian setiap indeksnya akan swap dengan fungsi <code>swapVal</code>.</p>
+<p>Berikutnya terdapat looping dimana <code>buf</code> akan menyimpan setiap 1byte dari <code>Flag._4_4_</code>. Kemudian <code>buf</code> di XOR dengan <code>var_25h</code> yang nilainya didapat dari <code>getValFromArr();</code>, hasil calculated <code>buf</code> dan <code>var_25h</code> akan ditulis pada <code>FlagEnc</code>.</p>
+<h3 id="solution-4">Solution</h3>
+<p>Cara untuk mendekripsi :</p>
+<ol>
+<li>
+<p>Membuat array[256].</p>
+</li>
+<li>
+<p>Melakukan perhitungan setiap indeks pada array[256] dengan <code>0x202010</code>.</p>
+</li>
+<li>
+<p>Swap setiap posisi yang ada pada array[256].</p>
+</li>
+<li>
+<p>Mengambil nilai dari array[256], lalu array[256] di swap kembali.</p>
+</li>
+<li>
+<p>Melakukan xoring terhadap 32 byte pertama dari <a href="flag.txt.enc"><em>flag</em></a> dengan nilai yang telah dapat dari array[256].</p>
+<p><strong>Catatan: kita telah berhasil mengembalikan nilai 32 byte dari  <code>/dev/random</code></strong></p>
+</li>
+<li>
+<p>Ulangi kembali langkah 1 s/d 4. Namun pada langkah kedua array[256] akan di perhitungkan dengan <code>/dev/urandom</code> yang telah kita dapatkan sebelumnya.</p>
+</li>
+<li>
+<p>Melakukan xoring terhadap sisa dari 32 byte pertama pada <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Ransomnware/flag.txt.enc"><em>flag</em></a> dengan nilai yang kita dapat dari array[256].</p>
+<p><strong>Catatan: selamat kita telah berhasil mengembalikan <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Ransomnware/flag.txt.enc"><em>flag</em></a> seperti semula</strong></p>
+</li>
+</ol>
+<p>Berikut ini adalah hasil dari <a href="https://github.com/insomn14/CTFindo/blob/master/2020/CJ2020/Reverse/Ransomnware/solver.py">solver</a> saya.</p>
+<pre><code>┌──(unknow㉿unknow)-[~/…/2020/CJ2020/Reverse/Ransomnware]
+└─$ python solver.py 
+CJ2020{mamntap_gan_c71c416369bb6230}
+
+</code></pre><p>FLAG : <code>CJ2020{mamntap_gan_c71c416369bb6230}</code></p>
+<!-- raw HTML omitted -->
+]]></content>
+        </item>
         
         <item>
             <title>rgbCTF2020 | RE *Writeups*</title>
@@ -1902,7 +2407,7 @@ encrypted_db: ASCII text
 ....
 ZGVyIC0gSmFjb2JpIiwiY2F0\nY2hQaHJhc2UiOiJDdXN0b21pemFibGUgb3B0aW1pemluZyBpbnRlcmZhY2UiLCJicyI6ImUtYnVz\naW5lc3Mgc3ludGhlc2l6ZSBzY2hlbWFzIn19fQo=\n'
 
-</code></pre><p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>&lsquo;=&rsquo;</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
+</code></pre><p>As you can see, we get lots of random characters. If we look closer to the last line, there is the character <em>'='</em> so I&rsquo;m guessing maybe this is base64. Let&rsquo;s make a simple code to solve this challange.</p>
 <pre><code>❯ nl solver.py
      1	import re
      2	from base64 import b64decode
