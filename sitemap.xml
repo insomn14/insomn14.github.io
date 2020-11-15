@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://insomn14.github.io/categories/capture-the-flags/</loc>
+    <lastmod>2020-11-16T05:56:50+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://insomn14.github.io/categories/</loc>
+    <lastmod>2020-11-16T05:56:50+07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://insomn14.github.io/posts/cyberjawara2020_writeup/</loc>
     <lastmod>2020-11-16T05:56:50+07:00</lastmod>
   </url>
@@ -18,27 +28,17 @@
   </url>
   
   <url>
-    <loc>https://insomn14.github.io/categories/capture-the-flags/</loc>
-    <lastmod>2020-07-14T16:09:06+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://insomn14.github.io/categories/</loc>
-    <lastmod>2020-07-14T16:09:06+07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://insomn14.github.io/tags/reverse-engineering/</loc>
-    <lastmod>2020-07-14T16:09:06+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://insomn14.github.io/posts/rgbctf2020/</loc>
-    <lastmod>2020-07-14T16:09:06+07:00</lastmod>
+    <lastmod>2020-11-16T05:56:50+07:00</lastmod>
   </url>
   
   <url>
     <loc>https://insomn14.github.io/tags/</loc>
+    <lastmod>2020-11-16T05:56:50+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://insomn14.github.io/posts/rgbctf2020/</loc>
     <lastmod>2020-07-14T16:09:06+07:00</lastmod>
   </url>
   
